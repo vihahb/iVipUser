@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">iVip User</string>
+    <!-- Request -->
+    <string name="error_server_request">Không thể kết nối tới Server</string>
+    <string name="err_post">Đăng tin thất bại</string>
+
+    <!-- Permission && Code error -->
+    <string name="error_code_2">Phiên không hợp lệ</string>
+    <string name="error_code_3">Bạn không có quyền hạn này</string>
+    <string name="error_code_4">Lỗi hệ thống</string>
+    <string name="error_code_1001">Bãi đỗ không tồn tại</string>
+</resources>
