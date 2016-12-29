@@ -22,12 +22,12 @@ public class JsonParse {
     public static Error checkError(String data) {
         try {
             JSONObject jsonObject = new JSONObject(data);
-            JSONObject error = jsonObject.getJSONObject(Constants.JSON_ERROR);
+            JSONObject error = jsonObject.getJSONObject(Constants.ERROR);
 
             Error errorModel = new Error();
-            errorModel.setCode(error.getInt(Constants.JSON_CODE));
-            errorModel.setType(error.getString(Constants.JSON_TYPE));
-            errorModel.setMessage(error.getString(Constants.JSON_MESSAGE));
+            errorModel.setCode(error.getInt(Constants.CODE));
+            errorModel.setType(error.getString(Constants.TYPE));
+            errorModel.setMessage(error.getString(Constants.MESSAGE));
 
             return errorModel;
         } catch (Exception e) {

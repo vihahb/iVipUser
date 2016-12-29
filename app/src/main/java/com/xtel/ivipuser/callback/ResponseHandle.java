@@ -1,7 +1,7 @@
 package com.xtel.ivipuser.callback;
 
 
-import com.xtel.ivipuser.model.RESP_form;
+import com.xtel.ivipuser.model.Model;
 import com.xtel.ivipuser.model.entity.Error;
 import com.xtel.ivipuser.model.entity.RESP_Basic;
 import com.xtel.ivipuser.utils.JsonHelper;
@@ -9,7 +9,7 @@ import com.xtel.ivipuser.utils.JsonHelper;
 import java.io.IOException;
 
 /**
- * Created by Vũ Hà Vi on 12/4/2016.
+ * Created by Vũ Hà Vi on 12/27/2016.
  */
 
 public abstract class ResponseHandle<T extends RESP_Basic> {
@@ -25,7 +25,7 @@ public abstract class ResponseHandle<T extends RESP_Basic> {
             isJson = !(result == null || result.isEmpty());
 
             if (!isJson) {
-                onSuccess((T) new RESP_form());
+                onSuccess((T) new Model());
             } else {
                 T t = JsonHelper.getObjectNoException(result, clazz);
                 if (t.getError() != null) {

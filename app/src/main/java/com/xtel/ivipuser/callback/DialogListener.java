@@ -7,6 +7,5 @@ package com.xtel.ivipuser.callback;
 public interface DialogListener {
 
     void onClicked(Object object);
-
     void onCancel();
 }

@@ -59,7 +59,7 @@ public class RequestServer {
                 }
 
                 if (params[2] != null)
-                    builder.header(Constants.JSON_SESSION, params[2]);
+                    builder.header(Constants.SESSION, params[2]);
 
                 Request request = builder.build();
 
@@ -94,7 +94,7 @@ public class RequestServer {
                 builder.url(params[0]);
 
                 if (params[1] != null)
-                    builder.header(Constants.JSON_SESSION, params[1]);
+                    builder.header(Constants.SESSION, params[1]);
 
                 Request request = builder.build();
 
@@ -134,7 +134,7 @@ public class RequestServer {
                 }
 
                 if (params[2] != null)
-                    builder.header(Constants.JSON_SESSION, params[2]);
+                    builder.header(Constants.SESSION, params[2]);
 
                 Request request = builder.build();
 
@@ -175,7 +175,7 @@ public class RequestServer {
                 }
 
                 if (params[2] != null)
-                    builder.header(Constants.JSON_SESSION, params[2]);
+                    builder.header(Constants.SESSION, params[2]);
 
                 Request request = builder.build();
 
