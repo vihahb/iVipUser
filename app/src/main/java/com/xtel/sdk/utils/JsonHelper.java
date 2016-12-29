@@ -1,4 +1,4 @@
-package com.xtel.ivipuser.utils;
+package com.xtel.sdk.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

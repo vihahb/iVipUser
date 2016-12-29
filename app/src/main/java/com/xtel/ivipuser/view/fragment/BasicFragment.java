@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xtel.ivipuser.R;
-import com.xtel.ivipuser.callback.DialogListener;
+import com.xtel.sdk.callback.DialogListener;
 
 import java.io.Serializable;
 

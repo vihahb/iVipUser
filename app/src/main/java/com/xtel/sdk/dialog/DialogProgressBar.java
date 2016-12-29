@@ -1,4 +1,4 @@
-package com.xtel.ivipuser.dialog;
+package com.xtel.sdk.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;

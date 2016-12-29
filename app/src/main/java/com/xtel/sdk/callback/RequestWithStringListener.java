@@ -1,4 +1,4 @@
-package com.xtel.ivipuser.callback;
+package com.xtel.sdk.callback;
 
 /**
  * Created by Vũ Hà Vi on 12/1/2016.

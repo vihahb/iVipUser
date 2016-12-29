@@ -1,11 +1,11 @@
-package com.xtel.ivipuser.utils;
+package com.xtel.sdk.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.xtel.ivipuser.commons.Constants;
 import com.xtel.ivipuser.view.MyApplication;
+import com.xtel.sdk.commons.Constants;
 
 
 /**

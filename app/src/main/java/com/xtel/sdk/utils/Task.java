@@ -1,4 +1,4 @@
-package com.xtel.ivipuser.utils;
+package com.xtel.sdk.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,9 +14,9 @@ import android.widget.Toast;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.xtel.ivipuser.R;
-import com.xtel.ivipuser.callback.RequestWithStringListener;
-import com.xtel.ivipuser.commons.Constants;
 import com.xtel.ivipuser.model.entity.Error;
+import com.xtel.sdk.callback.RequestWithStringListener;
+import com.xtel.sdk.commons.Constants;
 
 import java.io.File;
 import java.io.FileOutputStream;

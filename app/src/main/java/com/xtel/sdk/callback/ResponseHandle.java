@@ -1,10 +1,10 @@
-package com.xtel.ivipuser.callback;
+package com.xtel.sdk.callback;
 
 
 import com.xtel.ivipuser.model.Model;
 import com.xtel.ivipuser.model.entity.Error;
 import com.xtel.ivipuser.model.entity.RESP_Basic;
-import com.xtel.ivipuser.utils.JsonHelper;
+import com.xtel.sdk.utils.JsonHelper;
 
 import java.io.IOException;
 

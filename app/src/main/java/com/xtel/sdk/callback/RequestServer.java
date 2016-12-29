@@ -1,8 +1,8 @@
-package com.xtel.ivipuser.callback;
+package com.xtel.sdk.callback;
 
 import android.os.AsyncTask;
 
-import com.xtel.ivipuser.commons.Constants;
+import com.xtel.sdk.commons.Constants;
 
 import java.io.IOException;
 

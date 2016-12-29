@@ -1,4 +1,4 @@
-package com.xtel.ivipuser.commons;
+package com.xtel.sdk.commons;
 
 import android.annotation.SuppressLint;
 
