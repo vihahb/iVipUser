@@ -108,6 +108,10 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_about) {
+
+        } else if (id == R.id.nav_exit) {
+            exitApp();
         }
 
         drawer.closeDrawer(GravityCompat.START);

@@ -222,4 +222,8 @@ public class BasicActivity extends AppCompatActivity {
         }
     }
 
+    protected void exitApp() {
+        System.exit(0);
+    }
+
 }
