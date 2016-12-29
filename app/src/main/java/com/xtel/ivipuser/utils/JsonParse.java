@@ -60,11 +60,6 @@ public class JsonParse {
                 Snackbar.make(view, activity.getString(R.string.error_code_4), Snackbar.LENGTH_SHORT).show();
             else
                 Toast.makeText(activity, activity.getString(R.string.error_code_4), Toast.LENGTH_SHORT).show();
-        } else if (code == 1001) {
-            if (view != null)
-                Snackbar.make(view, activity.getString(R.string.error_code_1001), Snackbar.LENGTH_SHORT).show();
-            else
-                Toast.makeText(activity, activity.getString(R.string.error_code_1001), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -75,8 +70,6 @@ public class JsonParse {
             return MyApplication.context.getString(R.string.error_code_3);
         } else if (code == 4) {
             return MyApplication.context.getString(R.string.error_code_4);
-        } else if (code == 1001) {
-            return MyApplication.context.getString(R.string.error_code_1001);
         } else {
             return content;
         }

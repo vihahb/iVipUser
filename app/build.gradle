@@ -35,6 +35,7 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     //noinspection GradleDynamicVersion
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //noinspection GradleDynamicVersion
     compile 'gun0912.ted:tedbottompicker:1.0.3'
     //noinspection GradleDynamicVersion
     testCompile 'junit:junit:4.12'
