@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.xtel.ivipuser.R;
+import com.xtel.nipservicesdk.LoginManager;
 
 public class SplashScreen extends BasicActivity {
 
@@ -15,8 +16,18 @@ public class SplashScreen extends BasicActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivityFinish(HomeActivity.class);
+                checkSession();
             }
         }, 500);
+    }
+
+    private void checkSession() {
+        String session = LoginManager.getCurrentSessiong();
+
+        if (session == null) {
+            startActivity(LoginActivity.class);
+        } else {
+            startActivity(HomeActivity.class);
+        }
     }
 }

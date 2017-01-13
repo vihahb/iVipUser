@@ -7,5 +7,12 @@ import android.app.Activity;
  */
 
 public interface IHome {
+
+    void showShortToast(String mes);
+
+    void showLongToast(String mes);
+
+    void startActivty(Class clazz);
+
     Activity getActivity();
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/nav_Profile" />
+    <item
+        android:id="@+id/menu_history"
+        android:icon="@drawable/ic_action_history"
+        android:title="@string/nav_history" />
+
+    <item
+        android:id="@+id/menu_favorite"
+        android:icon="@drawable/ic_action_favorite"
+        android:title="@string/nav_favorite" />
+
+    <item
+        android:id="@+id/menu_notify"
+        android:icon="@drawable/ic_action_notify"
+        android:title="@string/nav_notify" />
+</menu>

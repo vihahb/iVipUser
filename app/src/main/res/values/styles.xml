@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="android:textColorHint">@color/secondary_text</item>
+        <!--EditText-->
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
     <!-- Dialog Time & Date Picker Theme Style -->
@@ -40,5 +46,31 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppLoginTheme" parent="Theme.AccountKit">
+        <item name="com_accountkit_title_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_color">#ffffff</item>
+        <item name="com_accountkit_status_bar_color">@color/colorPrimary</item>
+        <item name="com_accountkit_header_text_color">#ffffff</item>
+        <item name="com_accountkit_text_color">#ffffff</item>
+        <item name="com_accountkit_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_text_color">#FFFFFF</item>
+        <item name="com_accountkit_input_border_color">#FFFFFF</item>
+        <item name="com_accountkit_button_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_button_border_color">#ffffff</item>
+        <item name="com_accountkit_header_background_color">@color/colorPrimary</item>
+        <item name="com_accountkit_background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme_Activity_Transparent" parent="@style/AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 
 </resources>

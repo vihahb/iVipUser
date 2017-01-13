@@ -139,4 +139,9 @@ public class BasicFragment extends Fragment {
     protected void finishActivity() {
         getActivity().finish();
     }
+
+    protected void finishActivityBeforeStartActivity(Class clazz) {
+        getActivity().finishAffinity();
+        getActivity().startActivity(new Intent(getActivity(), clazz));
+    }
 }

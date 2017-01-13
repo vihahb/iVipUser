@@ -8,6 +8,12 @@ import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
+import com.facebook.accountkit.AccountKit;
+import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.FirebaseApp;
+import com.xtel.nipservicesdk.LoginManager;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -19,12 +25,16 @@ public class MyApplication extends Application {
 
     public static Context context;
     public static String PACKAGE_NAME;
-
     @Override
     public void onCreate() {
         super.onCreate();
 //        Fabric.with(this, new Crashlytics());
         context = this;
+        FirebaseApp.initializeApp(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        AccountKit.initialize(getApplicationContext());
+        LoginManager.sdkInitialize(this);
         PACKAGE_NAME = context.getPackageName();
         getKeyHash(PACKAGE_NAME);
         Log.v("Pkg name", PACKAGE_NAME);

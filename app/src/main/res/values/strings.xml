@@ -2,8 +2,37 @@
     <string name="app_name">iVip</string>
     <string name="home_name">Base Project</string>
 
+    <string name="facebook_app_id">615022045348242</string>
+    <string name="ak_login_protocol_scheme">ak615022045348242</string>
+    <string name="fb_login_protocol_scheme">615022045348242</string>
+    <string name="account_kit_client_token">4a9f9e329c65d64d04315ade049b9b9a</string>
+
+    <string name="xtel_service_code">XTL-IVIP-U</string>
+
+    <!-- Activity Title -->
+    <string name="activity_login">Đăng nhập</string>
+    <string name="activity_reset">Khôi phục mật khẩu</string>
+    <string name="activity_reactive">Xác thực lại</string>
+    <string name="activity_reg">Đăng ký</string>
+    <string name="activity_profile">Thông tin người dùng</string>
+
+    <!-- Nav title -->
+    <string name="nav_Profile">Profile</string>
+    <string name="nav_history">History</string>
+    <string name="nav_favorite">Favorite</string>
+    <string name="nav_notify">Notify</string>
+    <string name="nav_user">User</string>
+
+
     <!-- Action -->
     <string name="action_settings">Setting</string>
+    <string name="action_success">Success</string>
+    <string name="action_error">Error</string>
+    <string name="action_login_account_kit">Đăng nhập bằng Account Kit</string>
+    <string name="action_login_facebook">FACEBOOK</string>
+    <string name="action_login_phone">SỐ ĐIỆN THOẠI</string>
+    <string name="action_login_with">Đăng nhập bằng</string>
+    <string name="action_login">Đăng nhập</string>
 
 
     <!-- Message App -->

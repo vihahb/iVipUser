@@ -222,8 +222,13 @@ public class BasicActivity extends AppCompatActivity {
         }
     }
 
+    protected void finishActivityBeforeStartActivity(Class clazz) {
+        this.finishAffinity();
+        this.startActivity(new Intent(this, clazz));
+    }
+
     protected void exitApp() {
-        System.exit(0);
+        finishAffinity();
     }
 
 }
