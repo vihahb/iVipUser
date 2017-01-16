@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by vihahb on 1/13/2017.
+ * Created by vihahb on 1/16/2017.
  */
 
-public class OneFragment extends BasicFragment {
+public class FragmentHomeNewsLocations extends BasicFragment {
 
     @Nullable
     @Override

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.presenter.RegisterPhonePresenter;
@@ -26,6 +27,7 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
     private String user_name, password, re_password;
     private EditText edt_name, edt_password, edt_re_password;
     private Button btn_reg;
+    private TextView tv_callback;
 
     private RegisterPhonePresenter presenter;
 
@@ -45,6 +47,9 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         edt_name = (EditText) findViewById(R.id.edt_user_name);
         edt_password = (EditText) findViewById(R.id.edt_password);
         edt_re_password = (EditText) findViewById(R.id.edt_re_password);
+
+        tv_callback = (TextView) findViewById(R.id.tv_callback);
+        tv_callback.setOnClickListener(this);
 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 
@@ -212,6 +217,8 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
 
         if (id == R.id.btn_reg) {
             checkDataInput();
+        } else if (id == R.id.tv_callback) {
+            finishActivity();
         }
     }
 

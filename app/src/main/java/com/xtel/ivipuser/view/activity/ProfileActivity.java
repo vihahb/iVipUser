@@ -52,7 +52,6 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     public void initBottomNavigation() {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.detail_bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.bringToFront();
     }
 
     @Override
@@ -100,7 +99,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     }
 
     private void renameToolbar(int StringResource) {
-        toolbar.setTitle(StringResource);
+        getSupportActionBar().setTitle(StringResource);
     }
 
     @Override

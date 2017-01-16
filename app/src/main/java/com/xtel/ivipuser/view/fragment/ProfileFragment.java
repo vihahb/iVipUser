@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.squareup.picasso.Picasso;
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.view.activity.LoginActivity;
 import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
+import com.xtel.ivipuser.view.widget.RoundImage;
 import com.xtel.nipservicesdk.utils.SharedUtils;
 
 /**
@@ -19,11 +21,23 @@ import com.xtel.nipservicesdk.utils.SharedUtils;
 public class ProfileFragment extends BasicFragment implements View.OnClickListener, IProfileActivityView {
 
     private Button btn_Logout;
+    private RoundImage img_avatar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    private void setResource(String url, RoundImage imageView) {
+        String avatar = url;
+        Picasso.with(getContext())
+                .load(avatar)
+                .placeholder(R.drawable.ic_action_name)
+                .error(R.drawable.ic_action_name)
+                .fit()
+                .centerCrop()
+                .into(imageView);
     }
 
     @Override
@@ -34,8 +48,12 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     private void initView(View view) {
+        img_avatar = (RoundImage) view.findViewById(R.id.img_avatar_profile);
         btn_Logout = (Button) view.findViewById(R.id.btn_Logout);
         btn_Logout.setOnClickListener(this);
+
+        String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
+        setResource(url, img_avatar);
     }
 
     @Override

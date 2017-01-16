@@ -11,4 +11,5 @@
     <color name="btn_facebook">#4267B2</color>
     <color name="secondary_text">#ffffff</color>
     <color name="btn_custom">#48cfad</color>
+    <color name="badge_color">#FF0000</color>
 </resources>

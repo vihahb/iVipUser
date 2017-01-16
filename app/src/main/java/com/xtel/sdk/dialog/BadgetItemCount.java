@@ -54,14 +54,22 @@ public class BadgetItemCount extends Drawable {
 
 
         //Position the badge in the top - right quadrant of the icon
-        float radius = ((Math.min(width, height) / 2) - 1) / 2;
+        float radius;
+//        = ((Math.min(width, height) / 2) - 1) / 2;
+        if (Integer.parseInt(this.mCount) < 10) {
+            radius = Math.min(width, height) / 4.0f + 2.5F;
+        } else {
+            radius = Math.min(width, height) / 4.0f + 4.5F;
+        }
+
         float centerX = width - radius;
-        float centerY = radius + 1;
+        float centerY = radius + 2;
 
         //Draw badge circle
         canvas.drawCircle(centerX, centerY, radius, mBadgetPaint);
 
         // Draw badge count text inside the circle.
+
         mTextPaint.getTextBounds(mCount, 0, mCount.length(), mTextRect);
         float textHeight = mTextRect.bottom - mTextRect.top;
         float textY = centerY + (textHeight / 2f);

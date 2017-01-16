@@ -23,6 +23,12 @@
     <string name="nav_notify">Notify</string>
     <string name="nav_user">User</string>
 
+    <string name="nav_shopping">User</string>
+    <string name="nav_movie">Movie</string>
+    <string name="nav_food">Food</string>
+    <string name="nav_technology">Technology</string>
+    <string name="nav_services">Services</string>
+
 
     <!-- Action -->
     <string name="action_settings">Setting</string>

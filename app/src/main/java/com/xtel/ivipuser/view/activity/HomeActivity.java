@@ -1,79 +1,175 @@
 package com.xtel.ivipuser.view.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.presenter.HomePresenter;
 import com.xtel.ivipuser.view.activity.inf.IHome;
-import com.xtel.sdk.utils.BadgeUtils;
+import com.xtel.ivipuser.view.fragment.FragmentHomeFood;
+import com.xtel.ivipuser.view.fragment.FragmentHomeMovie;
+import com.xtel.ivipuser.view.fragment.FragmentHomeShopping;
+import com.xtel.ivipuser.view.fragment.FragmentHomeTechnology;
+import com.xtel.ivipuser.view.widget.RoundImage;
+import com.xtel.sdk.dialog.BadgeIcon;
 
 /**
  * Created by vivhp on 12/29/2016.
  */
 
-public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener {
+public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener, PopupMenu.OnDismissListener {
     HomePresenter presenter;
-
+    Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private ImageView img_avatar;
+    private RoundImage img_avatar;
     private ActionBar actionBar;
-    private int mNotificationsCount = 5;
+    private BottomNavigationView bottomNavigationView;
+    private PopupMenu popupMenu;
+    private Menu mMenuItem;
+    private Button btnPopup;
+
+    private Activity activity;
+    private LinearLayout mLinearLayout;
+    private PopupWindow mPopupWindow;
+    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         presenter = new HomePresenter(this);
+        mContext = HomeActivity.this;
         initView();
         initNavigation();
         initNavigationWidget();
+        initBottomNavigation();
     }
 
     private void initNavigationWidget() {
         View view = navigationView.getHeaderView(0);
-        img_avatar = (ImageView) view.findViewById(R.id.img_avatar);
+        img_avatar = (RoundImage) view.findViewById(R.id.img_avatar);
         img_avatar.setOnClickListener(this);
+        String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
+        setAvatar(url, img_avatar);
     }
 
-    private void initView() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+    public void initBottomNavigation() {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.home_bottom_navigation_view);
+        initBottomNavigationAction();
+        replaceDefaultFragment();
+    }
 
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+    private void initBottomNavigationAction() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                String token = FirebaseInstanceId.getInstance().getToken();
-                showSnackBarShort(v, "Token " + token);
-                Log.d("Token ", token);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+                if (id == R.id.nav_shopping) {
+                    replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
+                    renameToolbar(R.string.nav_shopping);
+                } else if (id == R.id.nav_movie) {
+                    replaceFragment(R.id.home_frame, new FragmentHomeMovie(), "MOVIE");
+                    renameToolbar(R.string.nav_movie);
+                } else if (id == R.id.nav_food) {
+                    replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
+                    renameToolbar(R.string.nav_food);
+                } else if (id == R.id.nav_technology) {
+                    replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
+                    renameToolbar(R.string.nav_technology);
+                } else if (id == R.id.nav_service) {
+//                    replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICES");
+//                    renameToolbar(R.string.nav_services);
+//                    btnPopup.performClick();
+                    showPopupWindows();
+                }
+                return true;
             }
         });
     }
 
+//    public void showPopupLayout(View view){
+//        popupMenu = new PopupMenu(getApplicationContext(), view);
+//        popupMenu.inflate(R.menu.popup_nemu);
+//        popupMenu.setOnDismissListener(this);
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                int id_menu = item.getItemId();
+//                switch (id_menu){
+//                    case R.id.menu_news:
+//                        showShortToast("News");
+//                        break;
+//                    case R.id.menu_news_location:
+//                        showShortToast("News for location");
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//        popupMenu.show();
+//    }
+
+    private void initView() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        btnPopup = (Button) findViewById(R.id.btnPopupMenu);
+//        btnPopup.setOnClickListener(this);
+        mLinearLayout = (LinearLayout) findViewById(R.id.ln_popup);
+    }
+
+    private void showPopupWindows() {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View custom_view = inflater.inflate(R.layout.custom_popup_layout, null);
+
+        mPopupWindow = new PopupWindow(custom_view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (Build.VERSION.SDK_INT >= 21) {
+            mPopupWindow.setElevation(5.0f);
+        }
+        mPopupWindow.setOutsideTouchable(true);
+
+        new Handler().postDelayed(new Runnable() {
+
+            public void run() {
+                mPopupWindow.showAtLocation(custom_view, Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
+            }
+
+        }, 100L);
+
+    }
+
     @SuppressWarnings("deprecation")
     private void initNavigation() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         actionBar = getSupportActionBar();
@@ -95,21 +191,38 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
     }
 
+
+    private void setAvatar(String url, RoundImage img_avatar) {
+        Picasso.with(getApplicationContext())
+                .load(url)
+                .placeholder(R.drawable.ic_action_name)
+                .error(R.drawable.ic_action_name)
+                .fit()
+                .centerCrop()
+                .into(img_avatar);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item = menu.findItem(R.id.action_user);
-        LayerDrawable icon = (LayerDrawable) item.getIcon();
-        //Update layoutDrawable badge drawable
-        BadgeUtils.setBadgeCount(getApplicationContext(), icon, mNotificationsCount);
-        new FeatchCountTask().execute();
+//        MenuItem item = menu.findItem(R.id.action_user);
+//        LayerDrawable icon = (LayerDrawable) item.getIcon();
+//        //Update layoutDrawable badge drawable
+//        BadgeUtils.setBadgeCount(getApplicationContext(), icon, mNotificationsCount);
+//        new FeatchCountTask().execute();
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mMenuItem = menu;
+        onCreteBadgeItem(10);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_user) {
             pushData();
@@ -119,9 +232,32 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateNotificationsBadge(int count) {
-        mNotificationsCount = count;
-        invalidateOptionsMenu();
+
+    private void onCreteBadgeItem(int paramsInt) {
+        if (Build.VERSION.SDK_INT <= 15) {
+            return;
+        }
+
+        MenuItem user_item = this.mMenuItem.findItem(R.id.action_user);
+        LayerDrawable layerDrawable = (LayerDrawable) user_item.getIcon();
+        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.ic_badge);
+        BadgeIcon badgeIcon;
+        if ((userBadgeDrawable != null)
+                && ((userBadgeDrawable instanceof BadgeIcon))
+                && (paramsInt < 0)) {
+            badgeIcon = (BadgeIcon) userBadgeDrawable;
+        } else {
+            badgeIcon = new BadgeIcon(this);
+        }
+        badgeIcon.setCount(paramsInt);
+        layerDrawable.mutate();
+        layerDrawable.setDrawableByLayerId(R.id.ic_badge, badgeIcon);
+        user_item.setIcon(layerDrawable);
+    }
+
+    private void replaceDefaultFragment() {
+        replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "PROFILE");
+        renameToolbar(R.string.nav_Profile);
     }
 
     @Override
@@ -178,6 +314,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             startActivity(ProfileActivity.class);
             drawer.closeDrawer(GravityCompat.START);
         }
+//        else if (id == R.id.btnPopupMenu){
+//            showPopupLayout(v);
+//        }
     }
 
      /*
@@ -191,19 +330,13 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         startActivity(intent);
     }
 
-    class FeatchCountTask extends AsyncTask<Void, Void, Integer> {
+    @Override
+    public void onDismiss(PopupMenu menu) {
+        showShortToast("Popup On Dismissed");
+    }
 
-        @Override
-        protected Integer doInBackground(Void... params) {
-// example count. This is where you'd
-            // query your data store for the actual count.
-            return mNotificationsCount;
-        }
-
-        @Override
-        protected void onPostExecute(Integer count) {
-            updateNotificationsBadge(count);
-        }
+    private void renameToolbar(int StringResource) {
+        toolbar.setTitle(StringResource);
     }
 
 }
