@@ -12,4 +12,6 @@
     <color name="secondary_text">#ffffff</color>
     <color name="btn_custom">#48cfad</color>
     <color name="badge_color">#FF0000</color>
+
+    <color name="btn_style">#00b8d4</color>
 </resources>

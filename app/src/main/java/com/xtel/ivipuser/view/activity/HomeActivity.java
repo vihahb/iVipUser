@@ -187,7 +187,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            showConfirmExitApp();
         }
     }
 

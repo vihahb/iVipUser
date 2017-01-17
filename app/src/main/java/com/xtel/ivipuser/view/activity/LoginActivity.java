@@ -112,8 +112,8 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         presenter.onRequestCallbackPermission(requestCode, permissions, grantResults);
     }
 
-    private void onRegiter() {
-        startActivity(RegisterPhone.class);
+    @Override
+    public void onBackPressed() {
+        showConfirmExitApp();
     }
-
 }

@@ -5,11 +5,17 @@
     android:gravity="center_vertical"
     android:orientation="vertical">
 
-    <TextView
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="Shopping Fragment"-->
+    <!--android:textSize="30sp"-->
+    <!--android:textStyle="bold" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcl_shop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Shopping Fragment"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

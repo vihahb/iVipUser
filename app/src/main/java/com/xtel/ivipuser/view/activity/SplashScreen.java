@@ -25,9 +25,9 @@ public class SplashScreen extends BasicActivity {
         String session = LoginManager.getCurrentSessiong();
 
         if (session == null) {
-            startActivity(LoginActivity.class);
+            startActivityFinish(LoginActivity.class);
         } else {
-            startActivity(HomeActivity.class);
+            startActivityFinish(HomeActivity.class);
         }
     }
 }

@@ -11,7 +11,6 @@ import android.util.Log;
 import com.facebook.FacebookSdk;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.appevents.AppEventsLogger;
-import com.google.firebase.FirebaseApp;
 import com.xtel.nipservicesdk.LoginManager;
 
 import java.security.MessageDigest;
@@ -30,7 +29,7 @@ public class MyApplication extends Application {
         super.onCreate();
 //        Fabric.with(this, new Crashlytics());
         context = this;
-        FirebaseApp.initializeApp(getApplicationContext());
+//        FirebaseApp.initializeApp(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         AccountKit.initialize(getApplicationContext());

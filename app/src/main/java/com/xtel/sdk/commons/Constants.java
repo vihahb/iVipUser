@@ -19,6 +19,7 @@ public class Constants {
     public static final String MESSAGE = "message";
     public static final String ERROR = "error";
     public static final String SERVER_UPLOAD = "replace to server upload image";
+    public static final String RECYCLER_MODEL = "ryc_model";
 
 
     public static String convertDate(String date) {

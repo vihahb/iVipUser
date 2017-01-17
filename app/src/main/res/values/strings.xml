@@ -15,6 +15,7 @@
     <string name="activity_reactive">Xác thực lại</string>
     <string name="activity_reg">Đăng ký</string>
     <string name="activity_profile">Thông tin người dùng</string>
+    <string name="activity_info_content">Thông tin cửa hàng</string>
 
     <!-- Nav title -->
     <string name="nav_Profile">Profile</string>
@@ -28,6 +29,11 @@
     <string name="nav_food">Food</string>
     <string name="nav_technology">Technology</string>
     <string name="nav_services">Services</string>
+
+    <string name="tab_properties">Thông tin</string>
+    <string name="tab_address">Địa chỉ</string>
+    <string name="tab_info">Infomation</string>
+    <string name="tab_suggestion">Thể loại liên quan</string>
 
 
     <!-- Action -->
