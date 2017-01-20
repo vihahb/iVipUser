@@ -91,22 +91,27 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
         switch (position) {
             case 0:
+                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
                 replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
                 renameToolbar(R.string.nav_shopping);
                 break;
             case 1:
+                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_home_selected_movie);
                 replaceFragment(R.id.home_frame, new FragmentHomeMovie(), "MOVIE");
                 renameToolbar(R.string.nav_movie);
                 break;
             case 2:
+                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_home_selected_food);
                 replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
                 renameToolbar(R.string.nav_food);
                 break;
             case 3:
+                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_home_selected_airplane);
                 replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
                 renameToolbar(R.string.nav_technology);
                 break;
             case 4:
+                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_home_selected_more);
 //                showPopupWindows();
                 break;
         }
@@ -253,6 +258,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     }
 
     private void replaceDefaultFragment() {
+        tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
         replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "PROFILE");
         renameToolbar(R.string.nav_Profile);
     }
@@ -343,11 +349,33 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
+        setIconTabUnSelected(tab.getPosition());
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    private void setIconTabUnSelected(int position) {
+        switch (position) {
+            case 0:
+                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_shop);
+                break;
+            case 1:
+                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_home_movie);
+                break;
+            case 2:
+                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_home_food);
+                break;
+            case 3:
+                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_home_airplane);
+                break;
+            case 4:
+                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_home_more);
+                break;
+            default:
+                break;
+        }
     }
 }

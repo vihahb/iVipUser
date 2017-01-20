@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_56"
                 android:layout_gravity="bottom"
-                android:background="@mipmap/bottom_style"
+                android:background="@mipmap/bgr_tablayout"
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
