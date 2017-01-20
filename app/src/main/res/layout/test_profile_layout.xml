@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bgr_app"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/size_16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_200"
+                android:background="@mipmap/profile_background"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <com.xtel.ivipuser.view.widget.RoundImage
+                    android:id="@+id/img_avatar_profile"
+                    android:layout_width="@dimen/size_80"
+                    android:layout_height="@dimen/size_80"
+                    android:layout_marginBottom="@dimen/size_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User name"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_14" />
+
+                <TextView
+                    android:id="@+id/tv_date_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày đăng ký"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_14" />
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Điểm thưởng"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1"
+                    android:background="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_ranking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xếp  hạng"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_41"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/size_10"
+                                android:src="@mipmap/ic_launcher" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/size_1"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white" />
+
+                        <EditText
+                            android:id="@+id/tv_fullname"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:hint="Ho va ten"
+                            android:paddingLeft="@dimen/size_10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_41"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/size_10"
+                                android:src="@mipmap/ic_launcher" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/size_1"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white" />
+
+                        <EditText
+                            android:id="@+id/tv_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:hint="Ho va ten"
+                            android:paddingLeft="@dimen/size_10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_41"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/size_10"
+                                android:src="@mipmap/ic_launcher" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/size_1"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white" />
+
+                        <EditText
+                            android:id="@+id/tv_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:hint="Ho va ten"
+                            android:paddingLeft="@dimen/size_10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_41"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/size_10"
+                                android:src="@mipmap/ic_launcher" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/size_1"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white" />
+
+                        <EditText
+                            android:id="@+id/tv_birthday"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:hint="Ho va ten"
+                            android:paddingLeft="@dimen/size_10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_41"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/size_10"
+                                android:src="@mipmap/ic_launcher" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/size_1"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white" />
+
+                        <EditText
+                            android:id="@+id/tv_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:hint="Ho va ten"
+                            android:paddingLeft="@dimen/size_10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ffffff" />
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<EditText-->
+                <!--android:id="@+id/tv_birthday"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/size_48"-->
+                <!--android:hint="Ngày sinh" />-->
+
+                <!--<Spinner-->
+                <!--android:id="@+id/sp_gender"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/size_48" />-->
+
+                <!--<EditText-->
+                <!--android:id="@+id/tv_phone_number"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/size_48"-->
+                <!--android:hint="Số điện thoại" />-->
+
+                <!--<EditText-->
+                <!--android:id="@+id/tv_address"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/size_48"-->
+                <!--android:hint="Địa chỉ" />-->
+
+                <!--<Button-->
+                <!--android:id="@+id/btn_Logout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/size_48"-->
+                <!--android:background="@color/btn_custom"-->
+                <!--android:text="Logout"-->
+                <!--android:textColor="@color/colorAccent" />-->
+                <!--</LinearLayout>-->
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@mipmap/bgr_app"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="@dimen/size_16">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_200"-->
+    <!--android:background="@mipmap/profile_background"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin">-->
+
+    <!--<com.xtel.ivipuser.view.widget.RoundImage-->
+    <!--android:id="@+id/img_avatar_profile"-->
+    <!--android:layout_width="@dimen/size_80"-->
+    <!--android:layout_height="@dimen/size_80"-->
+    <!--android:layout_marginBottom="@dimen/size_10"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+
+    <!--<TextView-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_username"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="User name"-->
+    <!--android:textSize="@dimen/font_14" />-->
+
+    <!--<TextView-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_date_reg"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Ngày đăng ký"-->
+    <!--android:textSize="@dimen/font_14" />-->
+
+    <!--<TextView-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_score"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Điểm thưởng"-->
+    <!--android:textSize="@dimen/font_14" />-->
+    <!--<View-->
+    <!--android:background="@android:color/white"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_1" />-->
+
+    <!--<TextView-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_ranking"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Xếp  hạng"-->
+    <!--android:textSize="@dimen/font_14" />-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin">-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/tv_fullname"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:hint="Họ tên" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/tv_birthday"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:hint="Ngày sinh" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<Spinner-->
+    <!--android:id="@+id/sp_gender"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48" />-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/tv_phone_number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:hint="Số điện thoại" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/tv_address"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:hint="Địa chỉ" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_Logout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:background="@color/btn_custom"-->
+    <!--android:text="Logout"-->
+    <!--android:textColor="@color/colorAccent" />-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+    <!--</LinearLayout>-->
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="@dimen/size_16">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_200"-->
+    <!--android:background="@mipmap/profile_background"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin">-->
+
+    <!--<com.xtel.ivipuser.view.widget.RoundImage-->
+    <!--android:id="@+id/img_avatar_profile"-->
+    <!--android:layout_width="@dimen/size_80"-->
+    <!--android:layout_height="@dimen/size_80"-->
+    <!--android:layout_marginBottom="@dimen/size_10"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_username"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="User name"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="@dimen/font_14" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_date_reg"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Ngày đăng ký"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="@dimen/font_14" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_score"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Điểm thưởng"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="@dimen/font_14" />-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_1"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_ranking"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Xếp  hạng"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="@dimen/font_14" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_41"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_4">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/size_40"-->
+    <!--android:layout_height="@dimen/size_40">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="@dimen/size_1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<EditText-->
+    <!--android:textColorHint="@android:color/white"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_fullname"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:hint="Ho va ten"-->
+    <!--android:paddingLeft="@dimen/size_10" />-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#ffffff" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_41"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_4">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/size_40"-->
+    <!--android:layout_height="@dimen/size_40">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="@dimen/size_1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<EditText-->
+    <!--android:textColorHint="@android:color/white"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_phone"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:hint="Ho va ten"-->
+    <!--android:paddingLeft="@dimen/size_10" />-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#ffffff" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_41"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_4">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/size_40"-->
+    <!--android:layout_height="@dimen/size_40">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="@dimen/size_1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<EditText-->
+    <!--android:textColorHint="@android:color/white"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_gender"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:hint="Ho va ten"-->
+    <!--android:paddingLeft="@dimen/size_10" />-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#ffffff" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_41"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_4">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/size_40"-->
+    <!--android:layout_height="@dimen/size_40">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="@dimen/size_1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<EditText-->
+    <!--android:textColorHint="@android:color/white"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:id="@+id/tv_birthday"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:hint="Ho va ten"-->
+    <!--android:paddingLeft="@dimen/size_10" />-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#ffffff" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_41"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_4">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/size_40"-->
+    <!--android:layout_height="@dimen/size_40">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_launcher" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="@dimen/size_1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white" />-->
+
+    <!--<EditText-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textColorHint="@android:color/white"-->
+    <!--android:id="@+id/tv_address"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_40"-->
+    <!--android:hint="Ho va ten"-->
+    <!--android:paddingLeft="@dimen/size_10" />-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#ffffff" />-->
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/tv_birthday"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/size_48"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:hint="Ngày sinh" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/sp_gender"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/size_48" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/tv_phone_number"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/size_48"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:hint="Số điện thoại" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/tv_address"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/size_48"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:hint="Địa chỉ" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/btn_Logout"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="@dimen/size_48"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@color/btn_custom"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Logout"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/colorAccent" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+
+</LinearLayout>

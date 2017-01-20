@@ -7,6 +7,7 @@ import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.callback.CallbackListenerReset;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Reset;
+import com.xtel.nipservicesdk.utils.JsonParse;
 
 /**
  * Created by vihahb on 1/11/2017.
@@ -42,9 +43,18 @@ public class ResetPresenter {
             @Override
             public void onError(Error error) {
                 Log.e(TAG, "Error code: " + error.getCode());
-                view.showShortToast("Exception code" + error.getCode());
+                String code_err = String.valueOf(error.getCode());
+                int code = Integer.parseInt(code_err);
+                if (!(code_err == null)) {
+                    view.showShortToast(parseMessage(code));
+                }
             }
         });
+    }
+
+    private String parseMessage(int code) {
+        String mess = JsonParse.getCodeMessage(view.getActivity(), code, "");
+        return mess;
     }
 
 }

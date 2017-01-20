@@ -1,2 +1,1 @@
-include ':app', ':NIPmoduleService'
-project(':NIPmoduleService').projectDir = new File('NIPmodule')
+include ':app', ':NIPmodule'

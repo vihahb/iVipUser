@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#37474f</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="test">#FFAB1594</color>
     <color name="test1">#156dab</color>
@@ -14,4 +14,16 @@
     <color name="badge_color">#FF0000</color>
 
     <color name="btn_style">#00b8d4</color>
+    <color name="tab_selected">#00b8d4</color>
+    <color name="color_toolbar">#02a8a3</color>
+
+    <!-- Button Login -->
+    <color name="btn_login">#026c5f</color>
+    <color name="left_btn_login">#035c69</color>
+    <color name="btn_login_facebook">#336799</color>
+    <color name="left_btn_login_facebook">#3b5998</color>
+
+    <!-- Edit Text form -->
+    <color name="edit_text_left">#02576b</color>
+    <color name="edit_text_main">#000000</color>
 </resources>

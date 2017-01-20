@@ -16,13 +16,13 @@
     <string name="error_activation_wrong">Kích hoạt sai</string>
     <string name="error_account_already_activated">Tài khoản này đã kích hoạt</string>
     <string name="error_url_invalid">Liên kết không còn hiệu lực</string>
-    <string name="error_user_invalid">Email không tồn tại</string>
-    <string name="error_email_invalid">Email không tồn tại</string>
+    <string name="error_user_invalid">Tài khoản không tồn tại</string>
+    <string name="error_account_invalid">Tài khoản không tồn tại</string>
     <string name="error_service_not_support_device">Dịch vụ không hỗ trợ thiết bị</string>
     <string name="error_user_or_password_wrong">Tên đăng nhập hoặc mật khẩu không đúng</string>
     <string name="error_account_not_active">Tài khoản chưa được xác thực</string>
     <string name="error_authentication_id_wrong">Mã xác thực không đúng</string>
     <string name="error_authentication_id_invalid">Mã xác thực đã hết hiệu lực</string>
-    <string name="error_facebook_access_token_invalid">Mã truy cập Facebook đã hết hiệu lực</string>
+    <string name="error_facebook_access_token_invalid">Mã truy cập đã hết hiệu lực</string>
     <string name="error_phone_number_wrong">Số điện thoại không đúng</string>
 </resources>

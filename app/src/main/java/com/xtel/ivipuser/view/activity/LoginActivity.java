@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xtel.ivipuser.R;
@@ -22,6 +23,7 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
 
     Button btn_login_facebook, btn_login_account_kit;
     TextView tv_Signup;
+    ImageView img_login_phone, img_login_facebook;
     LoginPresenter presenter;
 
     @Override
@@ -38,10 +40,15 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         btn_login_facebook = (Button) findViewById(R.id.btn_facebook_login);
         btn_login_account_kit = (Button) findViewById(R.id.btn_phone_login);
 
+        img_login_phone = (ImageView) findViewById(R.id.img_login_phone);
+        img_login_facebook = (ImageView) findViewById(R.id.img_login_facebook);
+
 //        tv_Signup = (TextView) findViewById(R.id.tv_signup);
 
         btn_login_facebook.setOnClickListener(this);
         btn_login_account_kit.setOnClickListener(this);
+        img_login_phone.setOnClickListener(this);
+        img_login_facebook.setOnClickListener(this);
 //        tv_Signup.setOnClickListener(this);
     }
 
@@ -88,10 +95,11 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
             onLoginFacebook();
         } else if (id == R.id.btn_phone_login) {
             onLoginGroup();
+        } else if (id == R.id.img_login_phone) {
+            onLoginGroup();
+        } else if (id == R.id.img_login_facebook) {
+            onLoginFacebook();
         }
-//        else if (id == R.id.tv_signup){
-//            onRegiter();
-//        }
     }
 
     @Override

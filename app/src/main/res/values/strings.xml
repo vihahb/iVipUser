@@ -24,7 +24,7 @@
     <string name="nav_notify">Notify</string>
     <string name="nav_user">User</string>
 
-    <string name="nav_shopping">User</string>
+    <string name="nav_shopping">Shop</string>
     <string name="nav_movie">Movie</string>
     <string name="nav_food">Food</string>
     <string name="nav_technology">Technology</string>
@@ -45,6 +45,9 @@
     <string name="action_login_phone">SỐ ĐIỆN THOẠI</string>
     <string name="action_login_with">Đăng nhập bằng</string>
     <string name="action_login">Đăng nhập</string>
+    <string name="action_reactive">Xác thực lại</string>
+    <string name="action_reset">Đổi mật khẩu</string>
+    <string name="action_reg">Đăng ký</string>
 
 
     <!-- Message App -->
@@ -64,4 +67,9 @@
     <string name="error_code_3">Bạn không có quyền hạn này</string>
     <string name="error_code_4">Lỗi hệ thống</string>
     <string name="error_code_1001">Bãi đỗ không tồn tại</string>
+
+    <!-- Text Demo -->
+    <string name="text">Chương trình khuyến mại: "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại.</string>
+    <string name="text_location">Địa bàn(Phạm vi) khuyến mại: Toàn quốc</string>
+    <string name="qr_reward"><u>Nhập mã QR</u></string>
 </resources>

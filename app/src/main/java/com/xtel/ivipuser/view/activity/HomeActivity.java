@@ -7,24 +7,20 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -43,19 +39,16 @@ import com.xtel.sdk.dialog.BadgeIcon;
  * Created by vivhp on 12/29/2016.
  */
 
-public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener, PopupMenu.OnDismissListener {
+public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener, PopupMenu.OnDismissListener, TabLayout.OnTabSelectedListener {
     HomePresenter presenter;
     Toolbar toolbar;
+    TabLayout tabLayout_home;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private RoundImage img_avatar;
     private ActionBar actionBar;
     private BottomNavigationView bottomNavigationView;
-    private PopupMenu popupMenu;
     private Menu mMenuItem;
-    private Button btnPopup;
-
-    private Activity activity;
     private LinearLayout mLinearLayout;
     private PopupWindow mPopupWindow;
     private Context mContext;
@@ -81,38 +74,42 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     }
 
     public void initBottomNavigation() {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.home_bottom_navigation_view);
-        initBottomNavigationAction();
+//        bottomNavigationView = (BottomNavigationView) findViewById(R.id.home_bottom_navigation_view);
+//        initBottomNavigationAction();
+        tabLayout_home = (TabLayout) findViewById(R.id.home_bottom_tab_view);
+
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_shop), 0);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_movie), 1);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_food), 2);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_airplane), 3);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_more), 4);
+        tabLayout_home.setOnTabSelectedListener(this);
         replaceDefaultFragment();
     }
 
-    private void initBottomNavigationAction() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    private void initBottomNavigationAction(int position) {
 
-                int id = item.getItemId();
-                if (id == R.id.nav_shopping) {
-                    replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
-                    renameToolbar(R.string.nav_shopping);
-                } else if (id == R.id.nav_movie) {
-                    replaceFragment(R.id.home_frame, new FragmentHomeMovie(), "MOVIE");
-                    renameToolbar(R.string.nav_movie);
-                } else if (id == R.id.nav_food) {
-                    replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
-                    renameToolbar(R.string.nav_food);
-                } else if (id == R.id.nav_technology) {
-                    replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
-                    renameToolbar(R.string.nav_technology);
-                } else if (id == R.id.nav_service) {
-//                    replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICES");
-//                    renameToolbar(R.string.nav_services);
-//                    btnPopup.performClick();
-                    showPopupWindows();
-                }
-                return true;
-            }
-        });
+        switch (position) {
+            case 0:
+                replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
+                renameToolbar(R.string.nav_shopping);
+                break;
+            case 1:
+                replaceFragment(R.id.home_frame, new FragmentHomeMovie(), "MOVIE");
+                renameToolbar(R.string.nav_movie);
+                break;
+            case 2:
+                replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
+                renameToolbar(R.string.nav_food);
+                break;
+            case 3:
+                replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
+                renameToolbar(R.string.nav_technology);
+                break;
+            case 4:
+//                showPopupWindows();
+                break;
+        }
     }
 
 //    public void showPopupLayout(View view){
@@ -147,25 +144,25 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         mLinearLayout = (LinearLayout) findViewById(R.id.ln_popup);
     }
 
-    private void showPopupWindows() {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View custom_view = inflater.inflate(R.layout.custom_popup_layout, null);
-
-        mPopupWindow = new PopupWindow(custom_view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (Build.VERSION.SDK_INT >= 21) {
-            mPopupWindow.setElevation(5.0f);
-        }
-        mPopupWindow.setOutsideTouchable(true);
-
-        new Handler().postDelayed(new Runnable() {
-
-            public void run() {
-                mPopupWindow.showAtLocation(custom_view, Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
-            }
-
-        }, 100L);
-
-    }
+//    private void showPopupWindows() {
+//        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+//        final View custom_view = inflater.inflate(R.layout.custom_popup_layout, null);
+//
+//        mPopupWindow = new PopupWindow(custom_view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            mPopupWindow.setElevation(5.0f);
+//        }
+//        mPopupWindow.setOutsideTouchable(true);
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            public void run() {
+//                mPopupWindow.showAtLocation(custom_view, Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
+//            }
+//
+//        }, 100L);
+//
+//    }
 
     @SuppressWarnings("deprecation")
     private void initNavigation() {
@@ -339,4 +336,18 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         toolbar.setTitle(StringResource);
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        initBottomNavigationAction(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }

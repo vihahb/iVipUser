@@ -65,9 +65,9 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
 
     private void initControl() {
         tabLayout = (TabLayout) findViewById(R.id.tabs_info);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_news), 0);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_name), 1);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_favorite), 2);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_info), 0);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_location), 1);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_search), 2);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_history), 3);
         replaceDefaultFragment();
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

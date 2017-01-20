@@ -55,7 +55,7 @@ public class JsonParse {
         } else if (code == 108) {
             return activity.getString(R.string.error_user_invalid);
         } else if (code == 109) {
-            return activity.getString(R.string.error_email_invalid);
+            return activity.getString(R.string.error_account_invalid);
         } else if (code == 110) {
             return activity.getString(R.string.error_service_not_support_device);
         } else if (code == 111) {
