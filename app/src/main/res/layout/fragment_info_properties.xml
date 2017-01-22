@@ -33,7 +33,8 @@
         android:layout_height="@dimen/size_70"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@null"
-        android:src="@drawable/ic_action_name"
+        android:src="@mipmap/user_demo"
+        android:transitionName="@string/transition_shop_ava"
         app:layout_anchor="@id/store_header"
         app:layout_anchorGravity="bottom|left|end" />
 </android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,8 @@ package com.xtel.ivipuser.view.fragment;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
@@ -129,6 +131,18 @@ public class BasicFragment extends Fragment {
         Intent intent = new Intent(getActivity(), clazz);
         intent.putExtra(key, (Serializable) object);
         getActivity().startActivityForResult(intent, requestCode);
+    }
+
+    protected void startActivityForResultWithTransition(Class clazz, String key, Object object, int transition_name, View view, int id, int requestCode) {
+        Intent intent = new Intent(getActivity(), clazz);
+        intent.putExtra(key, (Serializable) object);
+        String transitionName = getString(transition_name);
+        View viewStart = view.findViewById(id);
+        ActivityOptionsCompat activityCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                        viewStart,
+                        transitionName);
+        ActivityCompat.startActivityForResult(getActivity(), intent, requestCode, activityCompat.toBundle());
     }
 
     protected void startActivityAndFinish(Class clazz) {

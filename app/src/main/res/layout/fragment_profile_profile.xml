@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bgr_app"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ScrollView
@@ -27,8 +29,8 @@
 
                 <com.xtel.ivipuser.view.widget.RoundImage
                     android:id="@+id/img_avatar_profile"
-                    android:layout_width="@dimen/size_80"
-                    android:layout_height="@dimen/size_80"
+                    android:layout_width="@dimen/size_70"
+                    android:layout_height="@dimen/size_70"
                     android:layout_marginBottom="@dimen/size_10"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher" />
@@ -66,6 +68,7 @@
                     android:id="@+id/tv_ranking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/size_10"
                     android:text="Xếp  hạng"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_14" />
@@ -96,7 +99,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/full_name" />
 
                             <View
@@ -133,7 +136,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/phone_number" />
 
                             <View
@@ -170,7 +173,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/address" />
 
                             <View
@@ -207,7 +210,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/birth_day" />
 
                             <View
@@ -244,7 +247,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/gender" />
 
                             <View
@@ -254,6 +257,13 @@
                                 android:background="@android:color/white" />
                         </FrameLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_1"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/size_4"
+                            android:layout_marginRight="@dimen/size_4"
+                            android:background="@android:color/white" />
                         <Spinner
                             android:id="@+id/sp_gender"
                             android:layout_width="match_parent"
@@ -280,7 +290,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:padding="@dimen/size_8"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/logout" />
 
                             <View
@@ -289,7 +299,6 @@
                                 android:layout_gravity="right"
                                 android:background="@android:color/white" />
                         </FrameLayout>
-
                         <Button
                             android:id="@+id/btn_Logout"
                             android:layout_width="match_parent"
@@ -299,6 +308,14 @@
                             android:paddingLeft="@dimen/size_50"
                             android:text="Logout"
                             android:textColor="@color/colorAccent" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_1"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/size_4"
+                            android:layout_marginRight="@dimen/size_4"
+                            android:background="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
 

@@ -172,8 +172,8 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     }
 
     public void replaceNotify() {
-        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
-        renameToolbar(R.string.nav_notify);
+//        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+//        renameToolbar(R.string.nav_notify);
         tabLayout.getTabAt(3).select();
 //        bottomNavigationView.getMenu().getItem(3).setCheckable(true);
     }

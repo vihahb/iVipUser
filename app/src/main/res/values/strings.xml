@@ -9,6 +9,14 @@
 
     <string name="xtel_service_code">XTL-IVIP-U</string>
 
+    <!-- Transition -->
+    <!-- Shop -->
+    <string name="transition_name_shop">shop_info</string>
+    <string name="transition_shop_img">shop_img</string>
+    <string name="transition_shop_ava">shop_ava</string>
+    <string name="transition_shop_name">shop_name</string>
+    <string name="transition_shop_content">shop_content</string>
+
     <!-- Activity Title -->
     <string name="activity_login">Đăng nhập</string>
     <string name="activity_reset">Khôi phục mật khẩu</string>

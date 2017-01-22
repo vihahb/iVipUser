@@ -78,17 +78,16 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 //        initBottomNavigationAction();
         tabLayout_home = (TabLayout) findViewById(R.id.home_bottom_tab_view);
 
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_shop), 0);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_movie), 1);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_food), 2);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_airplane), 3);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_more), 4);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_shop), 0);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_movie), 1);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_food), 2);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_airplane), 3);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_more), 4);
         tabLayout_home.setOnTabSelectedListener(this);
         replaceDefaultFragment();
     }
 
     private void initBottomNavigationAction(int position) {
-
         switch (position) {
             case 0:
                 tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
@@ -349,7 +348,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        setIconTabUnSelected(tab.getPosition());
+//        setIconTabUnSelected(tab);
     }
 
     @Override
@@ -357,8 +356,8 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     }
 
-    private void setIconTabUnSelected(int position) {
-        switch (position) {
+    private void setIconTabUnSelected(TabLayout.Tab tab) {
+        switch (tab.getPosition()) {
             case 0:
                 tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_shop);
                 break;

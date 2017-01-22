@@ -99,7 +99,7 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
             txt_info_shop_comment.setText(shopComment);
 
             String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
-            setImg_brand(url, img_brand);
+//            setImg_brand(url, img_brand);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.xtel.ivipuser.view.activity.inf;
 
+import android.view.View;
+
 import com.xtel.ivipuser.model.entity.TestRecycle;
 
 import java.util.ArrayList;
@@ -18,6 +20,6 @@ public interface IFragmentShopView {
 
     void showLongToast(String mes);
 
-    void onItemClick(int position, TestRecycle testRecycle);
+    void onItemClick(int position, TestRecycle testRecycle, View view);
 
 }

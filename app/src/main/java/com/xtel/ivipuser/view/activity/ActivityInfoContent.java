@@ -5,9 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +17,6 @@ import com.xtel.ivipuser.view.fragment.FragmentInfoAddress;
 import com.xtel.ivipuser.view.fragment.FragmentInfoInfomation;
 import com.xtel.ivipuser.view.fragment.FragmentInfoProperties;
 import com.xtel.ivipuser.view.fragment.FragmentInfoSuggestion;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by vihahb on 1/17/2017.
@@ -68,7 +63,7 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
         tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_info), 0);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_location), 1);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_search), 2);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_history), 3);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_suggestion), 3);
         replaceDefaultFragment();
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -101,16 +96,6 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
         });
     }
 
-
-    private void setUpTabLayout() {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentInfoProperties(), "Thông tin");
-        adapter.addFragment(new FragmentInfoAddress(), "Địa chỉ");
-        adapter.addFragment(new FragmentInfoInfomation(), "Chi tiết");
-        adapter.addFragment(new FragmentInfoSuggestion(), "Liên quan");
-
-    }
-
 //    private boolean validData(){
 //        try {
 //            testRecycle = (TestRecycle) getIntent().getSerializableExtra(Constants.RECYCLER_MODEL);
@@ -140,7 +125,7 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            finish();
+            supportFinishAfterTransition();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -176,6 +161,11 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     }
 
     @Override
+    public void onBackPressed() {
+        ActivityCompat.finishAfterTransition(this);
+    }
+
+    @Override
     public void closeProgressBar() {
         super.closeProgressBar();
     }
@@ -197,36 +187,5 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     private void replaceDefaultFragment() {
         renameToolbar(R.string.tab_properties);
         replaceFragment(R.id.info_frame, new FragmentInfoProperties(), "Properties");
-    }
-
-    class Adapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> fragmentList = new ArrayList<>();
-        private final List<String> stringList = new ArrayList<>();
-
-        public Adapter(FragmentManager fm) {
-            super(fm);
-        }
-
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            fragmentList.add(fragment);
-            stringList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return stringList.get(position);
-        }
     }
 }

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bgr_app"
     android:fitsSystemWindows="true"
+    android:transitionName="@string/transition_name_shop"
     tools:context="com.xtel.ivipuser.view.activity.ActivityInfoContent">
 
     <LinearLayout

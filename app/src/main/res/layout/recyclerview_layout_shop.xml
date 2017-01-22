@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_shop"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_200"
     android:layout_marginTop="@dimen/size_10"
     android:orientation="vertical"
+    android:transitionName="@string/transition_name_shop"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="@dimen/size_3">
     <FrameLayout
@@ -19,7 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/banner_demo" />
+                android:src="@mipmap/banner_demo"
+                android:transitionName="@string/transition_shop_img" />
         </LinearLayout>
 
         <FrameLayout
@@ -30,7 +33,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="1"
+                android:alpha=".9"
                 android:background="@mipmap/background_news_0" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,14 +50,17 @@
                     android:text="Shop Name 1 - Address (HN City or HCM City)"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:transitionName="@string/transition_shop_name" />
 
                 <LinearLayout
+                    android:id="@+id/shop_content"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_48"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:transitionName="@string/transition_shop_content">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -170,7 +176,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/user_demo" />
+                android:src="@mipmap/user_demo"
+                android:transitionName="@string/transition_shop_ava" />
         </FrameLayout>
     </FrameLayout>
 </android.support.v7.widget.CardView>

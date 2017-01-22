@@ -9,5 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/img_demo" />
+        android:src="@mipmap/banner_demo"
+        android:transitionName="@string/transition_shop_img" />
 </LinearLayout>

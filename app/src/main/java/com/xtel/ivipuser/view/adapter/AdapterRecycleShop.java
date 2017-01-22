@@ -52,7 +52,7 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentShopView.onItemClick(position, testRecycle);
+                fragmentShopView.onItemClick(position, testRecycle, v);
             }
         });
     }
