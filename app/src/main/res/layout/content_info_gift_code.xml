@@ -63,13 +63,35 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_70"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_qr_code"
+                        android:layout_width="@dimen/size_80"
+                        android:layout_height="@dimen/size_80"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/qr_code" />
+
+                    <ImageView
+                        android:layout_width="@dimen/size_36"
+                        android:layout_height="@dimen/size_36"
+                        android:layout_gravity="bottom"
+                        android:padding="@dimen/size_3"
+                        android:src="@mipmap/barcode" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_qr_reward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginBottom="@dimen/size_8"
                     android:text="@string/qr_reward"
                     android:textColor="@android:color/white" />

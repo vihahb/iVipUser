@@ -11,29 +11,29 @@ import android.widget.TextView;
 
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.TestRecycle;
-import com.xtel.ivipuser.view.activity.inf.IFragmentShopView;
+import com.xtel.ivipuser.view.activity.inf.IFragmentMovieView;
 
 import java.util.ArrayList;
 
 /**
- * Created by vihahb on 1/16/2017.
+ * Created by vivhp on 1/23/2017.
  */
 
-public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.ViewHolder> {
+public class AdapterRecycleMovie extends RecyclerView.Adapter<AdapterRecycleMovie.ViewHolder> {
 
     private Activity activity;
     private ArrayList<TestRecycle> arrayList;
-    private IFragmentShopView fragmentShopView;
+    private IFragmentMovieView fragmentMovieView;
 
-    public AdapterRecycleShop(Activity activity, ArrayList<TestRecycle> arrayList, IFragmentShopView fragmentShopView) {
+    public AdapterRecycleMovie(Activity activity, ArrayList<TestRecycle> arrayList, IFragmentMovieView fragmentMovieView) {
         this.activity = activity;
         this.arrayList = arrayList;
-        this.fragmentShopView = fragmentShopView;
+        this.fragmentMovieView = fragmentMovieView;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_shop, parent, false));
+        return new AdapterRecycleMovie.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_movie, parent, false));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
         final TestRecycle testRecycle = arrayList.get(position);
         Log.e("Arr adapter", arrayList.toString());
 
-        ViewHolder viewHolder = holder;
+        AdapterRecycleMovie.ViewHolder viewHolder = holder;
 
         viewHolder.txt_Name.setText(testRecycle.getShopName());
         viewHolder.txt_Member.setText(testRecycle.getShopMenber());
@@ -52,7 +52,7 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentShopView.onItemClick(position, testRecycle, v);
+                fragmentMovieView.onItemClick(position, testRecycle, v);
             }
         });
     }
@@ -61,7 +61,6 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
     public int getItemCount() {
         return arrayList.size();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -78,5 +77,4 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
             txt_comment = (TextView) itemView.findViewById(R.id.tv_shop_comment);
         }
     }
-
 }

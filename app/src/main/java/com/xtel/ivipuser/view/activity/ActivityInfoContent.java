@@ -2,13 +2,16 @@ package com.xtel.ivipuser.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.xtel.ivipuser.R;
@@ -33,11 +36,25 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        initTransition();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_content);
         initToolbars();
 //        initView();
         initControl();
+    }
+
+    private void initTransition() {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // inside your activity (if you did not enable transitions in your theme)
+            getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+// set an enter transition
+            getWindow().setEnterTransition(new Explode());
+            // set an exit transition
+            getWindow().setExitTransition(new Explode());
+        }
     }
 
 //    private void initView() {

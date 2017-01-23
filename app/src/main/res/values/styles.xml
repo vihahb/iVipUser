@@ -14,14 +14,20 @@
 
         <!--&lt;!&ndash; specify enter and exit transitions &ndash;&gt;-->
         <!--&lt;!&ndash; options are: explode, slide, fade &ndash;&gt;-->
-        <!--<item name="android:windowEnterTransition" tools:ignore="NewApi">@transition/change_image_transform</item>-->
-        <!--<item name="android:windowExitTransition" tools:ignore="NewApi">@transition/change_image_transform</item>-->
+        <item name="android:windowEnterTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowExitTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
 
-        <!--&lt;!&ndash; specify shared element transitions &ndash;&gt;-->
-        <!--<item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">-->
-        <!--@transition/change_image_transform</item>-->
-        <!--<item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">-->
-        <!--@transition/change_image_transform</item>-->
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
 
         <item name="android:textColorHint">@color/secondary_text</item>
         <!--EditText-->

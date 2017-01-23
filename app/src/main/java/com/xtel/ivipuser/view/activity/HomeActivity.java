@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -30,6 +31,8 @@ import com.xtel.ivipuser.presenter.HomePresenter;
 import com.xtel.ivipuser.view.activity.inf.IHome;
 import com.xtel.ivipuser.view.fragment.FragmentHomeFood;
 import com.xtel.ivipuser.view.fragment.FragmentHomeMovie;
+import com.xtel.ivipuser.view.fragment.FragmentHomeNews;
+import com.xtel.ivipuser.view.fragment.FragmentHomeNewsLocations;
 import com.xtel.ivipuser.view.fragment.FragmentHomeShopping;
 import com.xtel.ivipuser.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipuser.view.widget.RoundImage;
@@ -48,6 +51,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private RoundImage img_avatar;
     private ActionBar actionBar;
     private BottomNavigationView bottomNavigationView;
+    private PopupMenu popupMenu;
     private Menu mMenuItem;
     private LinearLayout mLinearLayout;
     private PopupWindow mPopupWindow;
@@ -87,8 +91,8 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         replaceDefaultFragment();
     }
 
-    private void initBottomNavigationAction(int position) {
-        switch (position) {
+    private void initBottomNavigationAction(TabLayout.Tab tab) {
+        switch (tab.getPosition()) {
             case 0:
                 tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
                 replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
@@ -111,34 +115,40 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                 break;
             case 4:
                 tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_home_selected_more);
-//                showPopupWindows();
+                View mainTab = ((ViewGroup) tabLayout_home.getChildAt(0)).getChildAt(tab.getPosition());
+                showPopupLayout(mainTab);
                 break;
         }
     }
 
-//    public void showPopupLayout(View view){
-//        popupMenu = new PopupMenu(getApplicationContext(), view);
-//        popupMenu.inflate(R.menu.popup_nemu);
-//        popupMenu.setOnDismissListener(this);
-//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                int id_menu = item.getItemId();
-//                switch (id_menu){
-//                    case R.id.menu_news:
-//                        showShortToast("News");
-//                        break;
-//                    case R.id.menu_news_location:
-//                        showShortToast("News for location");
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//        popupMenu.show();
-//    }
+    public void showPopupLayout(View view) {
+        popupMenu = new PopupMenu(HomeActivity.this, view);
+        popupMenu.inflate(R.menu.popup_nemu);
+        popupMenu.setOnDismissListener(this);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id_menu = item.getItemId();
+                switch (id_menu) {
+                    case R.id.menu_news:
+                        showShortToast("News");
+                        replaceFragment(R.id.home_frame, new FragmentHomeNews(), "NEWS");
+                        popupMenu.dismiss();
+                        break;
+                    case R.id.menu_news_location:
+                        showShortToast("News for location");
+                        replaceFragment(R.id.home_frame, new FragmentHomeNewsLocations(), "NEWS FOR LOCATION");
+                        popupMenu.dismiss();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
+    }
 
     private void initView() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -335,6 +345,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     @Override
     public void onDismiss(PopupMenu menu) {
         showShortToast("Popup On Dismissed");
+        tabLayout_home.getChildAt(0).setSelected(false);
     }
 
     private void renameToolbar(int StringResource) {
@@ -343,7 +354,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        initBottomNavigationAction(tab.getPosition());
+        initBottomNavigationAction(tab);
     }
 
     @Override

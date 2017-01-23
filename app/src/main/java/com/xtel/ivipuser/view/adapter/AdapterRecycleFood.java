@@ -11,29 +11,29 @@ import android.widget.TextView;
 
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.TestRecycle;
-import com.xtel.ivipuser.view.activity.inf.IFragmentShopView;
+import com.xtel.ivipuser.view.activity.inf.IFragmentFoodView;
 
 import java.util.ArrayList;
 
 /**
- * Created by vihahb on 1/16/2017.
+ * Created by vivhp on 1/23/2017.
  */
 
-public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.ViewHolder> {
+public class AdapterRecycleFood extends RecyclerView.Adapter<AdapterRecycleFood.ViewHolder> {
 
     private Activity activity;
     private ArrayList<TestRecycle> arrayList;
-    private IFragmentShopView fragmentShopView;
+    private IFragmentFoodView fragmentFoodView;
 
-    public AdapterRecycleShop(Activity activity, ArrayList<TestRecycle> arrayList, IFragmentShopView fragmentShopView) {
+    public AdapterRecycleFood(Activity activity, ArrayList<TestRecycle> arrayList, IFragmentFoodView fragmentFoodView) {
         this.activity = activity;
         this.arrayList = arrayList;
-        this.fragmentShopView = fragmentShopView;
+        this.fragmentFoodView = fragmentFoodView;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_shop, parent, false));
+        return new AdapterRecycleFood.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_food, parent, false));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
         final TestRecycle testRecycle = arrayList.get(position);
         Log.e("Arr adapter", arrayList.toString());
 
-        ViewHolder viewHolder = holder;
+        AdapterRecycleFood.ViewHolder viewHolder = holder;
 
         viewHolder.txt_Name.setText(testRecycle.getShopName());
         viewHolder.txt_Member.setText(testRecycle.getShopMenber());
@@ -52,7 +52,7 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentShopView.onItemClick(position, testRecycle, v);
+                fragmentFoodView.onItemClick(position, testRecycle, v);
             }
         });
     }
@@ -61,7 +61,6 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
     public int getItemCount() {
         return arrayList.size();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -78,5 +77,4 @@ public class AdapterRecycleShop extends RecyclerView.Adapter<AdapterRecycleShop.
             txt_comment = (TextView) itemView.findViewById(R.id.tv_shop_comment);
         }
     }
-
 }

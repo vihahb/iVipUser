@@ -20,6 +20,7 @@
         android:layout_gravity="start"
         android:background="@mipmap/bgr_app"
         android:fitsSystemWindows="true"
+        android:paddingBottom="@dimen/size_28"
         app:headerLayout="@layout/nav_header_home"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"

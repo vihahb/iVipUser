@@ -1,6 +1,5 @@
 package com.xtel.ivipuser.view.fragment;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,8 +92,8 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
     @Override
     public void onItemClick(int position, TestRecycle testRecycle, View view) {
         this.position = position;
-        if (Build.VERSION.SDK_INT >= 20) {
-            int id = R.id.card_view_shop;
+//        if (Build.VERSION.SDK_INT >= 20) {
+//            int id = R.id.card_view_shop;
 //            View viewStart = view.findViewById(R.id.card_view_shop);
 //            View view_ava = view.findViewById(R.id.img_view);
 //            View view_img = view.findViewById(R.id.img_banner_shop);
@@ -106,14 +105,14 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 //            String icon = getString(R.string.transition_shop_ava);
 //            String name = getString(R.string.transition_shop_name);
 //            String content = getString(R.string.transition_shop_content);
-            startActivityForResultWithTransition(ActivityInfoContent.class,
-                    Constants.RECYCLER_MODEL,
-                    testRecycle,
-                    R.string.transition_name_shop,
-                    view,
-                    id,
-                    REQUEST_VIEW_SHOP
-            );
+////            startActivityForResultWithTransition(ActivityInfoContent.class,
+////                    Constants.RECYCLER_MODEL,
+////                    testRecycle,
+////                    R.string.transition_name_shop,
+////                    view,
+////                    id,
+////                    REQUEST_VIEW_SHOP
+////            );
 //            Intent intent = new Intent(getActivity(), ActivityInfoContent.class);
 //            intent.putExtra(Constants.RECYCLER_MODEL, testRecycle);
 //            Pair<View, String> p1 = Pair.create(viewStart, main);
@@ -123,8 +122,8 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 //            Pair<View, String> p5 = Pair.create(view_content, content);
 //            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2, p3, p4);
 //            ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_VIEW_SHOP, options.toBundle());
-        } else {
+//        } else {
             startActivityForResult(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_SHOP);
-        }
+//        }
     }
 }

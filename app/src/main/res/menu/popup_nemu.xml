@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_news"
         android:drawable="@drawable/ic_action_news"
         android:state_enabled="true"
-        android:title="News" />
+        android:title="News"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_news_location"
         android:drawable="@drawable/ic_action_news_location"
         android:state_enabled="true"
-        android:title="New for Location" />
+        android:title="New for Location"
+        app:showAsAction="always" />
 </menu>
