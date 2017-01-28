@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
  * Created by vihahb on 1/17/2017.
  */
 
-public class SoftNewsObjectEntity {
+public class SoftNewsObjectEntity extends RESP_Basic {
 
     @Expose
     private int id;

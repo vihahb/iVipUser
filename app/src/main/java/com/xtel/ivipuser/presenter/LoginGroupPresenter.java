@@ -29,6 +29,8 @@ public class LoginGroupPresenter {
 
     private ILoginGroup view;
 
+    private String TAG = "Login Group ";
+
     private CallbackManager callbackManager;
 
     public LoginGroupPresenter(ILoginGroup view) {
@@ -50,6 +52,7 @@ public class LoginGroupPresenter {
                 Log.e("Login Success", success.getAuthenticationid());
                 view.showShortToast("Success");
                 String sesion = success.getSession();
+                Log.d(TAG + "session", sesion);
                 SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
                 view.startActivity(HomeActivity.class);
                 view.finishActivity();
@@ -118,7 +121,6 @@ public class LoginGroupPresenter {
             view.showShortToast(toastMessage);
         }
     }
-
 
     private String parseMessage(int code) {
         String mess = JsonParse.getCodeMessage(view.getActivity(), code, "");

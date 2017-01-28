@@ -2,6 +2,7 @@ package com.xtel.ivipuser.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.TestRecycle;
+import com.xtel.ivipuser.view.activity.inf.IActivityInfo;
+import com.xtel.ivipuser.view.widget.AppBarStateChangeListener;
 import com.xtel.ivipuser.view.widget.RoundImage;
 import com.xtel.sdk.commons.Constants;
 
@@ -22,14 +25,14 @@ import com.xtel.sdk.commons.Constants;
  * Created by vihahb on 1/17/2017.
  */
 
-public class FragmentInfoProperties extends BasicFragment implements View.OnClickListener {
-
+public class FragmentInfoProperties extends BasicFragment implements View.OnClickListener, IActivityInfo {
     private TestRecycle testRecycle;
     private TextView txt_info_shop_name, txt_info_shop_member, txt_info_shop_location, txt_info_shop_comment;
     private TextView tv_qr_reward;
     private RoundImage img_brand;
     private Button btn_getGiftCode;
     private LinearLayout inc_get_gift_code, inc_gift_code;
+    private AppBarLayout appBarLayout;
 
     @Nullable
     @Override
@@ -54,6 +57,8 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
 
         img_brand = (RoundImage) view.findViewById(R.id.store_info);
 
+        appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+
         inc_get_gift_code = (LinearLayout) view.findViewById(R.id.inc_get_gift_code);
         inc_gift_code = (LinearLayout) view.findViewById(R.id.inc_gift_code);
 
@@ -64,7 +69,23 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
 
         initUnderLine();
         getDataFromFragmentShop();
+        initAppBar();
     }
+
+    private void initAppBar() {
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateEXPANDED() {
+                img_brand.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStateIDLE() {
+                img_brand.setVisibility(View.GONE);
+            }
+        });
+    }
+
 
     private void initUnderLine() {
         String qr_reward = new String(getActivity().getResources().getString(R.string.qr_reward));
@@ -74,6 +95,9 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
         tv_qr_reward.setOnClickListener(this);
     }
 
+    private void initShowQrCode() {
+
+    }
 
     private boolean validData() {
         try {
@@ -123,5 +147,10 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
             inc_get_gift_code.setVisibility(View.VISIBLE);
             inc_gift_code.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onShowQrCode(String url) {
+
     }
 }

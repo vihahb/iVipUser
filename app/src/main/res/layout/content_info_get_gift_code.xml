@@ -6,7 +6,10 @@
     android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/size_36">
+    android:paddingBottom="@dimen/size_20"
+    android:paddingLeft="@dimen/size_36"
+    android:paddingRight="@dimen/size_36"
+    android:paddingTop="@dimen/font_12">
 
     <Button
         android:id="@+id/btn_get_gift_code"

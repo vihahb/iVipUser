@@ -62,6 +62,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         presenter = new HomePresenter(this);
+        presenter.onGetUserNip();
         mContext = HomeActivity.this;
         initView();
         initNavigation();
@@ -71,10 +72,10 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     private void initNavigationWidget() {
         View view = navigationView.getHeaderView(0);
-        img_avatar = (RoundImage) view.findViewById(R.id.img_avatar);
-        img_avatar.setOnClickListener(this);
-        String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
-        setAvatar(url, img_avatar);
+//        img_avatar = (RoundImage) view.findViewById(R.id.img_avatar);
+//        img_avatar.setOnClickListener(this);
+//        String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
+//        setAvatar(url, img_avatar);
     }
 
     public void initBottomNavigation() {
@@ -277,17 +278,15 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_my_shop) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_privacy) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_about) {
 

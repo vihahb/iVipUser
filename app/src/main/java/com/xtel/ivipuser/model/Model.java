@@ -1,10 +1,15 @@
 package com.xtel.ivipuser.model;
 
-import com.xtel.ivipuser.model.entity.RESP_Basic;
+import com.xtel.sdk.callback.RequestServer;
 
 /**
  * Created by vivhp on 12/28/2016.
  */
 
-public class Model extends RESP_Basic {
+public abstract class Model {
+
+    protected RequestServer requestServer = new RequestServer();
+
+
+
 }

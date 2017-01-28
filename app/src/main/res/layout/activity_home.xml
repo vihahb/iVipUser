@@ -13,17 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@mipmap/bgr_app"
-        android:fitsSystemWindows="true"
-        android:paddingBottom="@dimen/size_28"
-        app:headerLayout="@layout/nav_header_home"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/activity_home_drawer" />
+        android:fitsSystemWindows="true">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/nav_view"
+            android:layout_alignLeft="@+id/nav_view"
+            android:layout_alignRight="@+id/nav_view"
+            android:layout_alignStart="@+id/nav_view"
+            android:alpha="0.7"
+            android:background="@color/color_toolbar" />
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingBottom="@dimen/size_28"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/activity_home_drawer" />
+    </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

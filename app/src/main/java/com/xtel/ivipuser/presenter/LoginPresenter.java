@@ -33,6 +33,7 @@ public class LoginPresenter {
 
     String mess = "";
     String tokenFacebook;
+    String TAG = "Login presenter ";
     private ILoginView view;
     private CallbackManager callbackManager;
     private com.xtel.nipservicesdk.CallbackManager nipCallbackManager;
@@ -105,6 +106,7 @@ public class LoginPresenter {
             public void onSuccess(RESP_Login success) {
                 view.showShortToast("Login Success");
                 String sesion = success.getSession();
+                Log.d(TAG + "session", sesion);
                 SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
                 view.startActivitys(HomeActivity.class);
             }

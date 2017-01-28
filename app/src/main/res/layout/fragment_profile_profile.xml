@@ -78,9 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/size_16"
-                android:paddingRight="@dimen/activity_horizontal_margin">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,11 +108,12 @@
                         </FrameLayout>
 
                         <EditText
-                            android:id="@+id/tv_fullname"
+                            android:id="@+id/edt_fullname"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
                             android:hint="Ho va ten"
-                            android:paddingLeft="@dimen/size_50"
+                            android:paddingLeft="@dimen/size_60"
+                            android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
@@ -147,11 +146,12 @@
                         </FrameLayout>
 
                         <EditText
-                            android:id="@+id/tv_phone"
+                            android:id="@+id/edt_phone"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
                             android:hint="Số điện thoại"
-                            android:paddingLeft="@dimen/size_50"
+                            android:paddingLeft="@dimen/size_60"
+                            android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
@@ -184,11 +184,12 @@
                         </FrameLayout>
 
                         <EditText
-                            android:id="@+id/tv_address"
+                            android:id="@+id/edt_address_profile"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
                             android:hint="Địa chỉ"
-                            android:paddingLeft="@dimen/size_50"
+                            android:paddingLeft="@dimen/size_60"
+                            android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
@@ -221,18 +222,19 @@
                         </FrameLayout>
 
                         <EditText
-                            android:id="@+id/tv_birthday"
+                            android:id="@+id/edt_birthday_profile"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
                             android:hint="Ngày sinh"
-                            android:paddingLeft="@dimen/size_50"
+                            android:paddingLeft="@dimen/size_60"
+                            android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
+                    android:layout_height="@dimen/size_40"
                     android:orientation="vertical">
 
                     <FrameLayout
@@ -252,14 +254,14 @@
 
                             <View
                                 android:layout_width="@dimen/size_1"
-                                android:layout_height="@dimen/size_48"
+                                android:layout_height="@dimen/size_40"
                                 android:layout_gravity="right"
                                 android:background="@android:color/white" />
                         </FrameLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/size_1"
+                            android:layout_height="0.5dp"
                             android:layout_gravity="bottom"
                             android:layout_marginLeft="@dimen/size_4"
                             android:layout_marginRight="@dimen/size_4"
@@ -267,8 +269,8 @@
                         <Spinner
                             android:id="@+id/sp_gender"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/size_48"
-                            android:paddingLeft="@dimen/size_50"
+                            android:layout_height="@dimen/size_40"
+                            android:paddingLeft="@dimen/size_60"
                             android:textColorHint="@android:color/white" />
                     </FrameLayout>
                 </LinearLayout>
@@ -305,7 +307,7 @@
                             android:layout_height="@dimen/size_48"
                             android:background="@drawable/button_transparent"
                             android:gravity="left|center_vertical"
-                            android:paddingLeft="@dimen/size_50"
+                            android:paddingLeft="@dimen/size_60"
                             android:text="Logout"
                             android:textColor="@color/colorAccent" />
 

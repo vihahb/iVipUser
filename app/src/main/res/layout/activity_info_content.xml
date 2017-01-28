@@ -71,7 +71,7 @@
                     style="@style/TabLayout.Theme"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_56"
-                    android:background="@mipmap/bottom_style"
+                    android:background="@mipmap/bgr_tab_1"
                     app:tabGravity="fill"
                     app:tabMode="fixed" />
 

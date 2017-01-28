@@ -29,14 +29,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/item_background_6" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/size_100"
             android:layout_gravity="bottom">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha=".8"
-                android:background="@mipmap/background_news_5" />
 
             <LinearLayout
                 android:layout_width="match_parent"

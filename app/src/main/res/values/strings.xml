@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">iVip</string>
     <string name="home_name">Base Project</string>
+    <string name="ivip_for_user_not_cap">iVIP for uer</string>
 
     <string name="facebook_app_id">615022045348242</string>
     <string name="ak_login_protocol_scheme">ak615022045348242</string>

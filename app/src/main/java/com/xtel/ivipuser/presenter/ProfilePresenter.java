@@ -1,5 +1,6 @@
 package com.xtel.ivipuser.presenter;
 
+import com.xtel.ivipuser.model.entity.Profile;
 import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
 
 /**
@@ -7,11 +8,38 @@ import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
  */
 
 public class ProfilePresenter {
+    Profile profile;
     private IProfileActivityView view;
-
     public ProfilePresenter(IProfileActivityView view) {
         this.view = view;
     }
 
+
+    public void setProfile() {
+        String rank = "Diamond";
+        String date_reg = "2017/17/01";
+        int score = 100;
+        String f_name = "Vi";
+        String l_name = "Vũ Hà";
+        int gender = 3;
+        long birthday = 838425617000l;
+        String phone = "01673378303";
+        String address = "Hòa Bình - Việt Nam";
+        String ava = "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/13528706_849870591811691_1547349153482224738_n.jpg?oh=02ba740bab49c1a839995abad5f0802d&oe=59483152";
+        String email = "vihahb@icloud.com";
+        profile = new Profile();
+        profile.setScore(score);
+        profile.setRank(rank);
+        profile.setDate_reg(date_reg);
+        profile.setFirst_name(f_name);
+        profile.setLast_name(l_name);
+        profile.setBirth_day(birthday);
+        profile.setPhone(phone);
+        profile.setGender(gender);
+        profile.setAddress(address);
+        profile.setAvatar(ava);
+        profile.setEmail(email);
+        view.setProfileSuccess(profile);
+    }
 
 }
