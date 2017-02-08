@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
+            android:paddingBottom="@dimen/size_8"
             android:text="Lấy mã khuyến mại"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font_13" />
@@ -81,6 +82,7 @@
                         android:src="@mipmap/qr_code" />
 
                     <ImageView
+                        android:id="@+id/img_bar_code"
                         android:layout_width="@dimen/size_36"
                         android:layout_height="@dimen/size_36"
                         android:layout_gravity="bottom"

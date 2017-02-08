@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.Profile;
+import com.xtel.ivipuser.model.entity.RESP_Profile;
 import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipuser.view.fragment.FavoriteFragment;
 import com.xtel.ivipuser.view.fragment.HistoryFragment;
@@ -82,12 +83,12 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     }
 
     @Override
-    public void onSuccess() {
+    public void onGetProfileSuccess(Profile profile) {
 
     }
 
     @Override
-    public void onEror() {
+    public void onGetProfileEror() {
 
     }
 
@@ -121,9 +122,14 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     }
 
     @Override
-    public void setProfileSuccess(Profile profile) {
+    public void setProfileSuccess(RESP_Profile profile) {
 
     }
+
+//    @Override
+//    public void setProfileSuccess(Profile profile) {
+//
+//    }
 
     @Override
     public Activity getActivity() {

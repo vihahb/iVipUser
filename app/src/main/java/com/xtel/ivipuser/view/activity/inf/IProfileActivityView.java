@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.xtel.ivipuser.model.entity.Profile;
+import com.xtel.ivipuser.model.entity.RESP_Profile;
 
 /**
  * Created by vihahb on 1/12/2017.
  */
 
 public interface IProfileActivityView {
-    void onSuccess();
+    void onGetProfileSuccess(Profile profile);
 
-    void onEror();
+    void onGetProfileEror();
 
     void showShortToast(String mes);
 
@@ -24,7 +25,7 @@ public interface IProfileActivityView {
 
     void finishActivity();
 
-    void setProfileSuccess(Profile profile);
+    void setProfileSuccess(RESP_Profile profile);
 
     Activity getActivity();
 

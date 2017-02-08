@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.xtel.nipservicesdk.MyApplication;
+import com.xtel.nipservicesdk.MyApplicationNip;
 import com.xtel.nipservicesdk.commons.Constants;
 
 /**
@@ -17,7 +17,7 @@ public class SharedUtils {
     private SharedPreferences.Editor editor;
 
     private SharedUtils() {
-        sharedPreferences = MyApplication.context.getSharedPreferences(Constants.SHARED_NAME, Context.MODE_PRIVATE);
+        sharedPreferences = MyApplicationNip.context.getSharedPreferences(Constants.SHARED_NAME, Context.MODE_PRIVATE);
     }
 
     public static SharedUtils getInstance() {

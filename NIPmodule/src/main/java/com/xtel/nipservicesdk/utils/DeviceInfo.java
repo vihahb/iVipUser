@@ -3,7 +3,7 @@ package com.xtel.nipservicesdk.utils;
 import android.annotation.SuppressLint;
 import android.telephony.TelephonyManager;
 
-import com.xtel.nipservicesdk.MyApplication;
+import com.xtel.nipservicesdk.MyApplicationNip;
 import com.xtel.nipservicesdk.model.entity.DeviceObject;
 
 import static android.content.Context.TELEPHONY_SERVICE;
@@ -22,7 +22,7 @@ public class DeviceInfo {
         int device_type;
         String device_vendor;
 
-        TelephonyManager telephonyManager = (TelephonyManager) MyApplication.context.getSystemService(TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager = (TelephonyManager) MyApplicationNip.context.getSystemService(TELEPHONY_SERVICE);
         device_id = telephonyManager.getDeviceId();
         device_os_name = android.os.Build.VERSION.CODENAME;
         device_os_ver = android.os.Build.VERSION.RELEASE;

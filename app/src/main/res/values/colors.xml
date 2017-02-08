@@ -18,6 +18,9 @@
     <color name="tab_selected">#00b8d4</color>
     <color name="color_toolbar">#02a8a3</color>
 
+    <!-- Date time picker -->
+    <color name="color_accent_picker">#026c5f</color>
+
     <!-- Button Login -->
     <color name="btn_login">#026c5f</color>
     <color name="left_btn_login">#035c69</color>

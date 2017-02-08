@@ -62,7 +62,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         presenter = new HomePresenter(this);
-        presenter.onGetUserNip();
+//        presenter.onGetUserNip();
         mContext = HomeActivity.this;
         initView();
         initNavigation();
@@ -281,7 +281,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_my_shop) {
-
+            startActivty(MyShopActivity.class);
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_privacy) {

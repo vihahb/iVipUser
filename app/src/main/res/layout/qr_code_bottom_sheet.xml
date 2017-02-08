@@ -32,6 +32,6 @@
         android:paddingLeft="@dimen/size_16"
         android:paddingRight="@dimen/size_16"
         android:text="CLOSE"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/color_accent_picker"
         android:textSize="@dimen/font_13" />
 </FrameLayout>

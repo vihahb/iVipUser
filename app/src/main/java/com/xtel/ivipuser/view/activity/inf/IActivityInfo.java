@@ -9,5 +9,7 @@ import android.app.Activity;
 public interface IActivityInfo {
     void onShowQrCode(String url);
 
+    void onShowBarCode(String url_bar_code);
+
     Activity getActivity();
 }

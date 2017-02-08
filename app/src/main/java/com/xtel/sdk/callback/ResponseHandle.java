@@ -1,6 +1,8 @@
 package com.xtel.sdk.callback;
 
 
+import android.util.Log;
+
 import com.xtel.ivipuser.model.BasicModels;
 import com.xtel.ivipuser.model.entity.Error;
 import com.xtel.ivipuser.model.entity.RESP_Basic;
@@ -20,6 +22,7 @@ public abstract class ResponseHandle<T extends RESP_Basic> {
     }
 
     public void onSuccess(String result) {
+        Log.e("Respond handler", result);
         try {
             boolean isJson;
             isJson = !(result == null || result.isEmpty());

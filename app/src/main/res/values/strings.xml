@@ -25,6 +25,7 @@
     <string name="activity_reg">Đăng ký</string>
     <string name="activity_profile">Thông tin người dùng</string>
     <string name="activity_info_content">Thông tin cửa hàng</string>
+    <string name="activity_myshop_content">Cửa hàng của tôi</string>
 
     <!-- Nav title -->
     <string name="nav_Profile">Profile</string>

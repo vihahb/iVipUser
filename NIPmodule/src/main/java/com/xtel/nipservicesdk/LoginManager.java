@@ -11,7 +11,7 @@ import com.xtel.nipservicesdk.model.LoginModel;
 public class LoginManager {
 
     public static void sdkInitialize(Context context) {
-        MyApplication.context = context;
+        MyApplicationNip.context = context;
     }
 
     public static String getCurrentSessiong() {

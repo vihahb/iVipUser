@@ -10,26 +10,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.TestRecycle;
+import com.xtel.ivipuser.presenter.ActivityInfoPropertiesPresenter;
+import com.xtel.ivipuser.view.activity.IFragment;
 import com.xtel.ivipuser.view.activity.inf.IActivityInfo;
 import com.xtel.ivipuser.view.widget.AppBarStateChangeListener;
 import com.xtel.ivipuser.view.widget.RoundImage;
 import com.xtel.sdk.commons.Constants;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 /**
  * Created by vihahb on 1/17/2017.
  */
 
-public class FragmentInfoProperties extends BasicFragment implements View.OnClickListener, IActivityInfo {
+public class FragmentInfoProperties extends IFragment implements View.OnClickListener, IActivityInfo {
+    ActivityInfoPropertiesPresenter presenter;
     private TestRecycle testRecycle;
     private TextView txt_info_shop_name, txt_info_shop_member, txt_info_shop_location, txt_info_shop_comment;
     private TextView tv_qr_reward;
     private RoundImage img_brand;
+    private ImageView img_qr_code, img_bar_code;
     private Button btn_getGiftCode;
     private LinearLayout inc_get_gift_code, inc_gift_code;
     private AppBarLayout appBarLayout;
@@ -43,6 +49,7 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new ActivityInfoPropertiesPresenter(this);
         initView(view);
     }
 
@@ -56,6 +63,12 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
         tv_qr_reward = (TextView) view.findViewById(R.id.tv_qr_reward);
 
         img_brand = (RoundImage) view.findViewById(R.id.store_info);
+
+        img_qr_code = (ImageView) view.findViewById(R.id.img_qr_code);
+        img_qr_code.setOnClickListener(this);
+
+        img_bar_code = (ImageView) view.findViewById(R.id.img_bar_code);
+        img_bar_code.setOnClickListener(this);
 
         appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
 
@@ -96,7 +109,11 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
     }
 
     private void initShowQrCode() {
+        presenter.showQrCode();
+    }
 
+    private void initBarCode() {
+        presenter.showBarCode();
     }
 
     private boolean validData() {
@@ -146,11 +163,28 @@ public class FragmentInfoProperties extends BasicFragment implements View.OnClic
         } else if (id == R.id.tv_qr_reward) {
             inc_get_gift_code.setVisibility(View.VISIBLE);
             inc_gift_code.setVisibility(View.GONE);
+        } else if (id == R.id.img_qr_code) {
+            initShowQrCode();
+        } else if (id == R.id.img_bar_code) {
+            initBarCode();
         }
     }
 
     @Override
     public void onShowQrCode(String url) {
+        if (NetWorkInfo.isOnline(getContext())) {
+            showQrCode(url);
+        } else {
+            showShortToast("Không có kết nối internet");
+        }
+    }
 
+    @Override
+    public void onShowBarCode(String url_bar_code) {
+        if (NetWorkInfo.isOnline(getContext())) {
+            showQrCode(url_bar_code);
+        } else {
+            showShortToast("Không có kết nối internet");
+        }
     }
 }

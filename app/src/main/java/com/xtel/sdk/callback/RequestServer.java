@@ -79,6 +79,7 @@ public class RequestServer {
     }
 
     private class GetToServer extends AsyncTask<String, Integer, String> {
+        private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         private ResponseHandle responseHandle;
 
         GetToServer(ResponseHandle responseHandle) {

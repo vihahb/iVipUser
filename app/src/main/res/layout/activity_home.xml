@@ -38,6 +38,7 @@
             android:paddingBottom="@dimen/size_28"
             app:itemBackground="@android:color/transparent"
             app:itemIconTint="@android:color/white"
+
             app:itemTextColor="@android:color/white"
             app:menu="@menu/activity_home_drawer" />
     </RelativeLayout>

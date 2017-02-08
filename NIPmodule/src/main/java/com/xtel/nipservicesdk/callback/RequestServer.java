@@ -2,7 +2,7 @@ package com.xtel.nipservicesdk.callback;
 
 import android.os.AsyncTask;
 
-import com.xtel.nipservicesdk.MyApplication;
+import com.xtel.nipservicesdk.MyApplicationNip;
 import com.xtel.nipservicesdk.R;
 import com.xtel.nipservicesdk.commons.Constants;
 import com.xtel.nipservicesdk.model.entity.Error;
@@ -82,7 +82,7 @@ public class RequestServer {
             if (isSuccess)
                 responseHandle.onSuccess(s);
             else
-                responseHandle.onError(new Error(-1, MyApplication.context.getString(R.string.error), MyApplication.context.getString(R.string.can_not_request)));
+                responseHandle.onError(new Error(-1, MyApplicationNip.context.getString(R.string.error), MyApplicationNip.context.getString(R.string.can_not_request)));
         }
     }
 
@@ -120,7 +120,7 @@ public class RequestServer {
             if (isSuccess)
                 responseHandle.onSuccess(s);
             else
-                responseHandle.onError(new Error(-1, MyApplication.context.getString(R.string.error), MyApplication.context.getString(R.string.can_not_request)));
+                responseHandle.onError(new Error(-1, MyApplicationNip.context.getString(R.string.error), MyApplicationNip.context.getString(R.string.can_not_request)));
         }
     }
 
@@ -165,7 +165,7 @@ public class RequestServer {
             if (isSuccess)
                 responseHandle.onSuccess(s);
             else
-                responseHandle.onError(new Error(-1, MyApplication.context.getString(R.string.error), MyApplication.context.getString(R.string.can_not_request)));
+                responseHandle.onError(new Error(-1, MyApplicationNip.context.getString(R.string.error), MyApplicationNip.context.getString(R.string.can_not_request)));
         }
     }
 
@@ -209,7 +209,7 @@ public class RequestServer {
             if (isSuccess)
                 responseHandle.onSuccess(s);
             else
-                responseHandle.onError(new Error(-1, MyApplication.context.getString(R.string.error), MyApplication.context.getString(R.string.can_not_request)));
+                responseHandle.onError(new Error(-1, MyApplicationNip.context.getString(R.string.error), MyApplicationNip.context.getString(R.string.can_not_request)));
         }
     }
 }

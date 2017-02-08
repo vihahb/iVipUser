@@ -1,6 +1,5 @@
 package com.xtel.ivipuser.model;
 
-import com.xtel.ivipuser.model.entity.ProfileEntity;
 import com.xtel.sdk.callback.ResponseHandle;
 
 /**
@@ -15,7 +14,7 @@ public class LoginModel extends Model {
         return instance;
     }
 
-    public void getUser(String url, String session, ResponseHandle<ProfileEntity> responseHandle) {
+    public void getUser(String url, String session, ResponseHandle responseHandle) {
         requestServer.getApi(url, session, responseHandle);
     }
 

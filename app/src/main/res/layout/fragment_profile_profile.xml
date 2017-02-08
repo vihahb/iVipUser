@@ -225,6 +225,7 @@
                             android:id="@+id/edt_birthday_profile"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
+                            android:focusable="false"
                             android:hint="Ngày sinh"
                             android:paddingLeft="@dimen/size_60"
                             android:textColor="@android:color/white"
