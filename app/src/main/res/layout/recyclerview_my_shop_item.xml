@@ -11,105 +11,102 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.8"
-                android:background="@color/color_accent_picker" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_my_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/size_12"
-                    android:padding="@dimen/size_4"
-                    android:text="Điểm"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/tv_my_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Rank"
-                    android:textColor="@android:color/white" />
-
-                <ImageView
-                    android:id="@+id/icon_shop_img"
-                    android:layout_width="@dimen/size_40"
-                    android:layout_height="@dimen/size_40"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginTop="@dimen/size_8"
-                    android:src="@drawable/ic_action_eye" />
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_content_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@mipmap/food_demo" />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_50"
-                    android:layout_gravity="bottom|right"
+                    android:layout_height="match_parent"
+                    android:alpha="0.8"
+                    android:background="@color/color_accent_picker" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.7"
-                        android:background="@drawable/btn_login"></FrameLayout>
+                    <TextView
+                        android:id="@+id/tv_my_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/size_12"
+                        android:padding="@dimen/size_4"
+                        android:text="Điểm"
+                        android:textColor="@android:color/white" />
 
                     <TextView
-                        android:id="@+id/tv_content_name"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_my_rank"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="right"
-                        android:paddingEnd="@dimen/size_16"
-                        android:paddingRight="@dimen/size_16"
-                        android:text="AOmeon Thăng Long"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp" />
-                </FrameLayout>
-            </FrameLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:text="Rank"
+                        android:textColor="@android:color/white" />
 
-            <com.xtel.ivipuser.view.widget.RoundImage
-                android:id="@+id/img_content_brand"
-                android:layout_width="@dimen/size_56"
-                android:layout_height="@dimen/size_56"
-                android:layout_gravity="top|right"
-                android:layout_marginRight="@dimen/size_20"
-                android:layout_marginTop="@dimen/size_20"
-                android:contentDescription="@null"
-                android:src="@drawable/badge_icon" />
-        </FrameLayout>
+                    <ImageView
+                        android:id="@+id/icon_shop_img"
+                        android:layout_width="@dimen/size_40"
+                        android:layout_height="@dimen/size_40"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:src="@drawable/ic_action_eye" />
+                </LinearLayout>
+            </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_content_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/food_demo" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_50"
+                        android:layout_gravity="bottom|right"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.7"
+                            android:background="@drawable/btn_login"></FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_content_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:paddingEnd="@dimen/size_16"
+                            android:paddingRight="@dimen/size_16"
+                            android:text="AOmeon Thăng Long"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <com.xtel.ivipuser.view.widget.RoundImage
+                    android:id="@+id/img_content_brand"
+                    android:layout_width="@dimen/size_56"
+                    android:layout_height="@dimen/size_56"
+                    android:layout_gravity="top|right"
+                    android:layout_marginRight="@dimen/size_20"
+                    android:layout_marginTop="@dimen/size_20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/badge_icon" />
+            </FrameLayout>
     </LinearLayout>
 </LinearLayout>

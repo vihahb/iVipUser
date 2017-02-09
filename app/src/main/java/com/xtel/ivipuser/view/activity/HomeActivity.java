@@ -64,6 +64,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         presenter = new HomePresenter(this);
 //        presenter.onGetUserNip();
         mContext = HomeActivity.this;
+        presenter.onGetUserNip();
         initView();
         initNavigation();
         initNavigationWidget();

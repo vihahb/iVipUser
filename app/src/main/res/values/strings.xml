@@ -82,4 +82,20 @@
     <string name="text">Chương trình khuyến mại: "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại.</string>
     <string name="text_location">Địa bàn(Phạm vi) khuyến mại: Toàn quốc</string>
     <string name="qr_reward"><u>Nhập mã QR</u></string>
+
+    <!-- Error code -->
+    <string name="no_connection">Không có kết nối</string>
+    <string name="no_name">Chưa có tên</string>
+    <string name="no_phone">Chưa có số điện thoại</string>
+    <string name="no_address">Chưa có địa chỉ</string>
+    <string name="no_birth_day">Chưa có thông tin</string>
+    <string name="no_rank">Chưa có cấp bậc</string>
+    <string name="no_reg_date">Chưa có thông tin đăng ký</string>
+    <string name="no_score">Chưa có điểm thưởng</string>
+
+    <array name="gender_profile">
+        <item>Nữ</item>
+        <item>Nam</item>
+        <item>Khác</item>
+    </array>
 </resources>

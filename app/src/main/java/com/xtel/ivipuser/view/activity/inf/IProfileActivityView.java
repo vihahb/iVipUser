@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.xtel.ivipuser.model.entity.Profile;
-import com.xtel.ivipuser.model.entity.RESP_Profile;
+import com.xtel.ivipuser.model.entity.UserInfo;
 
 /**
  * Created by vihahb on 1/12/2017.
@@ -25,7 +25,7 @@ public interface IProfileActivityView {
 
     void finishActivity();
 
-    void setProfileSuccess(RESP_Profile profile);
+    void setProfileSuccess(UserInfo profile);
 
     Activity getActivity();
 

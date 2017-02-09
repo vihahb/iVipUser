@@ -63,7 +63,6 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 
         rcl_shop.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerView.Adapter adapter = new AdapterRecycleShop(getActivity(), arrayList, this);
-
         rcl_shop.setAdapter(adapter);
     }
 

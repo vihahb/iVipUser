@@ -117,7 +117,7 @@
 
     <!-- TabLayout Theme -->
     <style name="TabLayout.Theme" parent="android:Widget">
-        <item name="tabBackground">@drawable/tab_background</item>
+        <item name="android:tabStripEnabled">true</item>
         <item name="tabIndicatorColor">@color/tab_selected</item>
         <item name="tabIndicatorHeight">2dp</item>
     </style>

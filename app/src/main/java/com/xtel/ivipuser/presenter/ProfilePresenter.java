@@ -2,14 +2,10 @@ package com.xtel.ivipuser.presenter;
 
 import android.util.Log;
 
-import com.xtel.ivipuser.model.LoginModel;
-import com.xtel.ivipuser.model.entity.Error;
-import com.xtel.ivipuser.model.entity.Profile;
-import com.xtel.ivipuser.model.entity.RESP_Profile;
+import com.xtel.ivipuser.model.entity.UserInfo;
 import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
-import com.xtel.nipservicesdk.LoginManager;
-import com.xtel.sdk.callback.ResponseHandle;
-import com.xtel.sdk.utils.JsonHelper;
+import com.xtel.sdk.commons.Constants;
+import com.xtel.sdk.utils.SharedPreferencesUtils;
 
 /**
  * Created by vihahb on 1/13/2017.
@@ -19,7 +15,6 @@ public class ProfilePresenter {
 
     public static final String TAG = "Profile_presenter";
 
-    Profile profile;
     private IProfileActivityView view;
     public ProfilePresenter(IProfileActivityView view) {
         this.view = view;
@@ -54,21 +49,56 @@ public class ProfilePresenter {
 //    }
 
     public void getProfileData() {
-        String session = LoginManager.getCurrentSessiong();
-        Log.e(TAG + "ses", session);
-        String url_profile = "http://124.158.5.112:9180/nipum/v1.0/g/user/info/" + session;
-        LoginModel.getInstance().getUser(url_profile, null, new ResponseHandle<RESP_Profile>(RESP_Profile.class) {
-            @Override
-            public void onSuccess(RESP_Profile obj) {
-                Log.d(TAG + "succ", JsonHelper.toJson(obj));
-                view.setProfileSuccess(obj);
-            }
+//        String session = LoginManager.getCurrentSession();
+//        Log.e(TAG + "ses", session);
+//        String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_FULL;
+//        Log.e(TAG + "url", url_profile);
+//        LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Profile>(RESP_Profile.class) {
+//            @Override
+//            public void onSuccess(RESP_Profile obj) {
+//                Log.d(TAG + "succ", JsonHelper.toJson(obj));
+//                view.setProfileSuccess(obj);
+//            }
+//
+//            @Override
+//            public void onError(Error error) {
+//                Log.e(TAG + "err", error.getMessage());
+//            }
+//        });
 
-            @Override
-            public void onError(Error error) {
-                Log.e(TAG + "err", error.getMessage());
-            }
-        });
+        String full_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
+        int gender = SharedPreferencesUtils.getInstance().getIntValue(Constants.PROFILE_GENDER);
+        long birth_day = SharedPreferencesUtils.getInstance().getLongValue(Constants.PROFILE_BIRTH_DAY);
+        String email = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_EMAIL);
+        String phone_number = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_PHONE_NUM);
+        String address = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_ADDRESS);
+        String avatar = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_AVATAR);
+        String qr_code = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_QR_CODE);
+        String bar_code = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_BAR_CODE);
+        int status = SharedPreferencesUtils.getInstance().getIntValue(Constants.PROFILE_STATUS);
+        int general_point = SharedPreferencesUtils.getInstance().getIntValue(Constants.PROFILE_GENERAL_POINT);
+        String level = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_LEVEL);
+        long joint_date = SharedPreferencesUtils.getInstance().getLongValue(Constants.PROFILE_JOINT_DATE);
+
+        Log.e("Profile full name", full_name);
+
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setFullname(full_name);
+        userInfo.setGender(gender);
+        userInfo.setBirthday(birth_day);
+        userInfo.setEmail(email);
+        userInfo.setPhonenumber(phone_number);
+        userInfo.setAddress(address);
+        userInfo.setAvatar(avatar);
+        userInfo.setQr_code(qr_code);
+        userInfo.setBar_code(bar_code);
+        userInfo.setStatus(status);
+        userInfo.setGeneral_point(general_point);
+        userInfo.setLevel(level);
+        userInfo.setJoin_date(joint_date);
+
+        view.setProfileSuccess(userInfo);
     }
 
 }

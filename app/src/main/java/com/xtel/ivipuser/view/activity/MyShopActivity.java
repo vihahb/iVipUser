@@ -1,5 +1,6 @@
 package com.xtel.ivipuser.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.TestMyShop;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
  * Created by vivhp on 2/7/2017.
  */
 
-public class MyShopActivity extends BasicActivity {
+public class MyShopActivity extends BasicActivity implements IMyShopActivity {
 
     public RecyclerView rcl_my_shop;
     private ArrayList<TestMyShop> arr;
@@ -78,5 +80,25 @@ public class MyShopActivity extends BasicActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onItemClick(int position, TestMyShop testMyShop, View view) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return null;
     }
 }

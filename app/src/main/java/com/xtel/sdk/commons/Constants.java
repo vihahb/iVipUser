@@ -21,6 +21,28 @@ public class Constants {
     public static final String SERVER_UPLOAD = "replace to server upload image";
     public static final String RECYCLER_MODEL = "ryc_model";
 
+    public static final String SERVER_IVIP = "http://124.158.5.112:9190/ivip-u/";
+    public static final String GET_USER_IVIP_FULL = "v0.1/user?type=full";
+    public static final String GET_USER_IVIP_SORT = "v0.1/user?type=sort";
+
+
+    /**
+     * Profile Infomations
+     **/
+    public static final String PROFILE_FULL_NAME = "profile_full_name";
+    public static final String PROFILE_GENDER = "profile_gender";
+    public static final String PROFILE_BIRTH_DAY = "profile_birth_day";
+    public static final String PROFILE_EMAIL = "profile_email";
+    public static final String PROFILE_PHONE_NUM = "profile_phone";
+    public static final String PROFILE_ADDRESS = "profile_address";
+    public static final String PROFILE_AVATAR = "profile_avatar";
+    public static final String PROFILE_QR_CODE = "profile_qr";
+    public static final String PROFILE_BAR_CODE = "profile_bar";
+    public static final String PROFILE_STATUS = "profile_status";
+    public static final String PROFILE_GENERAL_POINT = "profile_general_point";
+    public static final String PROFILE_LEVEL = "profile_level";
+    public static final String PROFILE_JOINT_DATE = "profile_joint_date";
+
 
     public static String convertDate(String date) {
         String newData[] = date.split("/");

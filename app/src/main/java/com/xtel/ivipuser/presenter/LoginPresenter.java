@@ -18,7 +18,6 @@ import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.SharedUtils;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -119,7 +118,7 @@ public class LoginPresenter {
     }
 
     private String convertLong2Time(long time) {
-        Date date = new Timestamp(time);
+        Date date = new Date(time * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
         String formatTime = dateFormat.format(date);

@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.appevents.AppEventsLogger;
@@ -15,6 +16,8 @@ import com.xtel.nipservicesdk.LoginManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by vivhp on 12/28/2016.
@@ -27,6 +30,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 //        Fabric.with(this, new Crashlytics());
         context = this;
 //        FirebaseApp.initializeApp(getApplicationContext());

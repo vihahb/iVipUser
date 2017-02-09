@@ -115,6 +115,9 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/btn_facebook" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5765ba05cf4f36a9301d3a8eb9fe7c9e53ecb745" />
     </application>
 
 </manifest>

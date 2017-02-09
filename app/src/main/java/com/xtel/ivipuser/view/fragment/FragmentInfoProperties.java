@@ -175,7 +175,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         if (NetWorkInfo.isOnline(getContext())) {
             showQrCode(url);
         } else {
-            showShortToast("Không có kết nối internet");
+            showShortToast(getString(R.string.no_connection));
         }
     }
 

@@ -22,7 +22,7 @@ public class SplashScreen extends BasicActivity {
     }
 
     private void checkSession() {
-        String session = LoginManager.getCurrentSessiong();
+        String session = LoginManager.getCurrentSession();
 
         if (session == null) {
             startActivityFinish(LoginActivity.class);

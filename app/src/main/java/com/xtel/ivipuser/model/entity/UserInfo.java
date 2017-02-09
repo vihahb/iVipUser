@@ -8,50 +8,56 @@ import com.google.gson.annotations.Expose;
 
 public class UserInfo {
     @Expose
-    private String first_name;
+    private String code;
     @Expose
-    private String last_name;
+    private String qr_code;
+    @Expose
+    private String bar_code;
     @Expose
     private int gender;
     @Expose
-    private long birth_day;
-    @Expose
-    private String phone;
+    private long birthday;
     @Expose
     private String address;
     @Expose
     private String avatar;
     @Expose
     private String email;
+    @Expose
+    private String phonenumber;
+    @Expose
+    private int status;
+    @Expose
+    private int general_point;
+    @Expose
+    private String level;
+    @Expose
+    private long join_date;
+    @Expose
+    private String fullname;
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", gender=" + gender +
-                ", birth_day=" + birth_day +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public String getCode() {
+        return code;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public String getQr_code() {
+        return qr_code;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public void setQr_code(String qr_code) {
+        this.qr_code = qr_code;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public String getBar_code() {
+        return bar_code;
+    }
+
+    public void setBar_code(String bar_code) {
+        this.bar_code = bar_code;
     }
 
     public int getGender() {
@@ -62,20 +68,12 @@ public class UserInfo {
         this.gender = gender;
     }
 
-    public long getBirth_day() {
-        return birth_day;
+    public long getBirthday() {
+        return birthday;
     }
 
-    public void setBirth_day(long birth_day) {
-        this.birth_day = birth_day;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
     }
 
     public String getAddress() {
@@ -100,5 +98,73 @@ public class UserInfo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getGeneral_point() {
+        return general_point;
+    }
+
+    public void setGeneral_point(int general_point) {
+        this.general_point = general_point;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public long getJoin_date() {
+        return join_date;
+    }
+
+    public void setJoin_date(long join_date) {
+        this.join_date = join_date;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "code='" + code + '\'' +
+                ", qr_code='" + qr_code + '\'' +
+                ", bar_code='" + bar_code + '\'' +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", email='" + email + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", status=" + status +
+                ", general_point=" + general_point +
+                ", level='" + level + '\'' +
+                ", join_date=" + join_date +
+                ", fullname='" + fullname + '\'' +
+                '}';
     }
 }

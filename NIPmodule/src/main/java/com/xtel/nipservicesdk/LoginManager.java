@@ -14,7 +14,7 @@ public class LoginManager {
         MyApplicationNip.context = context;
     }
 
-    public static String getCurrentSessiong() {
+    public static String getCurrentSession() {
         return LoginModel.getInstance().getSessiong();
     }
 

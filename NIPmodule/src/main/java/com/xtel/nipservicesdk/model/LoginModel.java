@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.commons.Constants;
@@ -85,6 +86,7 @@ public class LoginModel extends BasicModel {
             loginNipModel.setAccountType("EMAIL");
         }
         loginNipModel.setDevInfo(DeviceInfo.getDeviceObject());
+        Log.e("login nip_1", JsonHelper.toJson(loginNipModel));
         String request = JsonHelper.toJson(loginNipModel);
         requestServer.postApi(url_login, JsonHelper.toJson(loginNipModel), null, responseHandle);
     }

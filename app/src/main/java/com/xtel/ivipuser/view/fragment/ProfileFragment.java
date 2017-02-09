@@ -12,21 +12,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipuser.R;
 import com.xtel.ivipuser.model.entity.Profile;
-import com.xtel.ivipuser.model.entity.RESP_Profile;
 import com.xtel.ivipuser.model.entity.UserInfo;
 import com.xtel.ivipuser.presenter.ProfilePresenter;
 import com.xtel.ivipuser.view.activity.LoginActivity;
 import com.xtel.ivipuser.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipuser.view.widget.RoundImage;
+import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.SharedUtils;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,24 +40,18 @@ import java.util.TimeZone;
 public class ProfileFragment extends BasicFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, IProfileActivityView {
 
     public static final String TAG = "Profile frag ";
-    public static String[] gender_spinner = {"Nam", "Nữ", "Khác"};
+    public static String[] gender_spinner;
     public UserInfo userInfo;
     ProfilePresenter presenter;
     private TextView tv_name, tv_date_reg, tv_score, tv_rank;
     private EditText edt_name, edt_phone, edt_address, edt_birth;
     private Button btn_Logout;
     private RoundImage img_avatar;
+    private ImageView img_cover;
+    private LinearLayout cover_avatar;
     private Spinner sp_gender;
     private ArrayAdapter<String> arr_gender;
     private DatePickerDialog pickerDialog;
-
-    public static String convertLong2Time(long time) {
-        Date date = new Timestamp(time);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
-        String formatTime = dateFormat.format(date);
-        return formatTime;
-    }
 
     //    Profile profile;
     @Nullable
@@ -74,6 +69,17 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
                 .centerCrop()
                 .into(imageView);
     }
+
+    private void setImageResource(String url, ImageView imageView) {
+        Picasso.with(getContext())
+                .load(url)
+                .placeholder(R.drawable.ic_action_name)
+                .error(R.drawable.ic_action_name)
+                .fit()
+                .centerCrop()
+                .into(imageView);
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -97,6 +103,9 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         img_avatar = (RoundImage) view.findViewById(R.id.img_avatar_profile);
         btn_Logout = (Button) view.findViewById(R.id.btn_Logout);
 
+        img_cover = (ImageView) view.findViewById(R.id.profile_cover);
+        cover_avatar = (LinearLayout) view.findViewById(R.id.cover_avatar);
+
         sp_gender = (Spinner) view.findViewById(R.id.sp_gender);
 
         btn_Logout.setOnClickListener(this);
@@ -112,6 +121,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     private void initSpinner() {
+        gender_spinner = getActivity().getResources().getStringArray(R.array.gender_profile);
         arr_gender = new ArrayAdapter<String>(getContext(), R.layout.spinner_custom_view_simple, gender_spinner);
         arr_gender.setDropDownViewResource(R.layout.spinner_custom_drop_down_simple);
         sp_gender.setAdapter(arr_gender);
@@ -138,6 +148,20 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         } else if (id == R.id.edt_birthday_profile) {
             setTime();
         }
+    }
+
+    private String convertLong2Time(long time) {
+//        long time_set = time * 10000;
+//        Date date = new Timestamp(time_set);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
+//        String formatTime = dateFormat.format(date);
+
+        Date date = new Date(time * 1000L);
+        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd");
+        formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        String formattedDate = formatTime.format(date);
+        return formattedDate;
     }
 
     @Override
@@ -176,63 +200,132 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     @Override
-    public void setProfileSuccess(RESP_Profile profile) {
-        Log.e(TAG + "get user", profile.toString());
-        userInfo = profile.getUserInfo();
-        setDataProfile(userInfo);
+    public void setProfileSuccess(UserInfo profile) {
+        Log.e("Fragment User info", JsonHelper.toJson(profile));
+        setDataProfile(profile);
     }
 
     private void setDataProfile(UserInfo userInfo) {
-        String f_name = userInfo.getFirst_name();
-        String l_name = userInfo.getLast_name();
-        String full_name;
-        if (f_name != null && l_name != null) {
-            full_name = f_name + " " + l_name;
-            edt_name.setText(full_name);
-            tv_name.setText(full_name);
-        } else {
-            full_name = " Chưa có tên";
-            edt_name.setText(full_name);
-            tv_name.setText(full_name);
+        setName(userInfo);
+
+        setPhone(userInfo);
+
+        setAddress(userInfo);
+
+        setGender(userInfo);
+
+        setBirthDay(userInfo);
+
+        setAvatar(userInfo);
+
+        setJointDate(userInfo);
+
+        setGeneralScore(userInfo);
+
+        setLevel(userInfo);
+
+        setCover(userInfo);
+    }
+
+    private void setCover(UserInfo userInfo) {
+        String avatar = userInfo.getAvatar();
+        if (avatar != null) {
+            setImageResource(avatar, img_cover);
+
         }
+    }
 
-
-        String phone_number = userInfo.getPhone();
-        if (phone_number != null) {
-            edt_phone.setText(phone_number);
+    private void setLevel(UserInfo userInfo) {
+        String rank = userInfo.getLevel();
+        if (rank != null) {
+            tv_rank.setText("Xếp hạng: " + rank);
         } else {
-            phone_number = "Chưa có số điện thoại";
-            edt_phone.setText(phone_number);
+            rank = "Chưa có cấp độ";
+            tv_rank.setText(rank);
         }
+    }
 
-        String address = userInfo.getAddress();
-        if (address != null) {
-            edt_address.setText(address);
+    private void setGeneralScore(UserInfo userInfo) {
+        String score = String.valueOf(userInfo.getGeneral_point());
+        if (score != null) {
+            tv_score.setText("Điểm thưởng: " + score);
         } else {
-            address = "Chưa có địa chỉ";
-            edt_address.setText(address);
+            score = "Chưa có điểm thưởng";
+            tv_score.setText(score);
         }
+    }
 
+    private void setJointDate(UserInfo userInfo) {
+        String date_reg = convertLong2Time(userInfo.getJoin_date());
+        Log.e("Time joint: ", date_reg);
+        if (date_reg != null) {
+            tv_date_reg.setText("Ngày đăng ký: " + date_reg);
+        } else {
+            date_reg = "Ngày đăng ký: Chưa có thông tin";
+            tv_date_reg.setText(date_reg);
+        }
+    }
+
+    private void setAvatar(UserInfo userInfo) {
+        String avatar = userInfo.getAvatar();
+        if (avatar != null) {
+            setResource(avatar, img_avatar);
+        }
+    }
+
+    private void setBirthDay(UserInfo userInfo) {
+        long date_time = userInfo.getBirthday();
+        String date_birth = convertLong2Time(userInfo.getBirthday());
+        if (date_time != 0) {
+
+        }
+        if (date_birth != null && date_birth != "0") {
+            edt_birth.setText(date_birth);
+        } else {
+            date_birth = getActivity().getResources().getString(R.string.no_birth_day);
+            edt_birth.setText(date_birth);
+        }
+        Log.e("birth day: ", date_birth);
+    }
+
+    private void setGender(UserInfo userInfo) {
         int gender = userInfo.getGender();
         if (gender >= 0) {
             setSpinnerGender(gender);
         } else {
             setSpinnerGender(3);
         }
+    }
 
-        long birth_day = userInfo.getBirth_day();
-        String date_birth;
-        if (birth_day >= 0) {
-            date_birth = convertLong2Time(birth_day);
-            edt_birth.setText(date_birth);
+    private void setAddress(UserInfo userInfo) {
+        String address = userInfo.getAddress();
+        if (address != null) {
+            edt_address.setText(address);
         } else {
-            date_birth = "Chưa có thông tin";
-            edt_birth.setText(date_birth);
+            address = getActivity().getResources().getString(R.string.no_address);
+            edt_address.setText(address);
         }
+    }
 
-        String ava = userInfo.getAvatar();
-        if (ava != null) {
-            setResource(ava, img_avatar);
+    private void setPhone(UserInfo userInfo) {
+        String phone_number = userInfo.getPhonenumber();
+        if (phone_number != null) {
+            edt_phone.setText(phone_number);
+        } else {
+            phone_number = getActivity().getResources().getString(R.string.no_phone);
+            edt_phone.setText(phone_number);
+        }
+    }
+
+    private void setName(UserInfo userInfo) {
+        String full_name = userInfo.getFullname();
+        if (full_name != null) {
+            edt_name.setText(full_name);
+            tv_name.setText(full_name);
+        } else {
+            full_name = getActivity().getResources().getString(R.string.no_name);
+            edt_name.setText(full_name);
+            tv_name.setText(full_name);
         }
     }
 
@@ -248,54 +341,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         pickerDialog.show();
     }
-
-
-//    @Override
-//    public void setProfileSuccess(Profile profile) {
-//        Log.e("Profile model", profile.toString());
-//        setData(
-//                profile.getRank(),
-//                profile.getDate_reg(),
-//                profile.getScore(),
-//                profile.getFirst_name(),
-//                profile.getLast_name(),
-//                profile.getGender(),
-//                profile.getBirth_day(),
-//                profile.getPhone(),
-//                profile.getAddress(),
-//                profile.getAvatar(),
-//                profile.getEmail()
-//        );
-//    }
-
-//    private void setData(String rank, String date_reg, int score, String f_name, String l_name, int gender, long birDay, String phone, String address, String avatar, String email) {
-//
-//        Log.e("set profile",
-//                rank + ","
-//                        + date_reg + ", "
-//                        + score + ", "
-//                        + f_name + ", "
-//                        + l_name + ", "
-//                        + gender + ", "
-//                        + birDay + ", "
-//                        + phone + ", "
-//                        + address + ", "
-//                        + avatar + ", "
-//                        + email);
-//        String full_name = f_name + " " + l_name;
-//        String time_birth = convertLong2Time(birDay);
-//        edt_name.setText(full_name);
-//        edt_phone.setText(phone);
-//        edt_birth.setText(time_birth);
-//        edt_address.setText(address);
-//
-//        tv_rank.setText("Rank: " + rank);
-//        tv_score.setText("Score: " + String.valueOf(score));
-//        tv_date_reg.setText("Date register: " + date_reg);
-//        tv_name.setText(full_name);
-//        setResource(avatar, img_avatar);
-//        setSpinnerGender(gender);
-//    }
 
     @Override
     public void finishActivityBeforeStartActivity(Class clazz) {

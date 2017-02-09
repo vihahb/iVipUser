@@ -12,7 +12,6 @@ import com.xtel.ivipuser.model.entity.TestMyShop;
 public interface IMyShopActivity {
 
     void onSuccess();
-
     void onError();
 
     void onItemClick(int position, TestMyShop testMyShop, View view);
