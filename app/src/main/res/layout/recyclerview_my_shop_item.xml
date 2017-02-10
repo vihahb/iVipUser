@@ -24,7 +24,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/size_16">
 
                     <TextView
                         android:id="@+id/tv_my_score"
@@ -49,7 +50,7 @@
                         android:layout_width="@dimen/size_40"
                         android:layout_height="@dimen/size_40"
                         android:layout_gravity="center_vertical|center_horizontal"
-                        android:layout_marginTop="@dimen/size_8"
+                        android:layout_marginTop="@dimen/size_16"
                         android:src="@drawable/ic_action_eye" />
                 </LinearLayout>
             </FrameLayout>
@@ -98,7 +99,7 @@
                     </FrameLayout>
                 </FrameLayout>
 
-                <com.xtel.ivipuser.view.widget.RoundImage
+                <com.xtel.ivipu.view.widget.RoundImage
                     android:id="@+id/img_content_brand"
                     android:layout_width="@dimen/size_56"
                     android:layout_height="@dimen/size_56"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bgr_app"
     android:fitsSystemWindows="true"
-    tools:context="com.xtel.ivipuser.view.activity.ActivityInfoContent">
+    tools:context="com.xtel.ivipu.view.activity.ActivityInfoContent">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,7 +10,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
-import com.xtel.ivipuser.R;
+import com.xtel.ivipu.R;
 
 /**
  * Created by vihahb on 1/13/2017.

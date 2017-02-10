@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.xtel.ivipuser.view.MyApplication;
+import com.xtel.ivipu.view.MyApplication;
 import com.xtel.sdk.commons.Constants;
 
 

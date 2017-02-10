@@ -58,7 +58,9 @@
     <string name="action_reactive">Xác thực lại</string>
     <string name="action_reset">Đổi mật khẩu</string>
     <string name="action_reg">Đăng ký</string>
-
+    <string name="try_again">Chạm để thử lại</string>
+    <string name="loading_data">Đang tải dữ liệu</string>
+    <string name="updated_data">Cập nhật thành công</string>
 
     <!-- Message App -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -85,6 +87,7 @@
 
     <!-- Error code -->
     <string name="no_connection">Không có kết nối</string>
+    <string name="no_content">Không có dữ liệu</string>
     <string name="no_name">Chưa có tên</string>
     <string name="no_phone">Chưa có số điện thoại</string>
     <string name="no_address">Chưa có địa chỉ</string>
@@ -92,6 +95,8 @@
     <string name="no_rank">Chưa có cấp bậc</string>
     <string name="no_reg_date">Chưa có thông tin đăng ký</string>
     <string name="no_score">Chưa có điểm thưởng</string>
+    <string name="update">Update</string>
+    <string name="no_internet">Không có kết nối internet</string>
 
     <array name="gender_profile">
         <item>Nữ</item>

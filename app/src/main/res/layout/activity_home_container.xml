@@ -7,7 +7,7 @@
     android:background="@mipmap/bgr_app"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.xtel.ivipuser.view.activity.HomeActivity">
+    tools:context="com.xtel.ivipu.view.activity.HomeActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

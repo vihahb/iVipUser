@@ -26,6 +26,7 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/color_canvas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/item_background_5" />
@@ -171,7 +172,7 @@
             android:layout_marginStart="@dimen/size_16"
             android:layout_marginTop="@dimen/size_2">
 
-            <com.xtel.ivipuser.view.widget.RoundImage
+            <com.xtel.ivipu.view.widget.RoundImage
                 android:id="@+id/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

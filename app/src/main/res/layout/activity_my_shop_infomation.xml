@@ -49,7 +49,7 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.xtel.ivipuser.view.widget.RoundImage
+    <com.xtel.ivipu.view.widget.RoundImage
         android:id="@+id/store_info"
         android:layout_width="@dimen/size_70"
         android:layout_height="@dimen/size_70"

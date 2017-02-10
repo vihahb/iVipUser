@@ -41,7 +41,7 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <com.xtel.ivipuser.view.widget.RoundImage
+    <com.xtel.ivipu.view.widget.RoundImage
         android:id="@+id/store_info.fab_add"
         android:layout_width="@dimen/size_48"
         android:layout_height="@dimen/size_48"

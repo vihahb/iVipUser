@@ -25,7 +25,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin">
 
-                <com.xtel.ivipuser.view.widget.RoundImage
+                <com.xtel.ivipu.view.widget.RoundImage
                     android:id="@+id/img_avatar_profile"
                     android:layout_width="@dimen/size_80"
                     android:layout_height="@dimen/size_80"
@@ -353,7 +353,7 @@
     <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
     <!--android:paddingRight="@dimen/activity_horizontal_margin">-->
 
-    <!--<com.xtel.ivipuser.view.widget.RoundImage-->
+    <!--<ivipuew.widget.RoundImage-->
     <!--android:id="@+id/img_avatar_profile"-->
     <!--android:layout_width="@dimen/size_80"-->
     <!--android:layout_height="@dimen/size_80"-->
@@ -486,7 +486,7 @@
     <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
     <!--android:paddingTop="@dimen/activity_vertical_margin">-->
 
-    <!--<com.xtel.ivipuser.view.widget.RoundImage-->
+    <!--<ivipuew.widget.RoundImage-->
     <!--android:id="@+id/img_avatar_profile"-->
     <!--android:layout_width="@dimen/size_80"-->
     <!--android:layout_height="@dimen/size_80"-->

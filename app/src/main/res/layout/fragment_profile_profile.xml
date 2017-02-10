@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bgr_app"
@@ -50,13 +52,39 @@
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingTop="@dimen/activity_vertical_margin">
 
-                    <com.xtel.ivipuser.view.widget.RoundImage
-                        android:id="@+id/img_avatar_profile"
-                        android:layout_width="@dimen/size_80"
-                        android:layout_height="@dimen/size_80"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_90"
                         android:layout_marginBottom="@dimen/size_10"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_launcher" />
+                        android:gravity="center_horizontal">
+
+                        <com.xtel.ivipu.view.widget.RoundImage
+                            android:id="@+id/img_avatar_profile"
+                            android:layout_width="@dimen/size_80"
+                            android:layout_height="@dimen/size_80"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <FrameLayout
+                            android:layout_width="@dimen/size_30"
+                            android:layout_height="@dimen/size_30"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="-30dp"
+                            android:layout_marginTop="@dimen/size_30"
+                            android:background="@drawable/bg_red_selecter"
+                            app:elevation="@dimen/size_8"
+                            tool:ignore="UnusedAttribute">
+
+                            <ImageView
+                                android:id="@+id/img_profile_change_avatar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/size_8"
+                                android:elevation="@dimen/size_8"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/ic_photo_camera_white" />
+                        </FrameLayout>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_username"
@@ -350,6 +378,52 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:padding="@dimen/size_16"
+                                android:src="@mipmap/ic_update" />
+
+                            <View
+                                android:layout_width="@dimen/size_1"
+                                android:layout_height="@dimen/size_48"
+                                android:layout_gravity="right"
+                                android:background="@android:color/white" />
+                        </FrameLayout>
+
+                        <Button
+                            android:id="@+id/btn_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_48"
+                            android:background="@drawable/button_transparent"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/size_60"
+                            android:text="Cập nhật"
+                            android:textColor="@color/colorAccent" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_1"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/size_4"
+                            android:layout_marginRight="@dimen/size_4"
+                            android:background="@android:color/white" />
+                    </FrameLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <FrameLayout
+                            android:layout_width="@dimen/size_48"
+                            android:layout_height="@dimen/size_48">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/size_16"
                                 android:src="@mipmap/logout" />
 
                             <View
@@ -365,7 +439,7 @@
                             android:background="@drawable/button_transparent"
                             android:gravity="left|center_vertical"
                             android:paddingLeft="@dimen/size_60"
-                            android:text="Logout"
+                            android:text="Đăng xuất"
                             android:textColor="@color/colorAccent" />
 
                         <View

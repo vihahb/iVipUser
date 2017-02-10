@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.xtel.ivipuser.R;
+import com.xtel.ivipu.R;
 
 /**
  * Created by Vũ Hà Vi on 10/26/2016.

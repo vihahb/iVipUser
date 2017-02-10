@@ -3,9 +3,9 @@ package com.xtel.sdk.callback;
 
 import android.util.Log;
 
-import com.xtel.ivipuser.model.BasicModels;
-import com.xtel.ivipuser.model.entity.Error;
-import com.xtel.ivipuser.model.entity.RESP_Basic;
+import com.xtel.ivipu.model.BasicModels;
+import com.xtel.ivipu.model.entity.Error;
+import com.xtel.ivipu.model.entity.RESP_Basic;
 import com.xtel.sdk.utils.JsonHelper;
 
 import java.io.IOException;

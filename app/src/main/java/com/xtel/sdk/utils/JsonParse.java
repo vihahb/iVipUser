@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xtel.ivipuser.R;
-import com.xtel.ivipuser.model.entity.Error;
-import com.xtel.ivipuser.view.MyApplication;
+import com.xtel.ivipu.R;
+import com.xtel.ivipu.model.entity.Error;
+import com.xtel.ivipu.view.MyApplication;
 import com.xtel.sdk.commons.Constants;
 
 import org.json.JSONObject;

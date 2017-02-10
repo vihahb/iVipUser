@@ -16,12 +16,13 @@ public class MyFirebaseinstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "MyFirebaseInstanceIDService";
 
     @SuppressLint("LongLogTag")
-    @Override
     public void onTokenRefresh() {
         //Get update token
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.e(TAG, "new token " + refreshedToken);
+        Log.e(TAG, "FCM Device Token: " + refreshedToken);
+    }
 
-
+    private void sendRegistrationToServer(String token) {
+        //Implement this method if you want to store the token on your server
     }
 }

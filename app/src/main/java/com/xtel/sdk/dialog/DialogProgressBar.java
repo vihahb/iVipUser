@@ -3,7 +3,7 @@ package com.xtel.sdk.dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.xtel.ivipuser.R;
+import com.xtel.ivipu.R;
 
 /**
  * Created by Vũ Hà Vi on 11/10/2016.

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 
-import com.xtel.ivipuser.R;
+import com.xtel.ivipu.R;
 import com.xtel.sdk.dialog.BadgetItemCount;
 
 /**
