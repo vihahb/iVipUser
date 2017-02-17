@@ -29,6 +29,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     private ActionBar actionBar;
     private Toolbar toolbar;
     private TabLayout tabLayout;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,21 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
+        } else if (id == R.id.action_update) {
+            ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag("PROFILE");
+            if (fragment != null) {
+                fragment.onEnableView();
+            }
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(true);
+        } else if (id == R.id.action_update_done) {
+            ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag("PROFILE");
+            if (fragment != null) {
+                fragment.onDisableView();
+                fragment.checkNetwork(this, 1);
+            }
+            menu.getItem(0).setVisible(true);
+            menu.getItem(1).setVisible(false);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -124,16 +140,23 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public void updateProfileSucc() {
-
     }
 
     @Override
-    public void onPostPictureSuccess(String url) {
+    public void onPostPictureSuccess(String url, String server_path) {
 
     }
 
     @Override
     public void onPostPictureError(String mes) {
+    }
+
+    @Override
+    public void onEnableView() {
+    }
+
+    @Override
+    public void onDisableView() {
 
     }
 
@@ -150,6 +173,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
@@ -170,21 +194,28 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
                 replaceFragment(R.id.detail_frame, new ProfileFragment(), "PROFILE");
                 renameToolbar(R.string.nav_Profile);
                 showShortToast("Profile");
+                menu.getItem(0).setVisible(true);
                 break;
             case 1:
                 replaceFragment(R.id.detail_frame, new HistoryFragment(), "HISTORY");
                 renameToolbar(R.string.nav_history);
                 showShortToast("History");
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
                 break;
             case 2:
                 replaceFragment(R.id.detail_frame, new FavoriteFragment(), "FAVORITE");
                 renameToolbar(R.string.nav_favorite);
                 showShortToast("Favorite");
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
                 break;
             case 3:
                 replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
                 renameToolbar(R.string.nav_notify);
                 showShortToast("Notify");
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
                 break;
             default:
                 break;
@@ -196,7 +227,8 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         try {
             data = getIntent().getStringExtra("notification");
             if (data.equals("1")) {
-                replaceNotify();
+//                replaceNotify();
+                replaceDefaultFragment();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,12 +238,12 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
             replaceDefaultFragment();
     }
 
-    public void replaceNotify() {
-//        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
-//        renameToolbar(R.string.nav_notify);
-        tabLayout.getTabAt(3).select();
-//        bottomNavigationView.getMenu().getItem(3).setCheckable(true);
-    }
+//    public void replaceNotify() {
+////        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+////        renameToolbar(R.string.nav_notify);
+//        tabLayout.getTabAt(3).select();
+////        bottomNavigationView.getMenu().getItem(3).setCheckable(true);
+//    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {

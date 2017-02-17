@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -68,9 +69,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     String time_set;
     private TextView tv_name, tv_date_reg, tv_score, tv_rank;
     private EditText edt_name, edt_phone, edt_address, edt_birth;
-    private Button btn_Logout, btn_Update;
+    private Button btn_Logout;
     private RoundImage img_avatar;
     private ImageView img_cover, img_profile_change_avatar;
+    private FrameLayout fr_change_avatar;
     private LinearLayout cover_avatar;
     private Spinner sp_gender;
     private ArrayAdapter<String> arr_gender;
@@ -129,7 +131,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         img_avatar = (RoundImage) view.findViewById(R.id.img_avatar_profile);
         img_profile_change_avatar = (ImageView) view.findViewById(R.id.img_profile_change_avatar);
         btn_Logout = (Button) view.findViewById(R.id.btn_Logout);
-        btn_Update = (Button) view.findViewById(R.id.btn_update);
+
+        fr_change_avatar = (FrameLayout) view.findViewById(R.id.fr_change_avatar);
 
         img_cover = (ImageView) view.findViewById(R.id.profile_cover);
         cover_avatar = (LinearLayout) view.findViewById(R.id.cover_avatar);
@@ -137,13 +140,14 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         sp_gender = (Spinner) view.findViewById(R.id.sp_gender);
 
         btn_Logout.setOnClickListener(this);
-        btn_Update.setOnClickListener(this);
+        img_avatar.setOnClickListener(this);
         img_profile_change_avatar.setOnClickListener(this);
+        fr_change_avatar.setOnClickListener(this);
         initSpinner();
 //        presenter.setProfile();
         presenter.getProfileData();
-
         initOnclick();
+        onDisableView();
     }
 
     private void initOnclick() {
@@ -178,12 +182,14 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             finishActivityBeforeStartActivity(LoginActivity.class);
         } else if (id == R.id.edt_birthday_profile) {
             setTime();
-        } else if (id == R.id.btn_update) {
-            checkNetwork(getContext(), 1);
         } else if (id == R.id.img_profile_change_avatar) {
             checkNetwork(getContext(), 2);
             showShortToast("Image Clicked");
             Log.e("Click Image", "Click image");
+        } else if (id == R.id.fr_change_avatar) {
+            checkNetwork(getContext(), 2);
+        } else if (id == R.id.img_avatar_profile) {
+            checkNetwork(getContext(), 2);
         }
     }
 
@@ -194,7 +200,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
 //        String formatTime = dateFormat.format(date);
         Date date = new Date(time * 1000);
-        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatTime = new SimpleDateFormat("dd-MM-yyyy");
         formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         String formattedDate = formatTime.format(date);
         return formattedDate;
@@ -256,12 +262,15 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     @Override
     public void updateProfileSucc() {
-        showShortToast(getString(R.string.updated_data));
+        showShortToast(getActivity().getString(R.string.updated_data));
     }
 
     @Override
-    public void onPostPictureSuccess(String url) {
+    public void onPostPictureSuccess(String url, String server_path) {
+        onUpdateAvatar(server_path);
         setResource(url, img_avatar);
+        closeProgressBar();
+
     }
 
     private void onTakePictureGallary(Uri uri) {
@@ -345,6 +354,25 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     @Override
     public void onPostPictureError(String mes) {
         showShortToast(mes);
+        closeProgressBar();
+    }
+
+    @Override
+    public void onEnableView() {
+        edt_name.setEnabled(true);
+        edt_address.setEnabled(true);
+        edt_birth.setEnabled(true);
+        edt_phone.setEnabled(true);
+        sp_gender.setEnabled(true);
+    }
+
+    @Override
+    public void onDisableView() {
+        edt_name.setEnabled(false);
+        edt_address.setEnabled(false);
+        edt_birth.setEnabled(false);
+        edt_phone.setEnabled(false);
+        sp_gender.setEnabled(false);
     }
 
     private void setDataProfile(UserInfo userInfo) {
@@ -422,7 +450,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             edt_birth.setText(date_birth);
         } else {
             date_birth = getActivity().getResources().getString(R.string.no_birth_day);
-            edt_birth.setText(date_birth);
+            edt_birth.setHint(date_birth);
         }
         Log.e("birth day: ", date_birth);
         time_get = date_birth;
@@ -443,7 +471,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             edt_address.setText(address);
         } else {
             address = getActivity().getResources().getString(R.string.no_address);
-            edt_address.setText(address);
+            edt_address.setHint(address);
         }
     }
 
@@ -453,17 +481,17 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             edt_phone.setText(phone_number);
         } else {
             phone_number = getActivity().getResources().getString(R.string.no_phone);
-            edt_phone.setText(phone_number);
+            edt_phone.setHint(phone_number);
         }
     }
 
     private void setName(UserInfo userInfo) {
         String full_name = userInfo.getFullname();
-        if (full_name != null) {
-            edt_name.setText(full_name);
+        if (full_name == null || full_name.equals("")) {
+            full_name = "Chưa có thông tin";
+            edt_name.setHint(full_name);
             tv_name.setText(full_name);
         } else {
-            full_name = getActivity().getResources().getString(R.string.no_name);
             edt_name.setText(full_name);
             tv_name.setText(full_name);
         }
@@ -471,7 +499,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     private void setTime() {
         Calendar calendar = Calendar.getInstance();
-        DateFormat dateFormat_time = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat_time = new SimpleDateFormat("dd-MM-yyyy");
         int Days, months, years;
         if (!time_get.equals(getActivity().getResources().getString(R.string.no_birth_day))) {
             try {
@@ -492,7 +520,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
                 R.style.TimePicker, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String time_change = year + "-" + (month + 1) + "-" + dayOfMonth;
+                String time_change = dayOfMonth + "-" + (month + 1) + "-" + year;
                 Log.e("Time set", time_change);
                 edt_birth.setText(time_change);
                 time_set = time_change;
@@ -555,8 +583,15 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         setDataProfile(userInfo);
     }
 
+    private void onUpdateAvatar(String server_path) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setAvatar(server_path);
+        Log.e("Test object request", userInfo.toString());
+        presenter.setData(userInfo);
+    }
+
     private long convertTime2Unix(String date_time) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             date = dateFormat.parse(date_time);
         } catch (ParseException e) {
@@ -567,7 +602,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         return unixTime;
     }
 
-    private void checkNetwork(final Context context, int type) {
+    public void checkNetwork(final Context context, int type) {
         if (!NetWorkInfo.isOnline(context)) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.TimePicker);
             dialog.setTitle("Kết nối không thành công");

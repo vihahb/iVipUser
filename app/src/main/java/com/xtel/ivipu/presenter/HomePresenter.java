@@ -3,14 +3,17 @@ package com.xtel.ivipu.presenter;
 import android.util.Log;
 
 import com.xtel.ivipu.model.LoginModel;
-import com.xtel.ivipu.model.entity.Error;
 import com.xtel.ivipu.model.entity.RESP_Profile;
+import com.xtel.ivipu.model.entity.RESP_Short;
 import com.xtel.ivipu.view.activity.inf.IHome;
+import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
+import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.RESP_Login;
+import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
-import com.xtel.sdk.callback.ResponseHandle;
 import com.xtel.sdk.commons.Constants;
-import com.xtel.sdk.utils.JsonHelper;
 import com.xtel.sdk.utils.SharedPreferencesUtils;
 
 /**
@@ -18,7 +21,7 @@ import com.xtel.sdk.utils.SharedPreferencesUtils;
  */
 
 public class HomePresenter {
-
+    private int new_notifycation = 0;
     private IHome view;
     private String TAG = "Home presenter";
 
@@ -71,9 +74,45 @@ public class HomePresenter {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                 Log.e(TAG + "err", error.getMessage());
                 view.showShortToast(parseMessage(error.getCode()));
+            }
+        });
+    }
+
+    public void onGetShortUser() {
+        String session = LoginManager.getCurrentSession();
+        String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_SORT;
+        Log.e(TAG + "url", url_profile);
+
+        LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Short>(RESP_Short.class) {
+            @Override
+            public void onSuccess(RESP_Short obj) {
+                int notification = obj.getNew_notify();
+                Log.e("New notification", String.valueOf(notification));
+                view.getShortUser(obj);
+            }
+
+            @Override
+            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                int code_err = error.getCode();
+                if (code_err == 2) {
+                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                        @Override
+                        public void onSuccess(RESP_Login success) {
+                            onGetShortUser();
+                        }
+
+                        @Override
+                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                            int code = error.getCode();
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                        }
+                    });
+                } else {
+                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
+                }
             }
         });
     }

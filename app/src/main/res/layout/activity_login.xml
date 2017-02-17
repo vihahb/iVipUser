@@ -82,7 +82,7 @@
                     android:paddingRight="@dimen/size_10"
                     android:singleLine="true"
                     android:text="@string/action_login_with"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/font_18" />
 
                 <View
@@ -130,7 +130,7 @@
                         android:id="@+id/btn_phone_login"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/size_48"
-                        android:background="@color/btn_login"
+                        android:background="@drawable/btn_login_phone"
                         android:elevation="0dp"
                         android:gravity="center"
                         android:text="Số điện thoại"

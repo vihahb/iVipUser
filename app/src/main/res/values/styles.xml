@@ -78,6 +78,21 @@
         <item name="android:windowExitAnimation">@anim/popup_hide</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Scanner_TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/size_16</item>
+        <item name="android:paddingRight">@dimen/size_16</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
     <!-- AccountKit -->
     <style name="AppLoginTheme" parent="Theme.AccountKit">
         <item name="android:fitsSystemWindows">true</item>
@@ -132,5 +147,11 @@
         <item name="android:ellipsize">end</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Rating bar style -->
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rating_none</item>
+        <item name="colorControlActivated">@color/rating_checked</item>
     </style>
 </resources>

@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
  * Created by vivhp on 2/8/2017.
  */
 
-public class RESP_Profile extends RESP_Basic {
+public class RESP_Profile extends com.xtel.nipservicesdk.model.entity.RESP_Basic {
 
     @Expose
     private String code;

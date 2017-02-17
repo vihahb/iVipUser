@@ -1,6 +1,6 @@
 package com.xtel.ivipu.model;
 
-import com.xtel.sdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.callback.ResponseHandle;
 
 /**
  * Created by vivhp on 1/28/2017.

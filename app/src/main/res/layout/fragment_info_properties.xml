@@ -51,8 +51,8 @@
 
     <com.xtel.ivipu.view.widget.RoundImage
         android:id="@+id/store_info"
-        android:layout_width="@dimen/size_70"
-        android:layout_height="@dimen/size_70"
+        android:layout_width="@dimen/size_84"
+        android:layout_height="@dimen/size_84"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@null"
         android:src="@mipmap/user_demo"

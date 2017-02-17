@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/size_36"
     card_view:cardBackgroundColor="@android:color/white"
-    card_view:cardCornerRadius="@dimen/size_10"
     card_view:cardElevation="@dimen/size_4">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +34,7 @@
         <Button
             android:id="@+id/btn_dialog_notification_ok"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_48"
+            android:layout_height="@dimen/size_36"
             android:layout_marginBottom="@dimen/size_4"
             android:layout_marginTop="@dimen/size_20"
             android:background="@drawable/btn_background_dialog"

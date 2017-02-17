@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.Error;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.callback.RequestWithStringListener;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.dialog.DialogProgressBar;
@@ -25,8 +25,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
-import javax.net.ssl.KeyManagerFactory;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -78,7 +76,7 @@ public class Task {
                         } else {
 //                            dialogProgressBar.hideProgressBar();
                             Log.e("tb_up_result", result);
-                            Error error = JsonParse.checkError(result);
+                            com.xtel.nipservicesdk.model.entity.Error error = JsonParse.checkError(result);
 
                             if (error != null) {
                                 JsonParse.getCodeError(context, null, error.getCode(), context.getString(R.string.err_post));
@@ -108,7 +106,7 @@ public class Task {
                                 }
                                 Log.e("Server path", server_path);
                                 Log.e("URI", url);
-                                requestWithStringListener.onSuccess(url);
+                                requestWithStringListener.onSuccess(url, server_path);
                             }
 
                             try {
@@ -119,11 +117,6 @@ public class Task {
                         }
                     }
                 });
-    }
-
-    public void testKey() throws Exception {
-        KeyManagerFactory kmf = KeyManagerFactory.getInstance("X509");
-
     }
 
     public static class ConvertImage extends AsyncTask<Bitmap, Void, File> {

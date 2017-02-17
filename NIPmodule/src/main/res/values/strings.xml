@@ -2,6 +2,9 @@
     <string name="app_name">NipServiceSdk</string>
 
     <string name="error">ERROR</string>
+    <string name="error_code_2">Phiên không hợp lệ</string>
+    <string name="error_code_3">Bạn không có quyền hạn này</string>
+    <string name="error_code_4">Lỗi hệ thống</string>
     <!-- ERROR CODE -->
     <string name="can_not_request">Không thể kết nối tới Server</string>
     <string name="error_no_service_code">Không tìm thấy service code</string>

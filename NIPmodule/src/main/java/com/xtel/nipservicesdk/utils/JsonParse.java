@@ -1,9 +1,14 @@
 package com.xtel.nipservicesdk.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.xtel.nipservicesdk.R;
+import com.xtel.nipservicesdk.commons.Constants;
+import com.xtel.nipservicesdk.model.entity.Error;
 
 import org.json.JSONObject;
 
@@ -23,9 +28,37 @@ public class JsonParse {
         }
     }
 
-    public static String getCodeError(View view, int code, String content) {
+    public static Error checkError(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            JSONObject error = jsonObject.getJSONObject(Constants.ERROR);
 
-        return content;
+            Error errorModel = new Error();
+            errorModel.setCode(error.getInt(Constants.CODE));
+            errorModel.setType(error.getString(Constants.TYPE));
+            errorModel.setMessage(error.getString(Constants.MESSAGE));
+
+            return errorModel;
+        } catch (Exception e) {
+            Log.e("parse_error", e.toString());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void getCodeError(Context activity, View view, int code, String content) {
+        if (code == 3) {
+            if (view != null)
+                Toast.makeText(activity, activity.getString(R.string.error_code_3), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(activity, activity.getString(R.string.error_code_3), Toast.LENGTH_SHORT).show();
+        } else if (code == 4) {
+            if (view != null)
+                Toast.makeText(activity, activity.getString(R.string.error_code_3), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(activity, activity.getString(R.string.error_code_4), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static String getCodeMessage(Activity activity, int code, String content) {

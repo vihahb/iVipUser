@@ -28,9 +28,13 @@ public interface IProfileActivityView {
 
     void updateProfileSucc();
 
-    void onPostPictureSuccess(String url);
+    void onPostPictureSuccess(String url, String server_path);
 
     void onPostPictureError(String mes);
+
+    void onEnableView();
+
+    void onDisableView();
 
     Activity getActivity();
 

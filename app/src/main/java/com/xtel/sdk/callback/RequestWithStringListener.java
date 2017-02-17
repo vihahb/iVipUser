@@ -5,7 +5,7 @@ package com.xtel.sdk.callback;
  */
 
 public interface RequestWithStringListener {
-    public void onSuccess(String url);
+    void onSuccess(String url, String server_path);
 
-    public void onError();
+    void onError();
 }

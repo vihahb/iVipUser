@@ -9,6 +9,7 @@
     android:transitionName="@string/transition_name_shop"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="@dimen/size_3">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -107,7 +108,7 @@
                                 android:src="@drawable/ic_action_eye" />
 
                             <TextView
-                                android:id="@+id/tv_shop_member"
+                                android:id="@+id/tv_shop_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="@dimen/size_6"
@@ -129,7 +130,7 @@
                                 android:src="@drawable/ic_action_favorite_white" />
 
                             <TextView
-                                android:id="@+id/tv_shop_location"
+                                android:id="@+id/tv_shop_like"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="@dimen/size_6"

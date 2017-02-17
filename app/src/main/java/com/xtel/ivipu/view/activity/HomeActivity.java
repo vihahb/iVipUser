@@ -3,13 +3,14 @@ package com.xtel.ivipu.view.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.model.entity.RESP_Short;
+import com.xtel.ivipu.model.entity.UserShort;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
 import com.xtel.ivipu.view.fragment.FragmentHomeFood;
@@ -46,16 +51,19 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     HomePresenter presenter;
     Toolbar toolbar;
     TabLayout tabLayout_home;
+    UserShort userShort;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private RoundImage img_avatar;
     private ActionBar actionBar;
-    private BottomNavigationView bottomNavigationView;
     private PopupMenu popupMenu;
     private Menu mMenuItem;
     private LinearLayout mLinearLayout;
+    private RoundImage avatar_notify;
     private PopupWindow mPopupWindow;
     private Context mContext;
+    private int notifications;
+    private String avatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +73,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 //        presenter.onGetUserNip();
         mContext = HomeActivity.this;
         presenter.onGetUserNip();
+        presenter.onGetShortUser();
         initView();
         initNavigation();
         initNavigationWidget();
@@ -73,10 +82,6 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     private void initNavigationWidget() {
         View view = navigationView.getHeaderView(0);
-//        img_avatar = (RoundImage) view.findViewById(R.id.img_avatar);
-//        img_avatar.setOnClickListener(this);
-//        String url = "https://unige.ch/mcr/application/files/5614/7220/3533/avatar_square_512.png";
-//        setAvatar(url, img_avatar);
     }
 
     public void initBottomNavigation() {
@@ -148,7 +153,6 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                 return true;
             }
         });
-
         popupMenu.show();
     }
 
@@ -159,26 +163,6 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 //        btnPopup.setOnClickListener(this);
         mLinearLayout = (LinearLayout) findViewById(R.id.ln_popup);
     }
-
-//    private void showPopupWindows() {
-//        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-//        final View custom_view = inflater.inflate(R.layout.custom_popup_layout, null);
-//
-//        mPopupWindow = new PopupWindow(custom_view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            mPopupWindow.setElevation(5.0f);
-//        }
-//        mPopupWindow.setOutsideTouchable(true);
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            public void run() {
-//                mPopupWindow.showAtLocation(custom_view, Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
-//            }
-//
-//        }, 100L);
-//
-//    }
 
     @SuppressWarnings("deprecation")
     private void initNavigation() {
@@ -218,18 +202,46 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-//        MenuItem item = menu.findItem(R.id.action_user);
-//        LayerDrawable icon = (LayerDrawable) item.getIcon();
-//        //Update layoutDrawable badge drawable
-//        BadgeUtils.setBadgeCount(getApplicationContext(), icon, mNotificationsCount);
-//        new FeatchCountTask().execute();
+        if (avatar != null) {
+            setDrawableResource(userShort.getAvatar(), mMenuItem);
+        }
         return true;
+    }
+
+    private void setDrawableResource(String url, final Menu menu) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                Log.e("Debug ", "onBitmapLoaded");
+                BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+                menu.getItem(0).setIcon(bitmapDrawable);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                Log.e("OnFailed", errorDrawable.toString());
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                Log.e("OnPrepare", placeHolderDrawable.toString());
+            }
+        };
+        Picasso.with(this)
+                .load(url)
+                .error(R.drawable.ic_nemu_notification)
+                .into(target);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         mMenuItem = menu;
-        onCreteBadgeItem(10);
+        if (notifications != 0) {
+            onCreteBadgeItem(notifications);
+        }
+        if (avatar != null) {
+            setDrawableResource(userShort.getAvatar(), mMenuItem);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -240,9 +252,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         if (id == R.id.action_user) {
             pushData();
             return true;
+        } else if (id == R.id.action_qr) {
+            checkInQrBar();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkInQrBar() {
+        startActivty(QrCheckIn.class);
     }
 
 
@@ -302,6 +319,24 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     @Override
     public void startActivty(Class clazz) {
         super.startActivity(clazz);
+    }
+
+    @Override
+    public void getShortUser(RESP_Short profile) {
+        UserShort userShort = new UserShort();
+        userShort.setAvatar(profile.getAvatar());
+        userShort.setFullname(profile.getFullname());
+        userShort.setNew_notify(profile.getNew_notify());
+//        userShort.setNew_notify(5);
+        notifications = userShort.getNew_notify();
+        avatar = userShort.getAvatar();
+        Log.e("Avatar Home", avatar);
+        if (notifications != 0) {
+            onCreteBadgeItem(notifications);
+        }
+        if (avatar != null) {
+            setDrawableResource(userShort.getAvatar(), mMenuItem);
+        }
     }
 
     @Override
@@ -367,25 +402,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     }
 
-    private void setIconTabUnSelected(TabLayout.Tab tab) {
-        switch (tab.getPosition()) {
-            case 0:
-                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_shop);
-                break;
-            case 1:
-                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_home_movie);
-                break;
-            case 2:
-                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_home_food);
-                break;
-            case 3:
-                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_home_airplane);
-                break;
-            case 4:
-                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_home_more);
-                break;
-            default:
-                break;
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onGetShortUser();
     }
 }

@@ -5,20 +5,18 @@ import android.util.Log;
 
 import com.xtel.ivipu.model.LoginModel;
 import com.xtel.ivipu.model.ProfileModel;
-import com.xtel.ivipu.model.entity.Error;
-import com.xtel.ivipu.model.entity.RESP_None;
 import com.xtel.ivipu.model.entity.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
+import com.xtel.nipservicesdk.utils.JsonHelper;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.callback.RequestWithStringListener;
-import com.xtel.sdk.callback.ResponseHandle;
 import com.xtel.sdk.commons.Constants;
-import com.xtel.sdk.utils.JsonHelper;
-import com.xtel.sdk.utils.JsonParse;
 import com.xtel.sdk.utils.SharedPreferencesUtils;
 import com.xtel.sdk.utils.Task;
 
@@ -113,7 +111,7 @@ public class ProfilePresenter {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                 Log.e(TAG + "err", error.getMessage());
                 if (error.getCode() == 2) {
                     CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
@@ -124,11 +122,11 @@ public class ProfilePresenter {
 
                         @Override
                         public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                            view.showShortToast(JsonParse.getCodeMessage(error.getCode(), null));
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
                         }
                     });
                 }
-                view.showShortToast(JsonParse.getCodeMessage(error.getCode(), null));
+                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
             }
         });
     }
@@ -136,14 +134,17 @@ public class ProfilePresenter {
     public void setData(final UserInfo profile_object) {
         final String session = LoginManager.getCurrentSession();
         String url = Constants.SERVER_IVIP + Constants.UPDATE_USER;
-        ProfileModel.getInstance().onUpdateUser(url, JsonHelper.toJson(profile_object), session, new ResponseHandle<RESP_None>(RESP_None.class) {
+        Log.e("Project user", JsonHelper.toJson(profile_object));
+        ProfileModel.getInstance().onUpdateUser(url, JsonHelper.toJson(profile_object), session, new ResponseHandle<com.xtel.nipservicesdk.model.entity.RESP_None>(com.xtel.nipservicesdk.model.entity.RESP_None.class) {
             @Override
-            public void onSuccess(RESP_None obj) {
+            public void onSuccess(com.xtel.nipservicesdk.model.entity.RESP_None obj) {
+                Log.e("respond success", "ádasdaweawe");
                 view.updateProfileSucc();
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                Log.e("respond err", "ádasdaweaweád");
                 if (error.getCode() == 2) {
                     CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
                         @Override
@@ -153,13 +154,14 @@ public class ProfilePresenter {
 
                         @Override
                         public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                            view.showShortToast(JsonParse.getCodeMessage(error.getCode(), null));
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
                         }
                     });
                 } else {
-                    view.showShortToast(JsonParse.getCodeMessage(error.getCode(), null));
+                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
                 }
             }
+
         });
         reloadDataProfile();
     }
@@ -167,9 +169,9 @@ public class ProfilePresenter {
     public void postImage(Bitmap bitmap) {
         new Task.ConvertImage(view.getActivity(), true, new RequestWithStringListener() {
             @Override
-            public void onSuccess(String url) {
+            public void onSuccess(String url, String server_path) {
                 Log.e("Url", url);
-                view.onPostPictureSuccess(url);
+                view.onPostPictureSuccess(url, server_path);
             }
 
             @Override

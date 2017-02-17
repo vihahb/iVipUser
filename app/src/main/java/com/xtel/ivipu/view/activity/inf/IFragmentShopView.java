@@ -1,8 +1,9 @@
 package com.xtel.ivipu.view.activity.inf;
 
+import android.app.Activity;
 import android.view.View;
 
-import com.xtel.ivipu.model.entity.TestRecycle;
+import com.xtel.ivipu.model.entity.RESP_NewEntity;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public interface IFragmentShopView {
 
-    void onGetShopSuccess(ArrayList arrayList);
+    void onGetShopSuccess(ArrayList<RESP_NewEntity> arrayList);
 
     void onGetShopError();
 
@@ -22,6 +23,9 @@ public interface IFragmentShopView {
 
     void showLongToast(String mes);
 
-    void onItemClick(int position, TestRecycle testRecycle, View view);
+    void onItemClick(int position, RESP_NewEntity testRecycle, View view);
 
+    void onNetworkDisable();
+
+    Activity getActivity();
 }

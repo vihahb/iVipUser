@@ -54,7 +54,7 @@ public class MyShopActivity extends BasicActivity implements IMyShopActivity {
             recycle.setContent_name("Content Name " + i);
             recycle.setRank("Rank " + i);
             recycle.setScore("Score " + i);
-            recycle.setUrl_img_content("https://lh3.googleusercontent.com/V3sk_32vKtW-YSQJwgStRL1Vi0A1WSftt7Lgrshyp50FBBKVcE5fxSOeVCeFbStDGI36jAUNmpGUqYlPLxXZYhKNb3JJV3iAvUfFAVpaPFdBgyrxYiISQ6937rEIYfaJqYNKhi0R1wokyf25yqsJqmwkHXWBa81WeUK6l091UMYobDra7hI7CASYuoQWq7DrpeKlvgI0QJQD0EscpxxCmY8pMibNhvSuiuAhlsvns8mGyAAR64EvNDtC6gg19zPMHWqyj2w4bGN4zWusGUEhuW7zSzjXP1wLEJp_u2hPPv4j_-dmcUv80Mg40MUo8ftj6eat4u2zAzEZTS7j8deYDn1hu3PzaDXc5hEHIZ_n549TETPhuhzkRSu16ecncL8c-ewIrV1ttzcgW5lOuPXtbff_FRbZvPzUEaw12tgZFDH1w76AqyjNlGazmRivw2A5J_mwmAVQfFnt3I_HaIh_nYDuXf6J5gJ0PvHvclQJ8oLMbxmn_C3Tk5bthI0X9FklN4h1cUK0AjftnkbDMNZRXHYw7NisRAMy3AV8FXedPEpiUr45JVX6w3MLgWQhyhrP3aeOfhftWQGDjDk4q763qWuvbEPpASD_zrfdpvGUbyO8fHcWjvPi=w680-h380-no");
+            recycle.setUrl_img_content("http://i.ebayimg.com/images/i/262037148918-0-1/s-l1000.jpg");
             recycle.setUrl_img_brand("http://www.kineo.com/m/0/qualifications-1.png");
             recycle.setUrl_img_icon("https://cdn2.iconfinder.com/data/icons/movie-icons/512/Film_Reel-512.png");
             arr.add(i, recycle);

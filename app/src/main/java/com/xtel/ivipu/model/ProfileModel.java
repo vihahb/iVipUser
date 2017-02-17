@@ -1,7 +1,7 @@
 package com.xtel.ivipu.model;
 
-import com.xtel.ivipu.model.entity.RESP_None;
-import com.xtel.sdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.RESP_None;
 
 /**
  * Created by vivhp on 2/8/2017.

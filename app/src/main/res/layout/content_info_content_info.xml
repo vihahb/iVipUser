@@ -13,12 +13,24 @@
         android:paddingRight="@dimen/activity_horizontal_margin">
 
         <TextView
+            android:id="@+id/tv_info_shop_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_20"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_20"
+            android:transitionName="@string/transition_shop_name" />
+
+        <TextView
             android:id="@+id/tv_info_shop_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8"
             android:text="Tên cửa hàng"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font_20"
+            android:textSize="@dimen/font_18"
             android:transitionName="@string/transition_shop_name" />
 
         <LinearLayout
@@ -28,26 +40,36 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/size_10">
 
-            <TextView
-                android:id="@+id/tv_content_shop"
+            <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/expand_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text"
-                android:textColor="@android:color/white" />
+                android:orientation="vertical"
+                expandableTextView:animDuration="200"
+                expandableTextView:maxCollapsedLines="4">
 
-            <TextView
-                android:id="@+id/tv_content_location"
+                <TextView
+                    android:id="@id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_content_shop"
-                android:text="@string/text_location"
-                android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@id/expand_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp" />
+            </com.ms.square.android.expandabletextview.ExpandableTextView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_1"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="@dimen/size_16"
+                android:layout_marginTop="@dimen/size_8"
                 android:background="@android:color/white" />
         </LinearLayout>
     </LinearLayout>

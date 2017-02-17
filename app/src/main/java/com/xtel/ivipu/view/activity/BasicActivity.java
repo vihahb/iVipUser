@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.xtel.ivipu.R;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.dialog.DialogNotification;
 
 import java.io.Serializable;
 
@@ -46,6 +47,30 @@ public class BasicActivity extends AppCompatActivity {
         if (title != null) {
             actionBar.setTitle(title);
         }
+    }
+
+    protected void showDialogNotification(String title, String content, final DialogListener dialogListener) {
+        final DialogNotification dialogNotification = new DialogNotification(this);
+        dialogNotification.showDialog(title, content, "OK");
+        dialogNotification.setOnButtonClicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogNotification.hideDialog();
+                dialogListener.onClicked(null);
+            }
+        });
+    }
+
+    protected void showDialogCheckinNotification(String title, String content, String reward, final DialogListener dialogListener) {
+        final DialogNotification dialogNotification = new DialogNotification(this);
+        dialogNotification.showCheckinSuccessDialog(title, content, reward, "OK");
+        dialogNotification.setOnButtonClicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogNotification.hideDialog();
+                dialogListener.onClicked(null);
+            }
+        });
     }
 
     protected void showLongToast(String message) {

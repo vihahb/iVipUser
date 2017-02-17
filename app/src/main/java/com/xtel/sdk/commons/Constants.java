@@ -21,11 +21,14 @@ public class Constants {
     public static final String RECYCLER_MODEL = "ryc_model";
 
     public static final String SERVER_UPLOAD = "http://124.158.5.112:9190/upload/files";
-    public static final String SERVER_IMAGE_HTTP = "http://124.158.5.112:9191/upload/store/files/";
+    public static final String SERVER_IMAGE_HTTP = "http://124.158.5.112:9190/upload/store/files/";
     public static final String SERVER_IVIP = "http://124.158.5.112:9190/ivip-u/";
     public static final String GET_USER_IVIP_FULL = "v0.1/user?type=full";
     public static final String GET_USER_IVIP_SORT = "v0.1/user?type=sort";
     public static final String UPDATE_USER = "v0.1/user";
+    public static final String NEWS_INFO = "v0.1/news/";
+    public static final String NEWS_ACTION = "v0.1/news/action";
+
 
     /**
      * Profile Infomations

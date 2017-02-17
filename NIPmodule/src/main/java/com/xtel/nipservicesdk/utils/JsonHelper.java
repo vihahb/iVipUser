@@ -1,5 +1,7 @@
 package com.xtel.nipservicesdk.utils;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,12 +28,15 @@ public class JsonHelper {
     }
 
     public static <T> T getObjectNoException(String json, Class<T> clazz) {
-        if (json == null || json.isEmpty())
+        if (json == null || json.isEmpty()) {
+            Log.e("ex", "null ");
             return null;
+        }
 
         try {
             return gson.fromJson(json, clazz);
         } catch (Exception e) {
+            Log.e("ex", "e " + e.toString());
             return null;
         }
     }

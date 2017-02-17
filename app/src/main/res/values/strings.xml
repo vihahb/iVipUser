@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">iVip</string>
-    <string name="home_name">Base Project</string>
+    <string name="home_name">iVIP Project</string>
     <string name="ivip_for_user_not_cap">iVIP for uer</string>
 
     <string name="facebook_app_id">615022045348242</string>
@@ -26,6 +26,8 @@
     <string name="activity_profile">Thông tin người dùng</string>
     <string name="activity_info_content">Thông tin cửa hàng</string>
     <string name="activity_myshop_content">Cửa hàng của tôi</string>
+    <string name="activity_checkin_content">Check in</string>
+    <string name="activity_checkin">Check in</string>
 
     <!-- Nav title -->
     <string name="nav_Profile">Profile</string>
@@ -61,13 +63,20 @@
     <string name="try_again">Chạm để thử lại</string>
     <string name="loading_data">Đang tải dữ liệu</string>
     <string name="updated_data">Cập nhật thành công</string>
+    <string name="text_back_press_to_exit">Nhấn back lần nữa để thoát app</string>
+    <string name="put_qr_code_into_the_frame">Đưa mã QR hoặc Bar Code vào đúng khung hình</string>
+    <string name="checkin_now">Checkin ngay để nhận được những phần quà hấp dẫn</string>
+    <string name="checkin_success">Check in thành công</string>
+    <string name="action_notify">Thông báo</string>
+    <string name="action_checkin_success">Chúc Mừng!</string>
+    <string name="action_checkin_success_content">Bạn đã checkin thành công, bạn nhận sẽ được lượng điểm tích lũy</string>
+    <string name="action_checkin_success_score_reward">1000</string>
+    <string name="rate_feature">Xếp hạng tính năng</string>
+    <string name="rate_action">Đánh giá</string>
 
     <!-- Message App -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <!-- Show Toast Message -->
-    <string name="text_back_press_to_exit">Nhấn back lần nữa để thoát app</string>
 
 
     <!-- Request -->
@@ -81,7 +90,7 @@
     <string name="error_code_1001">Bãi đỗ không tồn tại</string>
 
     <!-- Text Demo -->
-    <string name="text">Chương trình khuyến mại: "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại.</string>
+    <string name="text">Chương trình khuyến mại: "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại. "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại. "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại.</string>
     <string name="text_location">Địa bàn(Phạm vi) khuyến mại: Toàn quốc</string>
     <string name="qr_reward"><u>Nhập mã QR</u></string>
 
@@ -96,7 +105,10 @@
     <string name="no_reg_date">Chưa có thông tin đăng ký</string>
     <string name="no_score">Chưa có điểm thưởng</string>
     <string name="update">Update</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
     <string name="no_internet">Không có kết nối internet</string>
+    <string name="no_news">Không có bản tin</string>
 
     <array name="gender_profile">
         <item>Nữ</item>

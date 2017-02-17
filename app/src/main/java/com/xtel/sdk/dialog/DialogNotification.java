@@ -55,6 +55,43 @@ public class DialogNotification {
         dialog.show();
     }
 
+    public void showCheckinSuccessDialog(String title, String content, String reward, String button) {
+        dialog = new Dialog(context, R.style.Theme_Transparent);
+        dialog.setContentView(R.layout.dialog_checkin_success);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView txt_title = (TextView) dialog.findViewById(R.id.txt_dialog_notification_title);
+        TextView txt_content = (TextView) dialog.findViewById(R.id.txt_dialog_notification_content);
+        TextView txt_reward = (TextView) dialog.findViewById(R.id.txt_dialog_notification_reward);
+        btn_ok = (Button) dialog.findViewById(R.id.btn_dialog_notification_ok);
+
+        if (title == null)
+            txt_title.setVisibility(View.GONE);
+        else
+            txt_title.setText(title);
+
+        if (content == null)
+            txt_content.setVisibility(View.GONE);
+        else
+            txt_content.setText(content);
+
+        if (reward == null)
+            txt_reward.setVisibility(View.GONE);
+        else
+            txt_reward.setText(reward);
+
+        if (button == null)
+            btn_ok.setVisibility(View.GONE);
+        else
+            btn_ok.setText(button);
+
+        dialog.show();
+    }
+
+
     public void setOnButtonClicked(View.OnClickListener onClickListener) {
         btn_ok.setOnClickListener(onClickListener);
     }

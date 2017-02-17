@@ -1,6 +1,6 @@
 package com.xtel.ivipu.model;
 
-import com.xtel.sdk.callback.RequestServer;
+import com.xtel.nipservicesdk.callback.RequestServer;
 
 /**
  * Created by vivhp on 12/28/2016.
@@ -9,7 +9,5 @@ import com.xtel.sdk.callback.RequestServer;
 public abstract class Model {
 
     protected RequestServer requestServer = new RequestServer();
-
-
 
 }

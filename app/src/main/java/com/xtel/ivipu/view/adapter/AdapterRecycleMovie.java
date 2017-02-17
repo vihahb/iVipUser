@@ -15,6 +15,7 @@ import com.xtel.ivipu.model.entity.TestRecycle;
 import com.xtel.ivipu.view.activity.inf.IFragmentMovieView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by vivhp on 1/23/2017.
@@ -25,22 +26,22 @@ public class AdapterRecycleMovie extends RecyclerView.Adapter<AdapterRecycleMovi
     private Activity activity;
     private ArrayList<TestRecycle> arrayList;
     private IFragmentMovieView fragmentMovieView;
-    private int[] background_item;
+    private ArrayList<Integer> background_alpha_item;
     private int background_position = 0;
 
     public AdapterRecycleMovie(Activity activity, ArrayList<TestRecycle> arrayList, IFragmentMovieView fragmentMovieView) {
         this.activity = activity;
         this.arrayList = arrayList;
         this.fragmentMovieView = fragmentMovieView;
-        background_item = new int[]{R.drawable.item_background_1,
-                R.drawable.item_background_1,
-                R.drawable.item_background_2,
-                R.drawable.item_background_3,
-                R.drawable.item_background_4,
-                R.drawable.item_background_5,
-                R.drawable.item_background_6,
-                R.drawable.item_background_7,
-                R.drawable.item_background_8};
+        background_alpha_item = new ArrayList<>();
+        background_alpha_item.add(R.drawable.item_background_1);
+        background_alpha_item.add(R.drawable.item_background_2);
+        background_alpha_item.add(R.drawable.item_background_3);
+        background_alpha_item.add(R.drawable.item_background_4);
+        background_alpha_item.add(R.drawable.item_background_5);
+        background_alpha_item.add(R.drawable.item_background_6);
+        background_alpha_item.add(R.drawable.item_background_7);
+        background_alpha_item.add(R.drawable.item_background_8);
     }
 
     @Override
@@ -56,8 +57,10 @@ public class AdapterRecycleMovie extends RecyclerView.Adapter<AdapterRecycleMovi
                 background_position = 0;
             }
 
+            Random random = new Random();
+
             if (arrayList.get(position).getBg_position() == 0) {
-                arrayList.get(position).setBg_position(background_item[background_position]);
+                arrayList.get(position).setBg_position(background_alpha_item.get(random.nextInt(background_alpha_item.size())));
             }
 
             final TestRecycle testRecycle = arrayList.get(position);
