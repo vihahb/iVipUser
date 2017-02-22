@@ -2,16 +2,19 @@ package com.xtel.ivipu.view.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.model.entity.MyShopCheckin;
 import com.xtel.ivipu.model.entity.TestMyShop;
 import com.xtel.ivipu.view.activity.inf.IMyShopActivity;
 import com.xtel.ivipu.view.widget.RoundImage;
@@ -26,10 +29,12 @@ public class AdapterRecycleMyShop extends RecyclerView.Adapter<AdapterRecycleMyS
 
     private Activity activity;
     private Context context;
-    private ArrayList<TestMyShop> arrayList;
+    private ArrayList<MyShopCheckin> arrayList;
     private IMyShopActivity iMyShopActivity;
+    private boolean isLoadMore;
+    private int TYPE_VIEW = 1, TYPE_LOAD = 2;
 
-    public AdapterRecycleMyShop(Activity activity, Context context, ArrayList<TestMyShop> arrayList, IMyShopActivity iMyShopActivity) {
+    public AdapterRecycleMyShop(Activity activity, Context context, ArrayList<MyShopCheckin> arrayList, IMyShopActivity iMyShopActivity) {
         this.activity = activity;
         this.context = context;
         this.arrayList = arrayList;
@@ -38,30 +43,42 @@ public class AdapterRecycleMyShop extends RecyclerView.Adapter<AdapterRecycleMyS
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new AdapterRecycleMyShop.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_my_shop_item, parent, false));
+        if (viewType == TYPE_VIEW) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_my_shop_item, parent, false));
+        } else if (viewType == TYPE_LOAD) {
+            return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar, parent, false));
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final TestMyShop testRecycle = arrayList.get(position);
+        final MyShopCheckin myShopCheckin = arrayList.get(position);
         Log.e("Arr adapter", arrayList.toString());
 
-        if (holder instanceof ViewHolder) {
+        if (holder != null) {
 
             AdapterRecycleMyShop.ViewHolder viewHolder = holder;
-            viewHolder.tv_score.setText(testRecycle.getScore());
-            viewHolder.tv_rank.setText(testRecycle.getRank());
-            viewHolder.tv_content_name.setText(testRecycle.getContent_name());
-            setImageContentResource(testRecycle, viewHolder.img_content_image);
-            setImageBrandResource(testRecycle, viewHolder.img_content_brand);
-            setImageShopIconResource(testRecycle, viewHolder.img_shop_icon);
+//            viewHolder.tv_score.setText(myShopCheckin.get());
+//            viewHolder.tv_rank.setText(testRecycle.getRank());
+            viewHolder.tv_content_name.setText(myShopCheckin.getStore_name());
+            setImageContentResource(myShopCheckin, viewHolder.img_content_image);
+            setImageBrandResource(myShopCheckin, viewHolder.img_content_brand);
+//            setImageShopIconResource(testRecycle, viewHolder.img_shop_icon);
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iMyShopActivity.onItemClick(position, testRecycle, v);
+                    iMyShopActivity.onItemClick(position, myShopCheckin, v);
                 }
             });
+        } else {
+            AdapterRecycleMyShop.ViewProgressBar viewProgressBar = (AdapterRecycleMyShop.ViewProgressBar) holder;
+            viewProgressBar.progressBar.getIndeterminateDrawable()
+                    .setColorFilter(
+                            Color.WHITE,
+                            android.graphics.PorterDuff.Mode.MULTIPLY
+                    );
         }
     }
 
@@ -70,18 +87,30 @@ public class AdapterRecycleMyShop extends RecyclerView.Adapter<AdapterRecycleMyS
         return arrayList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 10) {
+            return TYPE_LOAD;
+        } else {
+            return TYPE_VIEW;
+        }
+    }
 
-    private void setImageContentResource(TestMyShop testRecycle, ImageView viewHolder) {
+    public void onSetLoadMore(boolean isLoadMore) {
+        this.isLoadMore = isLoadMore;
+    }
+
+    private void setImageContentResource(MyShopCheckin shopCheckin, ImageView viewHolder) {
         Picasso.with(context)
-                .load(testRecycle.getUrl_img_content())
+                .load(shopCheckin.getBanner())
                 .placeholder(R.drawable.ic_action_circle)
                 .error(R.drawable.ic_action_circle)
                 .into(viewHolder);
     }
 
-    private void setImageBrandResource(TestMyShop testRecycle, ImageView viewHolder) {
+    private void setImageBrandResource(MyShopCheckin shopCheckin, ImageView viewHolder) {
         Picasso.with(context)
-                .load(testRecycle.getUrl_img_brand())
+                .load(shopCheckin.getLogo())
                 .placeholder(R.drawable.ic_action_circle)
                 .error(R.drawable.ic_action_circle)
                 .into(viewHolder);
@@ -110,5 +139,14 @@ public class AdapterRecycleMyShop extends RecyclerView.Adapter<AdapterRecycleMyS
             img_content_brand = (RoundImage) itemView.findViewById(R.id.img_content_brand);
         }
 
+    }
+
+    class ViewProgressBar extends AdapterRecycleMyShop.ViewHolder {
+        private ProgressBar progressBar;
+
+        ViewProgressBar(View itemView) {
+            super(itemView);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.item_progress_bar);
+        }
     }
 }

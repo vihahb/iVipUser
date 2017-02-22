@@ -2,7 +2,7 @@ package com.xtel.ivipu.view.activity.inf;
 
 import android.app.Activity;
 
-import com.xtel.ivipu.model.entity.RESP_NewsObject;
+import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 
 /**
  * Created by vivhp on 1/24/2017.

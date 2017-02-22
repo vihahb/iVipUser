@@ -1,8 +1,10 @@
 package com.xtel.ivipu.view.activity.inf;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
-import com.xtel.ivipu.model.entity.TestRecycle;
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 
 import java.util.ArrayList;
 
@@ -11,7 +13,10 @@ import java.util.ArrayList;
  */
 
 public interface IFragmentFoodView {
-    void onGetFoodSuccess(ArrayList arrayList);
+
+    void onLoadMore();
+
+    void onGetFoodSuccess(ArrayList<RESP_NewEntity> arrayList);
 
     void onGetFoodError();
 
@@ -19,5 +24,11 @@ public interface IFragmentFoodView {
 
     void showLongToast(String mes);
 
-    void onItemClick(int position, TestRecycle testRecycle, View view);
+    void onItemClick(int position, RESP_NewEntity newObjEntity, View view);
+
+    void onNetworkDisable();
+
+    Activity getActivity();
+
+    Context getContext();
 }

@@ -1,6 +1,6 @@
 package com.xtel.ivipu.model;
 
-import com.xtel.ivipu.model.entity.RESP_NewsObject;
+import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 
 /**
@@ -27,7 +27,19 @@ public class HomeModel extends Model {
         requestServer.postApi(url_new_action, action_object, session, responseHandle);
     }
 
-    public void getCheckinPresenter(String url_checkin, String session, ResponseHandle responseHandle) {
-        requestServer.getApi(url_checkin, session, responseHandle);
+    public void postChekinAction(String url_checkin, String checkInObj, String session, ResponseHandle responseHandle) {
+        requestServer.postApi(url_checkin, checkInObj, session, responseHandle);
+    }
+
+    public void getMyShopCheckin(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getNewsComment(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void postNewsComment(String url, String jsonObject, String session, ResponseHandle responseHandle) {
+        requestServer.postApi(url, jsonObject, session, responseHandle);
     }
 }

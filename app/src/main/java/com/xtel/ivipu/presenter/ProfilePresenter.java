@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.xtel.ivipu.model.LoginModel;
 import com.xtel.ivipu.model.ProfileModel;
-import com.xtel.ivipu.model.entity.RESP_Profile;
+import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.nipservicesdk.CallbackManager;

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.RESP_NewEntity;
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.presenter.FragmentShopPresenter;
 import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.activity.inf.IFragmentShopView;
@@ -30,7 +30,7 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 
     FragmentShopPresenter presenter;
     AdapterRecycleShop adapter;
-    int type = 2, page = 1, pagesize = 10;
+    int type = 2, page = 1, pagesize = 3;
     private RecyclerView rcl_shop;
     private ArrayList<RESP_NewEntity> arrayListNewsShop;
     private int position = -1;
@@ -80,29 +80,18 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
     }
 
     private void getData() {
-        progressView.hideData();
+//        progressView.hideData();
         progressView.setRefreshing(true);
-        inirDataNews();
+        initDataNews();
     }
 
-    private void inirDataNews() {
+    private void initDataNews() {
         presenter.getShop(type, page, pagesize);
-//        RESP_NewEntity newEntity = new RESP_NewEntity();
-//        newEntity.setStore_name("Clear Shop");
-//        newEntity.setComment(7);
-//        newEntity.setLike(5);
-//        newEntity.setView(3);
-//        newEntity.setRate(5);
-//        newEntity.setSeen(3);
-//        newEntity.setCreate_time(1469577600);
-//        newEntity.setBanner("http://i.imgur.com/XvN4AIc.jpg");
-//        newEntity.setLogo("http://vignette4.wikia.nocookie.net/logopedia/images/5/59/Coca-Cola_logo_2007.jpg/revision/latest?cb=20150801090518");
-
     }
 
 
     private void initRecylerView(View view) {
-        rcl_shop = (RecyclerView) view.findViewById(R.id.rcl_shop);
+        rcl_shop = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_shop.setHasFixedSize(true);
         rcl_shop.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -116,20 +105,20 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
         adapter.notifyDataSetChanged();
     }
 
-
     @Override
     public void onGetShopSuccess(ArrayList<RESP_NewEntity> arrayList) {
-        progressView.setRefreshing(false);
+//        progressView.setRefreshing(false);
         Log.e("arr news entity", arrayList.toString());
-        setDataRecyclerView(arrayList);
-        if (arrayList.size() < 10) {
+        if (arrayList.size() < 2) {
             adapter.onSetLoadMore(false);
         }
+        setDataRecyclerView(arrayList);
+
         checkListData();
     }
 
     private void checkListData() {
-        progressView.disableSwipe();
+//        progressView.disableSwipe();
         progressView.setRefreshing(false);
 
         if (arrayListNewsShop.size() == 0) {
@@ -143,12 +132,12 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 
     @Override
     public void onGetShopError() {
-
     }
 
     @Override
     public void onLoadMore() {
-
+        page++;
+        getData();
     }
 
 
@@ -194,9 +183,9 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
 //            Pair<View, String> p4 = Pair.create(view_name, name);
 //            Pair<View, String> p5 = Pair.create(view_content, content);
 //            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2, p3, p4);
-//            ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_VIEW_SHOP, options.toBundle());
+//            ActivityCompat.startActivityForResultObject(getActivity(), intent, REQUEST_VIEW_SHOP, options.toBundle());
 //        } else {
-            startActivityForResult(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_SHOP);
+        startActivityForResultObject(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_SHOP);
 //        }
     }
 
@@ -210,6 +199,6 @@ public class FragmentHomeShopping extends BasicFragment implements IFragmentShop
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getShop(type, page, pagesize);
+//        presenter.getShop(type, page, pagesize);
     }
 }

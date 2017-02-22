@@ -93,8 +93,8 @@ public class ProgressView {
     public void show() {
         if (layout_data.getVisibility() == View.GONE)
             layout_data.setVisibility(View.VISIBLE);
-        if (swipeRefreshLayout.getVisibility() == View.GONE)
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
+//        if (swipeRefreshLayout.getVisibility() == View.GONE)
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
         if (view != null)
             view.setVisibility(View.GONE);
     }
@@ -102,8 +102,8 @@ public class ProgressView {
     public void hide() {
         if (layout_data.getVisibility() == View.VISIBLE)
             layout_data.setVisibility(View.GONE);
-        if (swipeRefreshLayout.getVisibility() == View.VISIBLE)
-            swipeRefreshLayout.setVisibility(View.GONE);
+//        if (swipeRefreshLayout.getVisibility() == View.VISIBLE)
+//            swipeRefreshLayout.setVisibility(View.GONE);
         if (view != null)
             view.setVisibility(View.VISIBLE);
     }
@@ -125,7 +125,7 @@ public class ProgressView {
     }
 
     public void disableSwipe() {
-        swipeRefreshLayout.setEnabled(false);
+//        swipeRefreshLayout.setEnabled(false);
     }
 
     public void onSwipeLayoutPost(Runnable runnable) {

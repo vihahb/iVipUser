@@ -2,7 +2,7 @@ package com.xtel.ivipu.view.activity.inf;
 
 import android.app.Activity;
 
-import com.xtel.ivipu.model.entity.RESP_Short;
+import com.xtel.ivipu.model.RESP.RESP_Short;
 
 /**
  * Created by vivhp on 12/29/2016.

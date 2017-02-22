@@ -56,7 +56,7 @@ public class FragmentHomeMovie extends BasicFragment implements IFragmentMovieVi
         }
         Log.e("arr object ", arrayList_movie.toString());
 
-        rcl_movie = (RecyclerView) view.findViewById(R.id.rcl_movie);
+        rcl_movie = (RecyclerView) view.findViewById(R.id.rcl_ivip);
 
         rcl_movie.setHasFixedSize(true);
 
@@ -95,6 +95,6 @@ public class FragmentHomeMovie extends BasicFragment implements IFragmentMovieVi
     @Override
     public void onItemClick(int position, TestRecycle testRecycle, View view) {
         this.position = position;
-        startActivityForResult(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_MOVIE);
+        startActivityForResultObject(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_MOVIE);
     }
 }

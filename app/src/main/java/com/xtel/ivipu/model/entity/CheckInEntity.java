@@ -1,4 +1,4 @@
-package com.xtel.nipservicesdk.model.entity;
+package com.xtel.ivipu.model.entity;
 
 import com.google.gson.annotations.Expose;
 

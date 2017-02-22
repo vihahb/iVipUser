@@ -9,5 +9,5 @@
     android:paddingLeft="@dimen/size_16"
     android:singleLine="true"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="@color/tab_selected"
+    android:textColor="@color/btn_login"
     android:textSize="@dimen/font_13" />

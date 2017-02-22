@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.view.widget.RoundImage;
 
 /**
  * Created by Vũ Hà Vi on 10/26/2016.
@@ -55,7 +57,7 @@ public class DialogNotification {
         dialog.show();
     }
 
-    public void showCheckinSuccessDialog(String title, String content, String reward, String button) {
+    public void showCheckinSuccessDialog(Context context, String url_icon, String title, String content, String reward, String button) {
         dialog = new Dialog(context, R.style.Theme_Transparent);
         dialog.setContentView(R.layout.dialog_checkin_success);
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -63,10 +65,17 @@ public class DialogNotification {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
 
+        RoundImage img_brand = (RoundImage) dialog.findViewById(R.id.img_brand_store);
         TextView txt_title = (TextView) dialog.findViewById(R.id.txt_dialog_notification_title);
         TextView txt_content = (TextView) dialog.findViewById(R.id.txt_dialog_notification_content);
         TextView txt_reward = (TextView) dialog.findViewById(R.id.txt_dialog_notification_reward);
         btn_ok = (Button) dialog.findViewById(R.id.btn_dialog_notification_ok);
+
+        if (url_icon == null) {
+            img_brand.setVisibility(View.GONE);
+        } else {
+            setIconFromUrl(context, url_icon, img_brand);
+        }
 
         if (title == null)
             txt_title.setVisibility(View.GONE);
@@ -91,6 +100,13 @@ public class DialogNotification {
         dialog.show();
     }
 
+    private void setIconFromUrl(Context context, String url, RoundImage roundImage) {
+        Picasso.with(context)
+                .load(url)
+                .placeholder(R.mipmap.icon_success)
+                .error(R.mipmap.icon_success)
+                .into(roundImage);
+    }
 
     public void setOnButtonClicked(View.OnClickListener onClickListener) {
         btn_ok.setOnClickListener(onClickListener);

@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.RESP_Profile;
+import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipu.view.fragment.FavoriteFragment;
@@ -180,7 +180,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public Activity getActivity() {
-        return null;
+        return this;
     }
 
     @Override

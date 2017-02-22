@@ -1,8 +1,11 @@
 package com.xtel.ivipu.view.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.TestMyShop;
+import com.xtel.ivipu.model.entity.MyShopCheckin;
+import com.xtel.ivipu.presenter.MyShopPresenter;
 import com.xtel.ivipu.view.activity.inf.IMyShopActivity;
 import com.xtel.ivipu.view.adapter.AdapterRecycleMyShop;
+import com.xtel.ivipu.view.widget.ProgressView;
 
 import java.util.ArrayList;
 
@@ -25,20 +30,27 @@ import java.util.ArrayList;
 public class MyShopActivity extends BasicActivity implements IMyShopActivity {
 
     public RecyclerView rcl_my_shop;
-    private ArrayList<TestMyShop> arr;
+    AdapterRecycleMyShop adapter;
+    private ArrayList<MyShopCheckin> arr;
     private IMyShopActivity view;
     private Toolbar toolbar;
     private ActionBar actionBar;
+    private MyShopPresenter presenter;
+    private ProgressView progressView;
+    private int page = 1, pagesize = 10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_shop_activity);
+        presenter = new MyShopPresenter(this);
         initToolbars();
+        initProgressView();
         initView();
     }
 
     private void initToolbars() {
+        arr = new ArrayList<>();
         toolbar = (Toolbar) findViewById(R.id.toolbar_my_shop);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
@@ -47,30 +59,54 @@ public class MyShopActivity extends BasicActivity implements IMyShopActivity {
     }
 
     private void initView() {
-
-        arr = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            TestMyShop recycle = new TestMyShop();
-            recycle.setContent_name("Content Name " + i);
-            recycle.setRank("Rank " + i);
-            recycle.setScore("Score " + i);
-            recycle.setUrl_img_content("http://i.ebayimg.com/images/i/262037148918-0-1/s-l1000.jpg");
-            recycle.setUrl_img_brand("http://www.kineo.com/m/0/qualifications-1.png");
-            recycle.setUrl_img_icon("https://cdn2.iconfinder.com/data/icons/movie-icons/512/Film_Reel-512.png");
-            arr.add(i, recycle);
-            Log.e("object " + i, recycle.toString());
-        }
-        Log.e("arr object ", arr.toString());
-
-        rcl_my_shop = (RecyclerView) findViewById(R.id.rcl_my_shop);
+        rcl_my_shop = (RecyclerView) findViewById(R.id.rcl_ivip);
         rcl_my_shop.setHasFixedSize(true);
         rcl_my_shop.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new AdapterRecycleMyShop(this, getContext(), arr, view);
+        rcl_my_shop.setAdapter(adapter);
+    }
 
-        AdapterRecycleMyShop adapterRecycleMyShop = new AdapterRecycleMyShop(this,
-                getApplicationContext(),
-                arr,
-                view);
-        rcl_my_shop.setAdapter(adapterRecycleMyShop);
+    private void setDataRecyclerView(ArrayList<MyShopCheckin> newsCheckinsArrayList) {
+        Log.e("arr list", newsCheckinsArrayList.toString());
+        arr.addAll(newsCheckinsArrayList);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void initProgressView() {
+        progressView = new ProgressView(this, null);
+        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
+        progressView.setUpWithView(rcl_my_shop);
+
+        progressView.onLayoutClicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+
+        progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
+
+        progressView.onSwipeLayoutPost(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+            }
+        });
+    }
+
+    private void getData() {
+        progressView.hideData();
+        progressView.setRefreshing(true);
+        inirDataCheckIn();
+    }
+
+    private void inirDataCheckIn() {
+        presenter.getMyShopCheckin(page, pagesize);
     }
 
     @Override
@@ -93,8 +129,48 @@ public class MyShopActivity extends BasicActivity implements IMyShopActivity {
     }
 
     @Override
-    public void onItemClick(int position, TestMyShop testMyShop, View view) {
+    public void onNetworkDisabled() {
+        progressView.setRefreshing(false);
+        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
+        progressView.showData();
+    }
 
+    @Override
+    public void onGetMyShopData(ArrayList<MyShopCheckin> arrayList) {
+        progressView.setRefreshing(false);
+        Log.e("arr Shop entity", arrayList.toString());
+        setDataRecyclerView(arrayList);
+        if (arrayList.size() < 10) {
+            adapter.onSetLoadMore(false);
+        }
+        checkListData();
+    }
+
+    private void checkListData() {
+        progressView.disableSwipe();
+        progressView.setRefreshing(false);
+        if (arr.size() == 0) {
+            progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
+            progressView.show();
+        } else {
+            rcl_my_shop.getAdapter().notifyDataSetChanged();
+            progressView.hideData();
+        }
+    }
+
+    @Override
+    public void onItemClick(int position, MyShopCheckin myShopCheckin, View view) {
+
+    }
+
+    @Override
+    public void showShortToast(String message) {
+        super.showShortToast(message);
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 
     @Override

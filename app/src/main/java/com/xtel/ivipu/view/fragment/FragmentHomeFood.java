@@ -1,7 +1,9 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.TestRecycle;
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
+import com.xtel.ivipu.presenter.FragmentFoodPresenter;
 import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.activity.inf.IFragmentFoodView;
 import com.xtel.ivipu.view.adapter.AdapterRecycleFood;
+import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -24,9 +28,12 @@ import java.util.ArrayList;
 
 public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView {
 
+    int type = 3, page = 1, pagesize = 3;
+    AdapterRecycleFood adapter;
     private RecyclerView rcl_food;
-    private ArrayList<TestRecycle> arraylist_food;
-
+    private ArrayList<RESP_NewEntity> arraylist_food;
+    private ProgressView progressView;
+    private FragmentFoodPresenter presenter;
     private int position = -1;
     private int REQUEST_VIEW_FOOD = 92;
 
@@ -39,36 +46,95 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new FragmentFoodPresenter(this);
         initRecyclerView(view);
+        initProgressView(view);
     }
 
     private void initRecyclerView(View view) {
         arraylist_food = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            TestRecycle recycle = new TestRecycle();
-            recycle.setShopName("Food " + i);
-            recycle.setShopMenber(String.valueOf(i));
-            recycle.setShopLocation(String.valueOf(i));
-            recycle.setShopComment(String.valueOf(i));
-            arraylist_food.add(i, recycle);
-            Log.e("food object " + i, recycle.toString());
-        }
         Log.e("arr food object ", arraylist_food.toString());
 
-        rcl_food = (RecyclerView) view.findViewById(R.id.rcl_food);
-
+        rcl_food = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_food.setHasFixedSize(true);
-
         rcl_food.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.Adapter adapter = new AdapterRecycleFood(getActivity(), arraylist_food, this);
+        adapter = new AdapterRecycleFood(getActivity(), arraylist_food, this);
 
         rcl_food.setAdapter(adapter);
     }
 
+    private void initProgressView(View view) {
+        progressView = new ProgressView(null, view);
+        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
+        progressView.setUpWithView(rcl_food);
+
+        progressView.onLayoutClicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+
+        progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
+
+        progressView.onSwipeLayoutPost(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+            }
+        });
+    }
+
+    private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {
+        arraylist_food.addAll(newEntities);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void getData() {
+//        progressView.hideData();
+        progressView.setRefreshing(true);
+        initDataNews();
+    }
+
+    private void initDataNews() {
+        presenter.getFood(type, page, pagesize);
+    }
+
     @Override
     public void onGetFoodSuccess(ArrayList arrayList) {
+        Log.e("arr news entity", arrayList.toString());
 
+        if (arrayList.size() < 2) {
+            adapter.onSetLoadMore(false);
+        }
+
+        setDataRecyclerView(arrayList);
+
+        checkListData();
+    }
+
+    private void checkListData() {
+        progressView.setRefreshing(false);
+
+        if (arraylist_food.size() == 0) {
+            progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
+            progressView.show();
+        } else {
+            rcl_food.getAdapter().notifyDataSetChanged();
+            progressView.hide();
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        page++;
+        getData();
     }
 
     @Override
@@ -77,14 +143,21 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     }
 
     @Override
-    public void onItemClick(int position, TestRecycle testRecycle, View view) {
-        this.position = position;
-        startActivityForResult(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_FOOD);
+    public void onNetworkDisable() {
+        progressView.setRefreshing(false);
+        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
+        progressView.showData();
     }
 
     @Override
     public void showLongToast(String message) {
         super.showLongToast(message);
+    }
+
+    @Override
+    public void onItemClick(int position, RESP_NewEntity newObjEntity, View view) {
+        this.position = position;
+        startActivityForResultObject(ActivityInfoContent.class, Constants.RECYCLER_MODEL, newObjEntity, REQUEST_VIEW_FOOD);
     }
 
     @Override

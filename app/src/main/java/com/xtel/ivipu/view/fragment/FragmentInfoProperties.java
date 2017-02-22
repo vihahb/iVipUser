@@ -22,11 +22,12 @@ import android.widget.TextView;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
+import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.ivipu.model.entity.NewsObj;
-import com.xtel.ivipu.model.entity.RESP_NewEntity;
-import com.xtel.ivipu.model.entity.RESP_NewsObject;
 import com.xtel.ivipu.presenter.ActivityInfoPropertiesPresenter;
 import com.xtel.ivipu.view.activity.IFragment;
+import com.xtel.ivipu.view.activity.ListCommentActivity;
 import com.xtel.ivipu.view.activity.inf.IActivityInfo;
 import com.xtel.ivipu.view.widget.AppBarStateChangeListener;
 import com.xtel.ivipu.view.widget.RoundImage;
@@ -54,6 +55,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     private NewsObj newsObject;
     private ExpandableTextView tv_description;
     private String avatar_user;
+    private int REQUEST_COMMENT = 101;
 
 
     @Nullable
@@ -92,6 +94,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         img_like = (ImageView) view.findViewById(R.id.img_action_like);
         img_like.setOnClickListener(this);
         img_comment = (ImageView) view.findViewById(R.id.img_action_comment);
+        img_comment.setOnClickListener(this);
         img_share = (ImageView) view.findViewById(R.id.img_action_share);
 
         inc_get_gift_code = (LinearLayout) view.findViewById(R.id.inc_get_gift_code);
@@ -218,7 +221,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         } else if (id == R.id.img_action_like) {
             checkNetWork(3);
         } else if (id == R.id.img_action_comment) {
-
+            commentOnclick();
         } else if (id == R.id.img_action_comment) {
 
         }
@@ -325,6 +328,11 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     private void onActionLike() {
         int id = newEntity.getId();
         presenter.onLikeAction(id);
+    }
+
+    private void commentOnclick() {
+        int id = newEntity.getId();
+        startActivityForResultValue(ListCommentActivity.class, Constants.NEWS_ID, String.valueOf(id), REQUEST_COMMENT);
     }
 
 }

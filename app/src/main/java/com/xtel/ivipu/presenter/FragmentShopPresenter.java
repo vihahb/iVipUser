@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.xtel.ivipu.model.HomeModel;
-import com.xtel.ivipu.model.entity.RESP_ListNews;
+import com.xtel.ivipu.model.RESP.RESP_ListNews;
 import com.xtel.ivipu.view.activity.inf.IFragmentShopView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;

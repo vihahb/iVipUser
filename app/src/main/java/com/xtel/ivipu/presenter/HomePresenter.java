@@ -3,8 +3,8 @@ package com.xtel.ivipu.presenter;
 import android.util.Log;
 
 import com.xtel.ivipu.model.LoginModel;
-import com.xtel.ivipu.model.entity.RESP_Profile;
-import com.xtel.ivipu.model.entity.RESP_Short;
+import com.xtel.ivipu.model.RESP.RESP_Profile;
+import com.xtel.ivipu.model.RESP.RESP_Short;
 import com.xtel.ivipu.view.activity.inf.IHome;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -96,22 +96,24 @@ public class HomePresenter {
 
             @Override
             public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                int code_err = error.getCode();
-                if (code_err == 2) {
-                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                        @Override
-                        public void onSuccess(RESP_Login success) {
-                            onGetShortUser();
-                        }
+                if (error != null) {
+                    int code_err = error.getCode();
+                    if (code_err == 2) {
+                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                            @Override
+                            public void onSuccess(RESP_Login success) {
+                                onGetShortUser();
+                            }
 
-                        @Override
-                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                            int code = error.getCode();
-                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                        }
-                    });
-                } else {
-                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
+                            @Override
+                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                int code = error.getCode();
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                            }
+                        });
+                    } else {
+                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
+                    }
                 }
             }
         });

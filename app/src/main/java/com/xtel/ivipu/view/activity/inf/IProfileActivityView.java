@@ -3,7 +3,7 @@ package com.xtel.ivipu.view.activity.inf;
 import android.app.Activity;
 import android.content.Context;
 
-import com.xtel.ivipu.model.entity.RESP_Profile;
+import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 
 /**

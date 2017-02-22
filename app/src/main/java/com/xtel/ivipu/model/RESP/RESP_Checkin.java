@@ -1,12 +1,13 @@
-package com.xtel.ivipu.model.entity;
+package com.xtel.ivipu.model.RESP;
 
 import com.google.gson.annotations.Expose;
+import com.xtel.nipservicesdk.model.entity.RESP_Basic;
 
 /**
  * Created by vivhp on 2/17/2017.
  */
 
-public class RESP_Checkin {
+public class RESP_Checkin extends RESP_Basic {
     @Expose
     private String store_name;
     @Expose

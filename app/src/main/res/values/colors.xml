@@ -20,7 +20,7 @@
     <color name="badge_color">#FF0000</color>
 
     <color name="btn_style">#00b8d4</color>
-    <color name="tab_selected">#00b8d4</color>
+    <color name="tab_selected">#ffffff</color>
     <color name="color_toolbar">#02a8a3</color>
 
     <!-- Dialog theme color -->

@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.RESP_Profile;
+import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.presenter.ProfilePresenter;
 import com.xtel.ivipu.view.activity.LoginActivity;
@@ -41,6 +41,7 @@ import com.xtel.ivipu.view.widget.RoundImage;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.nipservicesdk.utils.SharedUtils;
+import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 import com.xtel.sdk.utils.SharedPreferencesUtils;
 
@@ -67,6 +68,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     String[] permission = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     ProfilePresenter presenter;
     String time_set;
+    long birth_day_set = 0;
     private TextView tv_name, tv_date_reg, tv_score, tv_rank;
     private EditText edt_name, edt_phone, edt_address, edt_birth;
     private Button btn_Logout;
@@ -269,6 +271,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     public void onPostPictureSuccess(String url, String server_path) {
         onUpdateAvatar(server_path);
         setResource(url, img_avatar);
+        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_AVATAR, url);
         closeProgressBar();
 
     }
@@ -557,30 +560,47 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
-    public void onGetUpdate() {
+    private boolean checkBirth_day() {
+        boolean checkIsNumber = true;
         time_set = edt_birth.getText().toString();
-        String full_name = edt_name.getText().toString();
-        String phone_number = edt_phone.getText().toString();
-        String address = edt_address.getText().toString();
-        long birth_day_set = convertTime2Unix(time_set);
-        int gender;
-        if (gender_set.equals("Nữ")) {
-            gender = 1;
-        } else if (gender_set.equals("Nam")) {
-            gender = 2;
-        } else {
-            gender = 3;
+        try {
+            Integer.parseInt(time_set);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
+        return checkIsNumber;
+    }
 
-        UserInfo userInfo = new UserInfo();
-        userInfo.setFullname(full_name);
-        userInfo.setPhonenumber(phone_number);
-        userInfo.setAddress(address);
-        userInfo.setBirthday(birth_day_set);
-        userInfo.setGender(gender);
-        Log.e("Test object request", userInfo.toString());
-        presenter.setData(userInfo);
-        setDataProfile(userInfo);
+    public void onGetUpdate() {
+        if (checkBirth_day()) {
+            UserInfo userInfo = new UserInfo();
+            time_set = edt_birth.getText().toString();
+            birth_day_set = convertTime2Unix(time_set);
+            String full_name = edt_name.getText().toString();
+            String phone_number = edt_phone.getText().toString();
+            String address = edt_address.getText().toString();
+
+            int gender;
+            if (gender_set.equals("Nữ")) {
+                gender = 1;
+            } else if (gender_set.equals("Nam")) {
+                gender = 2;
+            } else {
+                gender = 3;
+            }
+
+            userInfo.setBirthday(birth_day_set);
+            userInfo.setFullname(full_name);
+            userInfo.setPhonenumber(phone_number);
+            userInfo.setAddress(address);
+            userInfo.setGender(gender);
+            Log.e("Test object request", userInfo.toString());
+            presenter.setData(userInfo);
+            setDataProfile(userInfo);
+        } else {
+            showShortToast("Vui lòng chọn ngày sinh");
+        }
     }
 
     private void onUpdateAvatar(String server_path) {

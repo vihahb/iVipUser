@@ -4,13 +4,17 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,10 +23,14 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.model.RESP.RESP_Checkin;
 import com.xtel.ivipu.presenter.ScannerQrPresenter;
 import com.xtel.ivipu.view.activity.inf.IScannerView;
+import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.commons.NetWorkInfo;
+import com.xtel.sdk.utils.GPSTracker;
 
 import me.dm7.barcodescanner.core.IViewFinder;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -38,9 +46,10 @@ import static android.Manifest.permission.CAMERA;
 public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultHandler, IScannerView {
 
     private static final int REQUEST_PERMISSION_ALL = 2;
+    double latitude_location, longitude_location;
+    boolean isGPSEnabled = true;
     private ZXingScannerView mZXingScannerView;
     private ScannerQrPresenter presenter;
-
     private String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private ViewGroup frameContent;
 
@@ -53,6 +62,7 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
         initToolBar(R.id.scanqr_toolbar, getString(R.string.activity_checkin_content));
         initView();
         initScannerView();
+        checkGPSisEnabled();
 
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentApiVersion >= android.os.Build.VERSION_CODES.M) {
@@ -61,7 +71,78 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
             } else {
                 requestPermission();
             }
+        } else {
+
         }
+    }
+
+    private boolean checkGPS() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            // Call your Alert message
+            isGPSEnabled = false;
+        }
+        return isGPSEnabled;
+    }
+
+    private void checkGPSisEnabled() {
+        if (!NetWorkInfo.isOnline(this)) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.TimePicker);
+            dialog.setTitle("Kết nối không thành công");
+            dialog.setMessage("Rất tiếc, không thể kết nối internet. Vui lòng kiểm tra kết nối Internet.");
+            dialog.setPositiveButton("Cài đặt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    finish();
+                }
+            });
+            dialog.show();
+        } else if (!checkGPS()) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.TimePicker);
+            dialog.setTitle("GPS chưa được kích hoạt");
+            dialog.setMessage("Rất tiếc, không thể xác định vị trí của bạn. Vui lòng kiểm tra dịch vụ GPS trong Cài Đặt.");
+            dialog.setPositiveButton("Cài đặt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    finish();
+                }
+            });
+            dialog.show();
+        } else {
+            initMyLocation();
+        }
+    }
+
+    private void initMyLocation() {
+        GPSTracker gpsTracker = new GPSTracker(this);
+        latitude_location = gpsTracker.getLatitude();
+        longitude_location = gpsTracker.getLongitude();
+        Log.e("my location", "Lat: " + latitude_location + ", Lng: " + longitude_location);
     }
 
     private void initScannerView() {
@@ -157,10 +238,7 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
         final String result = rawResult.getText();
         Log.d("QRCodeScanner", rawResult.getText());
         Log.d("QRCodeScanner", rawResult.getBarcodeFormat().toString());
-
-        String content = getString(R.string.action_checkin_success_content);
-        String reward = getString(R.string.action_checkin_success_score_reward);
-        onCheckinSuccess(result, content, reward);
+        presenter.checkInStore(result, latitude_location, longitude_location);
     }
 
     @Override
@@ -178,6 +256,13 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
             } else {
                 requestPermission();
             }
+        } else {
+            if (mZXingScannerView == null) {
+                mZXingScannerView = new ZXingScannerView(this);
+                setContentView(mZXingScannerView);
+            }
+            mZXingScannerView.setResultHandler(this);
+            mZXingScannerView.startCamera();
         }
     }
 
@@ -195,8 +280,31 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
     }
 
     @Override
-    public void onCheckinSuccess(String mes, String content, String reward) {
-        showDialogCheckinNotification(getString(R.string.action_checkin_success), content, reward, new DialogListener() {
+    public void onResumeScanner() {
+        mZXingScannerView.resumeCameraPreview(QrCheckIn.this);
+    }
+
+    @Override
+    public void showDialogNotification(String mes, String content) {
+        showNotification(mes, content);
+    }
+
+    @Override
+    public void onCheckinSuccess(RESP_Checkin respCheckin) {
+        Log.e("Chekin obj", JsonHelper.toJson(respCheckin));
+        String content;
+        String reward;
+        String shopIcon;
+        if (respCheckin != null) {
+            content = "Bạn đã checkin thành công tại cửa hàng " + respCheckin.getStore_name() + ", bạn nhận được: ";
+            reward = String.valueOf(respCheckin.getPoint());
+            shopIcon = respCheckin.getStore_logo();
+            showDialogCheckIn(shopIcon, content, reward);
+        }
+    }
+
+    private void showDialogCheckIn(String url_icon, String content, String reward) {
+        showDialogCheckinNotification(this, url_icon, getString(R.string.action_checkin_success), content, reward, new DialogListener() {
             @Override
             public void onClicked(Object object) {
                 finish();
@@ -204,18 +312,39 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
 
             @Override
             public void onCancel() {
+                finish();
+            }
+        });
+    }
 
+    private void showNotification(String title, String mes) {
+        showDialogNotification(title, mes, new DialogListener() {
+            @Override
+            public void onClicked(Object object) {
+                onResumeScanner();
+            }
+
+            @Override
+            public void onCancel() {
+                finish();
             }
         });
     }
 
     @Override
     public void onCheckinError(Error error) {
+        if (error != null)
+            showShortToast(error.getMessage());
+    }
 
+
+    @Override
+    public void showShortToast(String message) {
+        super.showShortToast(message);
     }
 
     @Override
     public Activity getActivity() {
-        return null;
+        return this;
     }
 }

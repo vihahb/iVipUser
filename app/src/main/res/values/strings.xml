@@ -7,7 +7,7 @@
     <string name="ak_login_protocol_scheme">ak615022045348242</string>
     <string name="fb_login_protocol_scheme">615022045348242</string>
     <string name="account_kit_client_token">4a9f9e329c65d64d04315ade049b9b9a</string>
-
+    <string name="google_map_api_key">AIzaSyBymccp2z9401LkQSUTwpRtrGLSugd7xjI</string>
     <string name="xtel_service_code">XTL-IVIP-U</string>
 
     <!-- Transition -->
@@ -28,6 +28,7 @@
     <string name="activity_myshop_content">Cửa hàng của tôi</string>
     <string name="activity_checkin_content">Check in</string>
     <string name="activity_checkin">Check in</string>
+    <string name="activity_comment">Bình luận</string>
 
     <!-- Nav title -->
     <string name="nav_Profile">Profile</string>
@@ -35,6 +36,7 @@
     <string name="nav_favorite">Favorite</string>
     <string name="nav_notify">Notify</string>
     <string name="nav_user">User</string>
+    <string name="nav_send">Send</string>
 
     <string name="nav_shopping">Shop</string>
     <string name="nav_movie">Movie</string>
@@ -69,7 +71,7 @@
     <string name="checkin_success">Check in thành công</string>
     <string name="action_notify">Thông báo</string>
     <string name="action_checkin_success">Chúc Mừng!</string>
-    <string name="action_checkin_success_content">Bạn đã checkin thành công, bạn nhận sẽ được lượng điểm tích lũy</string>
+    <!--<string name="action_checkin_success_content"></string>-->
     <string name="action_checkin_success_score_reward">1000</string>
     <string name="rate_feature">Xếp hạng tính năng</string>
     <string name="rate_action">Đánh giá</string>

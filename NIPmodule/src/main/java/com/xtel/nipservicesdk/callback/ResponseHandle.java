@@ -38,7 +38,7 @@ public abstract class ResponseHandle<T extends RESP_Basic> {
                 }
             }
         } catch (Exception e) {
-            Log.e("ResponseHandle", "err: " + e);
+            Log.e("ResponseHandle", "err: " + e.toString());
             onError(new Error(-1, "ERROR_PARSER_RESPONSE", e.getMessage()));
         }
     }

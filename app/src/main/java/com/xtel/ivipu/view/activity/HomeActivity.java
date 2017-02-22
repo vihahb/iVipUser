@@ -30,7 +30,7 @@ import android.widget.PopupWindow;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.RESP_Short;
+import com.xtel.ivipu.model.RESP.RESP_Short;
 import com.xtel.ivipu.model.entity.UserShort;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
@@ -40,6 +40,7 @@ import com.xtel.ivipu.view.fragment.FragmentHomeNews;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsLocations;
 import com.xtel.ivipu.view.fragment.FragmentHomeShopping;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
+import com.xtel.ivipu.view.widget.CircleTransform;
 import com.xtel.ivipu.view.widget.RoundImage;
 import com.xtel.sdk.dialog.BadgeIcon;
 
@@ -89,11 +90,11 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 //        initBottomNavigationAction();
         tabLayout_home = (TabLayout) findViewById(R.id.home_bottom_tab_view);
 
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_shop), 0);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_movie), 1);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_food), 2);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_airplane), 3);
-        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_home_selected_more), 4);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.drawable.ic_shop), 0);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.drawable.ic_movie), 1);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.drawable.ic_food), 2);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.drawable.ic_health), 3);
+        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.drawable.ic_list_tab), 4);
         tabLayout_home.setOnTabSelectedListener(this);
         replaceDefaultFragment();
     }
@@ -101,27 +102,27 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private void initBottomNavigationAction(TabLayout.Tab tab) {
         switch (tab.getPosition()) {
             case 0:
-                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
+                tabLayout_home.getTabAt(0).setIcon(R.drawable.ic_shop);
                 replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "SHOPPING");
                 renameToolbar(R.string.nav_shopping);
                 break;
             case 1:
-                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_home_selected_movie);
+                tabLayout_home.getTabAt(1).setIcon(R.drawable.ic_movie);
                 replaceFragment(R.id.home_frame, new FragmentHomeMovie(), "MOVIE");
                 renameToolbar(R.string.nav_movie);
                 break;
             case 2:
-                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_home_selected_food);
+                tabLayout_home.getTabAt(2).setIcon(R.drawable.ic_food);
                 replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
                 renameToolbar(R.string.nav_food);
                 break;
             case 3:
-                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_home_selected_airplane);
+                tabLayout_home.getTabAt(3).setIcon(R.drawable.ic_health);
                 replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
                 renameToolbar(R.string.nav_technology);
                 break;
             case 4:
-                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_home_selected_more);
+                tabLayout_home.getTabAt(4).setIcon(R.drawable.ic_list_tab);
                 View mainTab = ((ViewGroup) tabLayout_home.getChildAt(0)).getChildAt(tab.getPosition());
                 showPopupLayout(mainTab);
                 break;
@@ -214,21 +215,24 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 Log.e("Debug ", "onBitmapLoaded");
                 BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-                menu.getItem(0).setIcon(bitmapDrawable);
+                menu.getItem(1).setIcon(bitmapDrawable);
             }
 
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
+                if (errorDrawable != null)
                 Log.e("OnFailed", errorDrawable.toString());
             }
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
+                if (placeHolderDrawable != null)
                 Log.e("OnPrepare", placeHolderDrawable.toString());
             }
         };
         Picasso.with(this)
                 .load(url)
+                .transform(new CircleTransform())
                 .error(R.drawable.ic_nemu_notification)
                 .into(target);
     }
@@ -270,7 +274,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
         MenuItem user_item = this.mMenuItem.findItem(R.id.action_user);
         LayerDrawable layerDrawable = (LayerDrawable) user_item.getIcon();
-        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.ic_badge);
+        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.action_user);
         BadgeIcon badgeIcon;
         if ((userBadgeDrawable != null)
                 && ((userBadgeDrawable instanceof BadgeIcon))
@@ -281,12 +285,12 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
         badgeIcon.setCount(paramsInt);
         layerDrawable.mutate();
-        layerDrawable.setDrawableByLayerId(R.id.ic_badge, badgeIcon);
+        layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
         user_item.setIcon(layerDrawable);
     }
 
     private void replaceDefaultFragment() {
-        tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_home_selected_shop);
+        tabLayout_home.getTabAt(0).setIcon(R.drawable.ic_shop);
         replaceFragment(R.id.home_frame, new FragmentHomeShopping(), "PROFILE");
         renameToolbar(R.string.nav_Profile);
     }
@@ -404,7 +408,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
     @Override
     protected void onResume() {
-        super.onResume();
         presenter.onGetShortUser();
+        super.onResume();
     }
 }

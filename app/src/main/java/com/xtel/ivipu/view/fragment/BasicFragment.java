@@ -122,12 +122,13 @@ public class BasicFragment extends Fragment {
         getActivity().startActivity(intent);
     }
 
-    protected void startActivityForResult(Class clazz, int requestCode) {
+    protected void startActivityForResultValue(Class clazz, String key, String value_int, int requestCode) {
         Intent intent = new Intent(getActivity(), clazz);
+        intent.putExtra(key, value_int);
         getActivity().startActivityForResult(intent, requestCode);
     }
 
-    protected void startActivityForResult(Class clazz, String key, Object object, int requestCode) {
+    protected void startActivityForResultObject(Class clazz, String key, Object object, int requestCode) {
         Intent intent = new Intent(getActivity(), clazz);
         intent.putExtra(key, (Serializable) object);
         getActivity().startActivityForResult(intent, requestCode);

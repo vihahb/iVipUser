@@ -13,7 +13,7 @@ import com.xtel.nipservicesdk.model.entity.Error;
 import org.json.JSONObject;
 
 /**
- * Created by Lê Công Long Vũ on 11/9/2016
+ * Created by Vũ Hà Vi on 01/01/2017
  */
 
 public class JsonParse {
@@ -63,7 +63,9 @@ public class JsonParse {
 
     public static String getCodeMessage(Activity activity, int code, String content) {
 
-        if (code == 2) {
+        if (code == -1) {
+            return activity.getString(R.string.system_exception);
+        } else if (code == 2) {
             return activity.getString(R.string.error_session_invalid);
         } else if (code == 1) {
             return activity.getString(R.string.error_input_invalid);
@@ -103,6 +105,8 @@ public class JsonParse {
             return activity.getString(R.string.error_facebook_access_token_invalid);
         } else if (code == 118) {
             return activity.getString(R.string.error_phone_number_wrong);
+        } else if (code == 301) {
+            return activity.getString(R.string.error_checkin_store_not_existed);
         } else {
             return content;
         }

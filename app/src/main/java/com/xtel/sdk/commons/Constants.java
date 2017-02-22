@@ -28,6 +28,7 @@ public class Constants {
     public static final String UPDATE_USER = "v0.1/user";
     public static final String NEWS_INFO = "v0.1/news/";
     public static final String NEWS_ACTION = "v0.1/news/action";
+    public static final String CHECKIN_ACTION = "v0.1/checkin";
 
 
     /**
@@ -46,6 +47,11 @@ public class Constants {
     public static final String PROFILE_GENERAL_POINT = "profile_general_point";
     public static final String PROFILE_LEVEL = "profile_level";
     public static final String PROFILE_JOINT_DATE = "profile_joint_date";
+
+    /**
+     * VARIABLE
+     **/
+    public static final String NEWS_ID = "news_id";
 
 
     public static String convertDate(String date) {

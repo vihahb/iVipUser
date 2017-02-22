@@ -1,6 +1,7 @@
-package com.xtel.ivipu.model.entity;
+package com.xtel.ivipu.model.RESP;
 
 import com.google.gson.annotations.Expose;
+import com.xtel.ivipu.model.entity.VoucherObj;
 import com.xtel.nipservicesdk.model.entity.RESP_Basic;
 
 /**

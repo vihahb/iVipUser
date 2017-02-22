@@ -27,7 +27,7 @@
             android:layout_alignLeft="@+id/nav_view"
             android:layout_alignRight="@+id/nav_view"
             android:layout_alignStart="@+id/nav_view"
-            android:alpha="0.7"
+            android:alpha="0.8"
             android:background="@color/color_toolbar" />
 
         <android.support.design.widget.NavigationView

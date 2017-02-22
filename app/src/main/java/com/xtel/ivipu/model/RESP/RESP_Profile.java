@@ -1,4 +1,4 @@
-package com.xtel.ivipu.model.entity;
+package com.xtel.ivipu.model.RESP;
 
 import com.google.gson.annotations.Expose;
 

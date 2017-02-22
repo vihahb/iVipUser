@@ -3,7 +3,7 @@ package com.xtel.ivipu.view.activity.inf;
 import android.app.Activity;
 import android.view.View;
 
-import com.xtel.ivipu.model.entity.RESP_NewEntity;
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 
 import java.util.ArrayList;
 

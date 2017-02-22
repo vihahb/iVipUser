@@ -2,6 +2,7 @@ package com.xtel.ivipu.view.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -61,9 +62,9 @@ public class BasicActivity extends AppCompatActivity {
         });
     }
 
-    protected void showDialogCheckinNotification(String title, String content, String reward, final DialogListener dialogListener) {
+    protected void showDialogCheckinNotification(Context context, String url_icon, String title, String content, String reward, final DialogListener dialogListener) {
         final DialogNotification dialogNotification = new DialogNotification(this);
-        dialogNotification.showCheckinSuccessDialog(title, content, reward, "OK");
+        dialogNotification.showCheckinSuccessDialog(context, url_icon, title, content, reward, "OK");
         dialogNotification.setOnButtonClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,8 +3,8 @@ package com.xtel.ivipu.presenter;
 import android.util.Log;
 
 import com.xtel.ivipu.model.HomeModel;
+import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.ivipu.model.entity.NewsActionEntity;
-import com.xtel.ivipu.model.entity.RESP_NewsObject;
 import com.xtel.ivipu.view.activity.inf.IActivityInfo;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -41,23 +41,25 @@ public class ActivityInfoPropertiesPresenter {
 
             @Override
             public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                int code = error.getCode();
-                Log.e("err json", error.toString());
-                if (code == 2) {
-                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                        @Override
-                        public void onSuccess(RESP_Login success) {
-                            getNewsInfomation(id_news);
-                        }
+                if (error != null) {
+                    int code = error.getCode();
+                    Log.e("err json", error.toString());
+                    if (code == 2) {
+                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                            @Override
+                            public void onSuccess(RESP_Login success) {
+                                getNewsInfomation(id_news);
+                            }
 
-                        @Override
-                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                            Log.e("err callback", JsonHelper.toJson(error));
-                            view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                        }
-                    });
-                } else {
-                    view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            @Override
+                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                Log.e("err callback", JsonHelper.toJson(error));
+                                view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            }
+                        });
+                    } else {
+                        view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                    }
                 }
             }
 
@@ -79,23 +81,25 @@ public class ActivityInfoPropertiesPresenter {
 
             @Override
             public void onError(Error error) {
-                int code = error.getCode();
-                if (code == 2) {
-                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                        @Override
-                        public void onSuccess(RESP_Login success) {
-                            onLikeAction(id_news);
-                        }
+                if (error != null) {
+                    int code = error.getCode();
+                    if (code == 2) {
+                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                            @Override
+                            public void onSuccess(RESP_Login success) {
+                                onLikeAction(id_news);
+                            }
 
-                        @Override
-                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                            Log.e("err callback", JsonHelper.toJson(error));
-                            view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                        }
-                    });
-                } else {
-                    Log.e(TAG + "err like", JsonHelper.toJson(error));
-                    view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            @Override
+                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                Log.e("err callback", JsonHelper.toJson(error));
+                                view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            }
+                        });
+                    } else {
+                        Log.e(TAG + "err like", JsonHelper.toJson(error));
+                        view.showSortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                    }
                 }
             }
         });
