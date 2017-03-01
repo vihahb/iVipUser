@@ -56,14 +56,15 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/detail_bottom_tab_view"
-            style="@style/TabLayout.Theme"
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation_profile"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_56"
-            android:layout_gravity="bottom"
-            android:background="@mipmap/bgr_tab_1"
-            app:tabGravity="fill"
-            app:tabMode="fixed" />
+            android:layout_alignParentBottom="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/bottom_nav_profile"/>
     </LinearLayout>
 </LinearLayout>

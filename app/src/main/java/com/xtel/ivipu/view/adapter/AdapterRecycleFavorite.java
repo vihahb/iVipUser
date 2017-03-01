@@ -1,6 +1,5 @@
 package com.xtel.ivipu.view.adapter;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +10,8 @@ import android.widget.TextView;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.FavoriteEntity;
-import com.xtel.ivipu.view.activity.inf.IFragmentFavoriteView;
+import com.xtel.ivipu.view.fragment.inf.IFragmentFavoriteView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 
 import java.util.ArrayList;
 
@@ -21,12 +21,10 @@ import java.util.ArrayList;
 
 public class AdapterRecycleFavorite extends RecyclerView.Adapter<AdapterRecycleFavorite.ViewHolder> {
 
-    private Activity activity;
     private ArrayList<FavoriteEntity> arrayList;
     private IFragmentFavoriteView fragmentFavoriteView;
 
-    public AdapterRecycleFavorite(Activity activity, ArrayList<FavoriteEntity> arrayList, IFragmentFavoriteView fragmentFavoriteView) {
-        this.activity = activity;
+    public AdapterRecycleFavorite(ArrayList<FavoriteEntity> arrayList, IFragmentFavoriteView fragmentFavoriteView) {
         this.arrayList = arrayList;
         this.fragmentFavoriteView = fragmentFavoriteView;
     }
@@ -43,13 +41,13 @@ public class AdapterRecycleFavorite extends RecyclerView.Adapter<AdapterRecycleF
 
         AdapterRecycleFavorite.ViewHolder viewHolder = holder;
 
-        viewHolder.txt_Name.setText(favoriteEntity.getFavorite_name());
-        viewHolder.txt_address.setText(favoriteEntity.getFavorite_address());
-        viewHolder.txt_time.setText(favoriteEntity.getFavorite_time());
-        viewHolder.txt_date.setText(favoriteEntity.getFavorite_date());
-        viewHolder.txt_view.setText(favoriteEntity.getFavorite_view());
-        viewHolder.txt_like.setText(favoriteEntity.getFavorite_like());
-        viewHolder.txt_comment.setText(favoriteEntity.getFavorite_comment());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Name, favoriteEntity.getFavorite_name());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_address, favoriteEntity.getFavorite_address());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_time, favoriteEntity.getFavorite_time());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_date, favoriteEntity.getFavorite_date());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_view, favoriteEntity.getFavorite_view());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_like, favoriteEntity.getFavorite_like());
+        WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment, favoriteEntity.getFavorite_comment());
     }
 
     @Override

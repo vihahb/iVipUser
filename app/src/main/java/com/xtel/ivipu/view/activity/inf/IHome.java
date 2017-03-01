@@ -16,6 +16,8 @@ public interface IHome {
 
     void startActivty(Class clazz);
 
+    void startActivityFinish(Class clazz);
+
     void getShortUser(RESP_Short userShort);
 
     Activity getActivity();

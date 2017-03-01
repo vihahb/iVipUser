@@ -18,9 +18,19 @@ public class VoucherObj {
     @Expose
     private long expired_time;
     @Expose
-    private int favorite;
-    @Expose
     private int status;
+
+    public VoucherObj() {
+    }
+
+    public VoucherObj(String code, String qr_code, String bar_code, long create_time, long expired_time, int status) {
+        this.code = code;
+        this.qr_code = qr_code;
+        this.bar_code = bar_code;
+        this.create_time = create_time;
+        this.expired_time = expired_time;
+        this.status = status;
+    }
 
     public String getCode() {
         return code;
@@ -62,14 +72,6 @@ public class VoucherObj {
         this.expired_time = expired_time;
     }
 
-    public int getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(int favorite) {
-        this.favorite = favorite;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -86,7 +88,6 @@ public class VoucherObj {
                 ", bar_code='" + bar_code + '\'' +
                 ", create_time=" + create_time +
                 ", expired_time=" + expired_time +
-                ", favorite=" + favorite +
                 ", status=" + status +
                 '}';
     }

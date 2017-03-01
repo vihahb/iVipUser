@@ -39,11 +39,15 @@ public class NewsObj {
     private int chain_store_id;
     @Expose
     private int favorite;
+    @Expose
+    private double current_rate;
+    @Expose
+    private long rate_time;
 
     public NewsObj() {
     }
 
-    public NewsObj(int id, String banner, String logo, String store_name, int like, int comment, int rate, int view, long create_time, String title, String description, int sales, VoucherObj voucher, int store_id, int chain_store_id, int favorite) {
+    public NewsObj(int id, String banner, String logo, String store_name, int like, int comment, int rate, int view, long create_time, String title, String description, int sales, VoucherObj voucher, int store_id, int chain_store_id, int favorite, double current_rate, long rate_time) {
         this.id = id;
         this.banner = banner;
         this.logo = logo;
@@ -60,6 +64,8 @@ public class NewsObj {
         this.store_id = store_id;
         this.chain_store_id = chain_store_id;
         this.favorite = favorite;
+        this.current_rate = current_rate;
+        this.rate_time = rate_time;
     }
 
     public int getId() {
@@ -190,6 +196,22 @@ public class NewsObj {
         this.favorite = favorite;
     }
 
+    public double getCurrent_rate() {
+        return current_rate;
+    }
+
+    public void setCurrent_rate(double current_rate) {
+        this.current_rate = current_rate;
+    }
+
+    public long getRate_time() {
+        return rate_time;
+    }
+
+    public void setRate_time(long rate_time) {
+        this.rate_time = rate_time;
+    }
+
     @Override
     public String toString() {
         return "NewsObj{" +
@@ -209,6 +231,8 @@ public class NewsObj {
                 ", store_id=" + store_id +
                 ", chain_store_id=" + chain_store_id +
                 ", favorite=" + favorite +
+                ", current_rate=" + current_rate +
+                ", rate_time=" + rate_time +
                 '}';
     }
 }

@@ -23,6 +23,7 @@ import com.xtel.ivipu.presenter.CommentPresenter;
 import com.xtel.ivipu.view.activity.inf.IActivityComment;
 import com.xtel.ivipu.view.adapter.AdapterCommentActivity;
 import com.xtel.ivipu.view.widget.ProgressView;
+import com.xtel.sdk.callback.DialogListener;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 
@@ -35,12 +36,14 @@ import java.util.ArrayList;
 public class ListCommentActivity extends BasicActivity implements IActivityComment {
 
     int news_id, page = 1, pagesize = 9;
+    private int REQUEST_ACTION_COMMENT = 91;
     private int id_toolbar = R.id.toolbar_comment;
     private ArrayList<CommentObj> arrayList;
     private RecyclerView rcl_comment;
     private ProgressView progressView;
     private AdapterCommentActivity adapter;
     private CommentPresenter presenter;
+    private String st_news_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +72,8 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
         progressView.onLayoutClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                adapter.onSetLoadMore(true);
+                adapter.notifyDataSetChanged();
                 getData();
             }
         });
@@ -78,7 +83,7 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
             public void onRefresh() {
                 page = 1;
                 arrayList.clear();
-                adapter.notifyDataSetChanged();
+                adapter.onSetLoadMore(true);
                 getData();
             }
         });
@@ -106,6 +111,7 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
 //        progressView.hideData();
         progressView.setRefreshing(true);
         getDataFragment();
+//        getDataFromComment();
     }
 
     private void getDataFragment() {
@@ -115,9 +121,27 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
         }
     }
 
+//    private void getDataFromComment(){
+//        if (validComment()) {
+//            Log.e("Status Comment", "Ok");
+//                    page = 1;
+//                    arrayList.clear();
+//                    initDataComment();
+//        }
+//    }
+
     private boolean validIdNewsl() {
         Intent intent = getIntent();
-        String st_news_id = intent.getStringExtra(Constants.NEWS_ID);
+        st_news_id = intent.getStringExtra(Constants.NEWS_ID);
+        news_id = Integer.parseInt(st_news_id);
+        Log.e("Cmt news id", String.valueOf(news_id));
+
+        return news_id != -1;
+    }
+
+    private boolean validComment() {
+        Intent intent = getIntent();
+        st_news_id = intent.getStringExtra(Constants.NEWS_ID);
         news_id = Integer.parseInt(st_news_id);
         Log.e("Cmt news id", String.valueOf(news_id));
 
@@ -164,14 +188,47 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
     }
 
     @Override
+    public void postCommentSuccess() {
+
+    }
+
+    @Override
+    public void postCommentError() {
+
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new DialogListener() {
+            @Override
+            public void onClicked(Object object) {
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+    }
+
+    @Override
+    public void startActivityAndFinish(Class clazz) {
+        super.startActivityFinish(clazz);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
         } else if (id == R.id.action_comment) {
-            startActivity(ActionCommentActivity.class);
+            sentNewsIdCommentAction();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sentNewsIdCommentAction() {
+        startActivityForResultValue(ActionCommentActivity.class, Constants.NEWS_ID, String.valueOf(st_news_id), REQUEST_ACTION_COMMENT);
+        finish();
     }
 
     @Override

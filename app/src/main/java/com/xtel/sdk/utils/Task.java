@@ -2,12 +2,8 @@ package com.xtel.sdk.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,38 +22,11 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import gun0912.tedbottompicker.TedBottomPicker;
-
 /**
  * Created by Vũ Hà Vi on 12/1/2016.
  */
 
 public class Task {
-    public static void TakeBigPicture(final Context context, FragmentManager fragmentManager, final boolean isBigImage, final RequestWithStringListener requestWithStringListener) {
-        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(context)
-                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
-                    @Override
-                    public void onImageSelected(final Uri uri) {
-                        Log.e("tb_uri", "uri: " + uri);
-                        Log.e("tb_path", "uri.getPath(): " + uri.getPath());
-
-                        File file = new File(uri.getPath());
-                        Log.e("tb_path_file", "path: " + file.getPath());
-
-                        final Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                new ConvertImage(context, isBigImage, requestWithStringListener).execute(bitmap);
-                            }
-                        }, 500);
-                    }
-                })
-                .setPeekHeight(context.getResources().getDisplayMetrics().heightPixels / 2)
-                .create();
-
-        bottomSheetDialogFragment.show(fragmentManager);
-    }
 
     private static void postImageToServer(final File file, final Context context, final RequestWithStringListener requestWithStringListener) {
 

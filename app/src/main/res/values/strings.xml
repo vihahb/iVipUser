@@ -25,28 +25,36 @@
     <string name="activity_reg">Đăng ký</string>
     <string name="activity_profile">Thông tin người dùng</string>
     <string name="activity_info_content">Thông tin cửa hàng</string>
-    <string name="activity_myshop_content">Cửa hàng của tôi</string>
+    <string name="fragment_myshop_content">Cửa hàng của tôi</string>
     <string name="activity_checkin_content">Check in</string>
     <string name="activity_checkin">Check in</string>
     <string name="activity_comment">Bình luận</string>
 
     <!-- Nav title -->
-    <string name="nav_Profile">Profile</string>
-    <string name="nav_history">History</string>
-    <string name="nav_favorite">Favorite</string>
-    <string name="nav_notify">Notify</string>
-    <string name="nav_user">User</string>
-    <string name="nav_send">Send</string>
+    <string name="nav_Profile">Thông tin cá nhân</string>
+    <string name="nav_history">Lịch sử</string>
+    <string name="nav_favorite">Yêu thích</string>
+    <string name="nav_notify">Thông báo</string>
+    <string name="nav_user">Người dùng</string>
+    <string name="nav_send">Gửi</string>
 
-    <string name="nav_shopping">Shop</string>
-    <string name="nav_movie">Movie</string>
-    <string name="nav_food">Food</string>
-    <string name="nav_technology">Technology</string>
-    <string name="nav_services">Services</string>
+    <string name="nav_info_properties">Thông tin</string>
+    <string name="nav_info_address">Địa chỉ</string>
+    <string name="nav_info_gallery">Thư viện</string>
+    <string name="nav_info_suggestion">Bản tin liên quan</string>
+
+    <string name="nav_new_list">Tin mới nhất</string>
+    <string name="nav_fashion">Thời trang \u0026 Làm đẹp</string>
+    <string name="nav_food">Ẩm thực</string>
+    <string name="nav_technology">Công nghệ</string>
+    <string name="nav_health">Sức khỏe</string>
+    <string name="nav_services">Dịch vụ khác</string>
+    <string name="nav_news_for_me">Bản tin quanh bạn</string>
+    <string name="nav_other">Khác</string>
 
     <string name="tab_properties">Thông tin</string>
     <string name="tab_address">Địa chỉ</string>
-    <string name="tab_info">Infomation</string>
+    <string name="tab_gallery">Thư viện</string>
     <string name="tab_suggestion">Thể loại liên quan</string>
 
 
@@ -54,6 +62,8 @@
     <string name="action_settings">Setting</string>
     <string name="action_success">Success</string>
     <string name="action_error">Error</string>
+    <string name="expand">Xem thêm</string>
+    <string name="collapse">Thu nhỏ</string>
     <string name="action_login_account_kit">Đăng nhập bằng Account Kit</string>
     <string name="action_login_facebook">FACEBOOK</string>
     <string name="action_login_phone">SỐ ĐIỆN THOẠI</string>
@@ -73,8 +83,9 @@
     <string name="action_checkin_success">Chúc Mừng!</string>
     <!--<string name="action_checkin_success_content"></string>-->
     <string name="action_checkin_success_score_reward">1000</string>
-    <string name="rate_feature">Xếp hạng tính năng</string>
+    <string name="rate_news">Đánh giá bản tin</string>
     <string name="rate_action">Đánh giá</string>
+    <string name="rate_action_success">Cám ơn bạn đã đánh giá bản tin.</string>
 
     <!-- Message App -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -107,6 +118,7 @@
     <string name="no_reg_date">Chưa có thông tin đăng ký</string>
     <string name="no_score">Chưa có điểm thưởng</string>
     <string name="update">Update</string>
+    <string name="updating">Loading data</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="no_internet">Không có kết nối internet</string>

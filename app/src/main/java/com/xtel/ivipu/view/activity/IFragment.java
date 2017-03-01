@@ -27,7 +27,7 @@ public class IFragment extends BasicFragment {
 
         Button txt_close = (Button) bottomSheetDialog.findViewById(R.id.dialog_txt_close);
         ImageView img_qr_code = (ImageView) bottomSheetDialog.findViewById(R.id.dialog_qr_code);
-
+        url = url.replace("https", "http").replace("9191", "9190");
         Picasso.with(getContext())
                 .load(url)
                 .noPlaceholder()

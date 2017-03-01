@@ -13,6 +13,9 @@ public class CommentActionObj {
     @Expose
     private String comment;
 
+    public CommentActionObj() {
+    }
+
     public CommentActionObj(int news_id, String comment) {
         this.news_id = news_id;
         this.comment = comment;

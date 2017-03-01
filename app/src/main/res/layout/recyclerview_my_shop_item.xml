@@ -50,7 +50,7 @@
                         android:textColor="@android:color/white" />
 
                     <ImageView
-                        android:id="@+id/icon_shop_img"
+                        android:id="@+id/icon_type_img"
                         android:layout_width="@dimen/size_40"
                         android:layout_height="@dimen/size_40"
                         android:layout_gravity="center_vertical|center_horizontal"
@@ -68,7 +68,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/img_content_image"
+                    android:id="@+id/shop_content_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
@@ -103,15 +103,29 @@
                     </FrameLayout>
                 </FrameLayout>
 
-                <com.xtel.ivipu.view.widget.RoundImage
-                    android:id="@+id/img_content_brand"
-                    android:layout_width="@dimen/size_56"
-                    android:layout_height="@dimen/size_56"
+                <FrameLayout
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
                     android:layout_gravity="top|right"
                     android:layout_marginRight="@dimen/size_20"
-                    android:layout_marginTop="@dimen/size_20"
-                    android:contentDescription="@null"
-                    android:src="@drawable/badge_icon" />
+                    android:layout_marginTop="@dimen/size_20">
+
+                    <com.xtel.ivipu.view.widget.RoundImage
+                        android:layout_width="@dimen/size_60"
+                        android:layout_height="@dimen/size_60"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@mipmap/bg_white"/>
+
+                    <com.xtel.ivipu.view.widget.RoundImage
+                        android:id="@+id/shop_brand_img"
+                        android:layout_width="@dimen/size_56"
+                        android:layout_height="@dimen/size_56"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/badge_icon"/>
+
+                </FrameLayout>
             </FrameLayout>
     </LinearLayout>
 </LinearLayout>

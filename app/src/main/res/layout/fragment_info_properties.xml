@@ -49,14 +49,31 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.xtel.ivipu.view.widget.RoundImage
-        android:id="@+id/store_info"
+    <FrameLayout
         android:layout_width="@dimen/size_84"
         android:layout_height="@dimen/size_84"
         android:layout_margin="@dimen/fab_margin"
-        android:contentDescription="@null"
-        android:src="@mipmap/user_demo"
-        android:transitionName="@string/transition_shop_ava"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|left|end" />
+        app:layout_anchorGravity="bottom|left|end">
+
+        <com.xtel.ivipu.view.widget.RoundImage
+            android:id="@+id/store_info_background"
+            android:layout_width="@dimen/size_84"
+            android:layout_height="@dimen/size_84"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@null"
+            android:src="@mipmap/bg_white"
+            />
+
+        <com.xtel.ivipu.view.widget.RoundImage
+            android:id="@+id/store_info"
+            android:layout_width="@dimen/size_80"
+            android:layout_height="@dimen/size_80"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@mipmap/user_demo"
+            android:transitionName="@string/transition_shop_ava"/>
+    </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>

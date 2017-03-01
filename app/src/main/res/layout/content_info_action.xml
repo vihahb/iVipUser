@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/size_36"
-        android:paddingRight="@dimen/size_36">
+        android:paddingRight="@dimen/size_36"
+        android:paddingTop="@dimen/size_16">
 
         <View
             android:layout_width="match_parent"

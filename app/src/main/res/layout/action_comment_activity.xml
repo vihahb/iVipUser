@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bgr_app"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/bgr_app"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -52,7 +53,8 @@
                 android:id="@+id/cmt_avatar"
                 android:layout_width="@dimen/size_60"
                 android:layout_height="@dimen/size_60"
-                android:src="@mipmap/user_demo" />
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_user"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,16 +94,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_100"
+                    android:layout_height="@dimen/size_120"
                     android:alpha="0.2"
-                    android:background="@android:color/black" />
+                    android:background="@drawable/background_layout_black"/>
 
                 <EditText
                     android:id="@+id/edt_comment"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_100"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:minLines="8" />
+                    android:gravity="top"
+                    android:minLines="5"
+                    android:padding="@dimen/size_4"
+                    android:textColor="@android:color/white"/>
             </FrameLayout>
         </LinearLayout>
 

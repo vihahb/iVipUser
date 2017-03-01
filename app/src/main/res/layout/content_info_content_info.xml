@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/transparent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,30 +41,27 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/size_10">
 
-            <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/expand_text_view"
+            <at.blogc.android.views.ExpandableTextView
+                android:id="@+id/expandableTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                expandableTextView:animDuration="200"
-                expandableTextView:maxCollapsedLines="4">
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="@string/text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_13"
+                app:animation_duration="1000"/>
 
-                <TextView
-                    android:id="@id/expandable_text"
-                android:layout_width="match_parent"
+            <!-- Optional parameter animation_duration: sets the duration of the expand animation -->
+            <TextView
+                android:id="@+id/button_toggle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@id/expand_collapse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp" />
-            </com.ms.square.android.expandabletextview.ExpandableTextView>
+                android:layout_gravity="left"
+                android:background="@drawable/btn_expand"
+                android:paddingTop="@dimen/size_6"
+                android:text="@string/expand"
+                android:textColor="@android:color/white"/>
 
             <View
                 android:layout_width="match_parent"

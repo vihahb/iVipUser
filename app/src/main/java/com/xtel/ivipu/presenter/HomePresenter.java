@@ -5,11 +5,13 @@ import android.util.Log;
 import com.xtel.ivipu.model.LoginModel;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.RESP.RESP_Short;
+import com.xtel.ivipu.view.activity.LoginGroupActivity;
 import com.xtel.ivipu.view.activity.inf.IHome;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
@@ -75,8 +77,27 @@ public class HomePresenter {
 
             @Override
             public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                Log.e(TAG + "err", error.getMessage());
-                view.showShortToast(parseMessage(error.getCode()));
+                if (error != null) {
+                    int code = error.getCode();
+                    if (code == 2) {
+                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                            @Override
+                            public void onSuccess(RESP_Login success) {
+                                onGetUserNip();
+                            }
+
+                            @Override
+                            public void onError(Error error) {
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                view.startActivityFinish(LoginGroupActivity.class);
+                            }
+                        });
+                    } else {
+                        Log.e(TAG + "err", error.getMessage());
+                        view.showShortToast(parseMessage(error.getCode()));
+                    }
+                }
+
             }
         });
     }
@@ -109,6 +130,7 @@ public class HomePresenter {
                             public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                                 int code = error.getCode();
                                 view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                view.startActivityFinish(LoginGroupActivity.class);
                             }
                         });
                     } else {

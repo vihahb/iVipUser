@@ -123,16 +123,9 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="com.xtel.ivipu.view.activity.MyShopActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/activity_myshop_content"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
-        <activity
             android:name="com.xtel.ivipu.view.activity.QrCheckIn"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/activity_myshop_content"
+            android:label="@string/fragment_myshop_content"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -164,6 +157,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"

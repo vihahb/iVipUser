@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
@@ -17,7 +18,7 @@ import android.widget.FrameLayout;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.view.activity.inf.IInfoContentView;
 import com.xtel.ivipu.view.fragment.FragmentInfoAddress;
-import com.xtel.ivipu.view.fragment.FragmentInfoInfomation;
+import com.xtel.ivipu.view.fragment.FragmentInfoGallery;
 import com.xtel.ivipu.view.fragment.FragmentInfoProperties;
 import com.xtel.ivipu.view.fragment.FragmentInfoSuggestion;
 
@@ -27,12 +28,9 @@ import com.xtel.ivipu.view.fragment.FragmentInfoSuggestion;
 
 public class ActivityInfoContent extends BasicActivity implements View.OnClickListener, IInfoContentView {
 
-//    private TestRecycle testRecycle;
-//    private TextView txt_info_shop_name, txt_info_shop_member, txt_info_shop_location, txt_info_shop_comment;
-//    private Button btn_getGiftCode;
-
-    private TabLayout tabLayout;
+    //    private TabLayout tabLayout;
     private FrameLayout info_frame;
+    private BottomNavigationView nav_bottom_info;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,17 +55,6 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
         }
     }
 
-//    private void initView() {
-//        txt_info_shop_name = (TextView) findViewById(R.id.tv_info_shop_name);
-//        txt_info_shop_member = (TextView) findViewById(R.id.tv_info_shop_member);
-//        txt_info_shop_location = (TextView) findViewById(R.id.tv_info_shop_location);
-//        txt_info_shop_comment = (TextView) findViewById(R.id.tv_info_shop_comment);
-//
-//        btn_getGiftCode = (Button) findViewById(R.id.btnGetGiftCode);
-//
-//        getDataFromFragmentShop();
-//    }
-
     private void initToolbars() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_info_content);
         setSupportActionBar(toolbar);
@@ -76,39 +63,37 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     }
 
     private void initControl() {
-        tabLayout = (TabLayout) findViewById(R.id.tabs_info);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_info), 0);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_location), 1);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_search), 2);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_suggestion), 3);
+
+        nav_bottom_info = (BottomNavigationView) findViewById(R.id.bottom_navigation_info);
+        initMenuSelected();
+
+
         replaceDefaultFragment();
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    }
+
+    private void initMenuSelected() {
+        nav_bottom_info.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int tab_position = tab.getPosition();
-                if (tab_position == 0) {
-                    renameToolbar(R.string.tab_properties);
-                    replaceFragment(R.id.info_frame, new FragmentInfoProperties(), "Properties");
-                } else if (tab_position == 1) {
-                    renameToolbar(R.string.tab_address);
-                    replaceFragment(R.id.info_frame, new FragmentInfoAddress(), "Address");
-                } else if (tab_position == 2) {
-                    renameToolbar(R.string.tab_info);
-                    replaceFragment(R.id.info_frame, new FragmentInfoInfomation(), "Infomation");
-                } else if (tab_position == 3) {
-                    renameToolbar(R.string.tab_suggestion);
-                    replaceFragment(R.id.info_frame, new FragmentInfoSuggestion(), "Suggestion");
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_info_properties:
+                        renameToolbar(R.string.tab_properties);
+                        replaceFragment(R.id.info_frame, new FragmentInfoProperties(), "Properties");
+                        break;
+                    case R.id.nav_info_address:
+                        renameToolbar(R.string.tab_address);
+                        replaceFragment(R.id.info_frame, new FragmentInfoAddress(), "Address");
+                        break;
+                    case R.id.nav_info_gallery:
+                        renameToolbar(R.string.tab_gallery);
+                        replaceFragment(R.id.info_frame, new FragmentInfoGallery(), "Gallery");
+                        break;
+                    case R.id.nav_info_suggestion:
+                        renameToolbar(R.string.tab_suggestion);
+                        replaceFragment(R.id.info_frame, new FragmentInfoSuggestion(), "Suggestion");
+                        break;
                 }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                return true;
             }
         });
     }

@@ -17,9 +17,13 @@ public interface IMyShopActivity {
     void onSuccess();
     void onError();
 
-    void onNetworkDisabled();
+    void onNetworkDisable();
+
+    void startActivityAndFinish(Class clazz);
 
     void showShortToast(String mes);
+
+    void onLoadMore();
 
     void onGetMyShopData(ArrayList<MyShopCheckin> arrayList);
 

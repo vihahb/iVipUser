@@ -6,6 +6,7 @@ import android.util.Log;
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_Checkin;
 import com.xtel.ivipu.model.entity.CheckInEntity;
+import com.xtel.ivipu.view.activity.LoginGroupActivity;
 import com.xtel.ivipu.view.activity.inf.IScannerView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -63,6 +64,7 @@ public class ScannerQrPresenter {
                                 public void onError(Error error) {
                                     Log.e("Code er get new sess", String.valueOf(error.getCode()));
                                     view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                    view.startActivityFinish(LoginGroupActivity.class);
                                 }
                             });
                         } else if (code == 301) {

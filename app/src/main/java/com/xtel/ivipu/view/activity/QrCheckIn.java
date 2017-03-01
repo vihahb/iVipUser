@@ -260,6 +260,8 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
             if (mZXingScannerView == null) {
                 mZXingScannerView = new ZXingScannerView(this);
                 setContentView(mZXingScannerView);
+            } else {
+                mZXingScannerView.resumeCameraPreview(this);
             }
             mZXingScannerView.setResultHandler(this);
             mZXingScannerView.startCamera();
@@ -337,6 +339,10 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
             showShortToast(error.getMessage());
     }
 
+    @Override
+    public void startActivityFinish(Class clazz) {
+        super.startActivityFinish(clazz);
+    }
 
     @Override
     public void showShortToast(String message) {
