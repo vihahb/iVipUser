@@ -28,7 +28,10 @@ public class Constants {
     public static final String UPDATE_USER = "v0.1/user";
     public static final String NEWS_INFO = "v0.1/news/";
     public static final String NEWS_ACTION = "v0.1/news/action";
+    public static final String NEW_ACTION_COMMENT = "v0.1/news/comment";
     public static final String CHECKIN_ACTION = "v0.1/checkin";
+    public static final String RATE_ACTION = "v0.1/rate";
+    public static final String GALLERY_GET = "v0.1/gallery/";
 
 
     /**

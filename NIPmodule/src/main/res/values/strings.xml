@@ -29,5 +29,13 @@
     <string name="error_authentication_id_invalid">Mã xác thực đã hết hiệu lực</string>
     <string name="error_facebook_access_token_invalid">Mã truy cập đã hết hiệu lực</string>
     <string name="error_phone_number_wrong">Số điện thoại không đúng</string>
+    <string name="error_rate_not_exists">Bản tin không tồn tại</string>
+    <string name="error_rate_already_rated">Bạn đã đánh giá bản tin này rồi.</string>
     <string name="error_checkin_store_not_existed">Cửa hàng không tồn tại trên hệ thống</string>
+    <string name="error_voucher_not_provider">Bản tin không cung cấp Voucher</string>
+    <string name="error_voucher_already_exists">Bạn đã nhận Voucher rồi</string>
+    <string name="error_voucher_not_yet">Chưa tới thời gian lấy Voucher</string>
+    <string name="error_voucher_expired_time">Đã hết thời gian lấy voucher</string>
+    <string name="error_voucher_not_available">Số lượng Voucher đã hết</string>
+    <string name="error_voucher_not_rewards">Bạn không đủ điểm để đổi voucher</string>
 </resources>

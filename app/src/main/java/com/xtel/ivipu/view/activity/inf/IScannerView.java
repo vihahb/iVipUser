@@ -19,6 +19,8 @@ public interface IScannerView {
 
     void onCheckinError(Error error);
 
+    void startActivityFinish(Class clazz);
+
     void showShortToast(String mes);
 
     Activity getActivity();

@@ -5,11 +5,8 @@
     android:gravity="center_vertical"
     android:orientation="vertical">
 
-    <TextView
+    <include
+        layout="@layout/layout_progress_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Services Fragment"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

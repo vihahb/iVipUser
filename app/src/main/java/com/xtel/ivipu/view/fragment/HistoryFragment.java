@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.HistoryEntity;
-import com.xtel.ivipu.view.activity.inf.IFragmentHistoryView;
 import com.xtel.ivipu.view.adapter.AdapterRecycleHistory;
+import com.xtel.ivipu.view.fragment.inf.IFragmentHistoryView;
 
 import java.util.ArrayList;
 

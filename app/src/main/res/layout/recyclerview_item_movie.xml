@@ -13,25 +13,35 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_banner_shop"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/movie_demo"
-                android:transitionName="@string/transition_shop_img" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_banner_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/banner_demo"
+                    android:transitionName="@string/transition_shop_img"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@android:color/black"></LinearLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/color_canvas_movie"
+            android:id="@+id/color_canvas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/item_background_6" />
+            android:background="@drawable/item_background_5"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -43,15 +53,18 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
+                android:paddingEnd="@dimen/size_14"
                 android:paddingLeft="@dimen/size_14"
+                android:paddingRight="@dimen/size_14"
                 android:paddingStart="@dimen/size_14"
                 android:paddingTop="@dimen/size_50">
-
                 <TextView
                     android:id="@+id/tv_shop_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Movie Name 1 - Address (HN City or HCM City)"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="Shop Name 1 - Address (HN City or HCM City)"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"
@@ -69,25 +82,19 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
+                        android:layout_weight="0.5"
                         android:orientation="horizontal"
                         android:paddingRight="@dimen/size_16">
 
                         <TextView
+                            android:id="@+id/tv_date_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingRight="@dimen/size_16"
                             android:text="10:00"
                             android:textColor="@android:color/white"
-                            android:textSize="13sp" />
+                            android:textSize="11sp"/>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="01/17/2017"
-                            android:textColor="@android:color/white"
-                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,18 +112,40 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/size_22"
-                                android:layout_height="@dimen/size_22"
-                                android:src="@drawable/ic_action_eye" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_view"/>
 
                             <TextView
-                                android:id="@+id/tv_shop_member"
+                                android:id="@+id/tv_shop_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="@dimen/size_6"
                                 android:text="100"
                                 android:textColor="@android:color/white"
-                                android:textSize="13sp" />
+                                android:textSize="11sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/size_16">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_like"/>
+
+                            <TextView
+                                android:id="@+id/tv_shop_like"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="100"
+                                android:textColor="@android:color/white"
+                                android:textSize="11sp"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -128,32 +157,9 @@
                             android:paddingLeft="@dimen/size_16">
 
                             <ImageView
-                                android:layout_width="@dimen/size_22"
-                                android:layout_height="@dimen/size_22"
-                                android:src="@drawable/ic_action_favorite_white" />
-
-                            <TextView
-                                android:id="@+id/tv_shop_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="@dimen/size_6"
-                                android:text="100"
-                                android:textColor="@android:color/white"
-                                android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="@dimen/size_16">
-
-                            <ImageView
-                                android:layout_width="@dimen/size_22"
-                                android:layout_height="@dimen/size_22"
-                                android:src="@drawable/ic_action_comment" />
+                                android:src="@drawable/ic_comment"/>
 
                             <TextView
                                 android:id="@+id/tv_shop_comment"
@@ -162,25 +168,31 @@
                                 android:paddingLeft="@dimen/size_6"
                                 android:text="100"
                                 android:textColor="@android:color/white"
-                                android:textSize="13sp" />
+                                android:textSize="11sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
-
         <FrameLayout
-            android:layout_width="@dimen/size_70"
-            android:layout_height="@dimen/size_70"
+            android:layout_width="@dimen/size_80"
+            android:layout_height="@dimen/size_80"
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="@dimen/size_16"
             android:layout_marginStart="@dimen/size_16"
             android:layout_marginTop="@dimen/size_2">
 
             <com.xtel.ivipu.view.widget.RoundImage
-                android:id="@+id/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@mipmap/bg_white"/>
+
+            <com.xtel.ivipu.view.widget.RoundImage
+                android:id="@+id/img_view"
+                android:layout_width="@dimen/size_75"
+                android:layout_height="@dimen/size_75"
+                android:layout_gravity="center"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/user_demo"
                 android:transitionName="@string/transition_shop_ava" />

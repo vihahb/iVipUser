@@ -3,8 +3,8 @@ package com.xtel.ivipu.view.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,12 +23,11 @@ import com.xtel.ivipu.view.fragment.ProfileFragment;
  * Created by Vũ Hà Vi on 1/12/2016.
  */
 
-public class ProfileActivity extends BasicActivity implements IProfileActivityView, TabLayout.OnTabSelectedListener {
+public class ProfileActivity extends BasicActivity implements IProfileActivityView {
 
-    BottomNavigationView bottomNavigationView;
+    BottomNavigationView bottom_nav_profile;
     private ActionBar actionBar;
     private Toolbar toolbar;
-    private TabLayout tabLayout;
     private Menu menu;
 
     @Override
@@ -37,8 +36,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         setContentView(R.layout.activity_profile);
         initToolbar();
 
-//        initBottomNavigation();
-        initTablayout();
+        initBottomNav();
         getData();
     }
 
@@ -55,20 +53,44 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    private void initTablayout() {
-        tabLayout = (TabLayout) findViewById(R.id.detail_bottom_tab_view);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_profile), 0);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_history), 1);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_favorite), 2);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_action_notify), 3);
-
-        tabLayout.setOnTabSelectedListener(this);
+    private void initBottomNav() {
+        bottom_nav_profile = (BottomNavigationView) findViewById(R.id.bottom_navigation_profile);
+        bottom_nav_profile.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_profile_profile:
+                        replaceFragment(R.id.detail_frame, new ProfileFragment(), "PROFILE");
+                        renameToolbar(R.string.nav_Profile);
+                        showShortToast("Profile");
+                        menu.getItem(0).setVisible(true);
+                        break;
+                    case R.id.nav_profile_history:
+                        replaceFragment(R.id.detail_frame, new HistoryFragment(), "HISTORY");
+                        renameToolbar(R.string.nav_history);
+                        showShortToast("History");
+                        menu.getItem(0).setVisible(false);
+                        menu.getItem(1).setVisible(false);
+                        break;
+                    case R.id.nav_profile_favorite:
+                        replaceFragment(R.id.detail_frame, new FavoriteFragment(), "FAVORITE");
+                        renameToolbar(R.string.nav_favorite);
+                        showShortToast("Favorite");
+                        menu.getItem(0).setVisible(false);
+                        menu.getItem(1).setVisible(false);
+                        break;
+                    case R.id.nav_profile_notify:
+                        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+                        renameToolbar(R.string.nav_notify);
+                        showShortToast("Notify");
+                        menu.getItem(0).setVisible(false);
+                        menu.getItem(1).setVisible(false);
+                        break;
+                }
+                return true;
+            }
+        });
     }
-
-//    public void initBottomNavigation() {
-//        bottomNavigationView = (BottomNavigationView) findViewById(R.id.detail_bottom_navigation_view);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,12 +152,10 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public void setProfileSuccess(UserInfo profile) {
-
     }
 
     @Override
     public void reloadProfile(RESP_Profile profile) {
-
     }
 
     @Override
@@ -144,7 +164,6 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public void onPostPictureSuccess(String url, String server_path) {
-
     }
 
     @Override
@@ -160,21 +179,10 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     }
 
-//    @Override
-//    public void setProfileSuccess(RESP_Profile profile) {
-//
-//    }
-
-//    @Override
-//    public void setProfileSuccess(Profile profile) {
-//
-//    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_action_profile, menu);
         return true;
     }
 
@@ -186,40 +194,6 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     @Override
     public Context getContext() {
         return null;
-    }
-
-    public void OnSelectedTab(int tab_position) {
-        switch (tab_position) {
-            case 0:
-                replaceFragment(R.id.detail_frame, new ProfileFragment(), "PROFILE");
-                renameToolbar(R.string.nav_Profile);
-                showShortToast("Profile");
-                menu.getItem(0).setVisible(true);
-                break;
-            case 1:
-                replaceFragment(R.id.detail_frame, new HistoryFragment(), "HISTORY");
-                renameToolbar(R.string.nav_history);
-                showShortToast("History");
-                menu.getItem(0).setVisible(false);
-                menu.getItem(1).setVisible(false);
-                break;
-            case 2:
-                replaceFragment(R.id.detail_frame, new FavoriteFragment(), "FAVORITE");
-                renameToolbar(R.string.nav_favorite);
-                showShortToast("Favorite");
-                menu.getItem(0).setVisible(false);
-                menu.getItem(1).setVisible(false);
-                break;
-            case 3:
-                replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
-                renameToolbar(R.string.nav_notify);
-                showShortToast("Notify");
-                menu.getItem(0).setVisible(false);
-                menu.getItem(1).setVisible(false);
-                break;
-            default:
-                break;
-        }
     }
 
     private void getData() {
@@ -242,20 +216,6 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 ////        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
 ////        renameToolbar(R.string.nav_notify);
 //        tabLayout.getTabAt(3).select();
-////        bottomNavigationView.getMenu().getItem(3).setCheckable(true);
+////        bottom_nav_profile.getMenu().getItem(3).setCheckable(true);
 //    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        OnSelectedTab(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
 }

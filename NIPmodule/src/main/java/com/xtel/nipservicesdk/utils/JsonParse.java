@@ -105,8 +105,24 @@ public class JsonParse {
             return activity.getString(R.string.error_facebook_access_token_invalid);
         } else if (code == 118) {
             return activity.getString(R.string.error_phone_number_wrong);
+        } else if (code == 201) {
+            return activity.getString(R.string.error_rate_not_exists);
+        } else if (code == 202) {
+            return activity.getString(R.string.error_rate_already_rated);
         } else if (code == 301) {
             return activity.getString(R.string.error_checkin_store_not_existed);
+        } else if (code == 401) {
+            return activity.getString(R.string.error_voucher_not_provider);
+        } else if (code == 402) {
+            return activity.getString(R.string.error_voucher_already_exists);
+        } else if (code == 403) {
+            return activity.getString(R.string.error_voucher_not_yet);
+        } else if (code == 404) {
+            return activity.getString(R.string.error_voucher_expired_time);
+        } else if (code == 405) {
+            return activity.getString(R.string.error_voucher_not_available);
+        } else if (code == 406) {
+            return activity.getString(R.string.error_voucher_not_rewards);
         } else {
             return content;
         }

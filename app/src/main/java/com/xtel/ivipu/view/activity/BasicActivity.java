@@ -206,6 +206,12 @@ public class BasicActivity extends AppCompatActivity {
         startActivityForResult(intent, requestCode);
     }
 
+    protected void startActivityForResultValue(Class clazz, String key, String value_int, int requestCode) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtra(key, value_int);
+        startActivityForResult(intent, requestCode);
+    }
+
     protected void startActivityForResult(Class clazz, String key, Object object, int requestCode) {
         Intent intent = new Intent(this, clazz);
         intent.putExtra(key, (Serializable) object);

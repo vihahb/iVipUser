@@ -42,6 +42,10 @@ public class RESP_NewsObject extends RESP_Basic {
     private int chain_store_id;
     @Expose
     private int favorite;
+    @Expose
+    private double current_rate;
+    @Expose
+    private long rate_time;
 
     public int getId() {
         return id;
@@ -171,6 +175,22 @@ public class RESP_NewsObject extends RESP_Basic {
         this.favorite = favorite;
     }
 
+    public double getCurrent_rate() {
+        return current_rate;
+    }
+
+    public void setCurrent_rate(double current_rate) {
+        this.current_rate = current_rate;
+    }
+
+    public long getRate_time() {
+        return rate_time;
+    }
+
+    public void setRate_time(long rate_time) {
+        this.rate_time = rate_time;
+    }
+
     @Override
     public String toString() {
         return "RESP_NewsObject{" +
@@ -190,6 +210,8 @@ public class RESP_NewsObject extends RESP_Basic {
                 ", store_id=" + store_id +
                 ", chain_store_id=" + chain_store_id +
                 ", favorite=" + favorite +
+                ", current_rate=" + current_rate +
+                ", rate_time=" + rate_time +
                 '}';
     }
 }

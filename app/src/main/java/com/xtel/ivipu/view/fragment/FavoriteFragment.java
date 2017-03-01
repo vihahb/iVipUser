@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.FavoriteEntity;
 import com.xtel.ivipu.model.entity.HistoryEntity;
-import com.xtel.ivipu.view.activity.inf.IFragmentFavoriteView;
 import com.xtel.ivipu.view.adapter.AdapterRecycleFavorite;
+import com.xtel.ivipu.view.fragment.inf.IFragmentFavoriteView;
 
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class FavoriteFragment extends Fragment implements IFragmentFavoriteView 
         rcl_favorite.setHasFixedSize(true);
 
         rcl_favorite.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.Adapter adapter = new AdapterRecycleFavorite(getActivity(), arrayList, this);
+        RecyclerView.Adapter adapter = new AdapterRecycleFavorite(arrayList, this);
 
         rcl_favorite.setAdapter(adapter);
     }

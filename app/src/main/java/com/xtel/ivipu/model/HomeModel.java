@@ -42,4 +42,24 @@ public class HomeModel extends Model {
     public void postNewsComment(String url, String jsonObject, String session, ResponseHandle responseHandle) {
         requestServer.postApi(url, jsonObject, session, responseHandle);
     }
+
+    public void postNewsRates(String url, String jsonObject, String session, ResponseHandle responseHandle) {
+        requestServer.postApi(url, jsonObject, session, responseHandle);
+    }
+
+    public void getNewsVoucher(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getNewsSuggestion(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getGalleryArray(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getAddress(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
 }

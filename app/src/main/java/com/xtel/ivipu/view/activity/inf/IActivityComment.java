@@ -17,6 +17,14 @@ public interface IActivityComment {
 
     void onGetCommentError(String mes);
 
+    void postCommentSuccess();
+
+    void postCommentError();
+
+    void onNetworkDisable();
+
+    void startActivityAndFinish(Class clazz);
+
     void onLoadMore();
 
     void showShortToast(String mes);

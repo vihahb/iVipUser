@@ -3,17 +3,14 @@ package com.xtel.ivipu.view.fragment;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -30,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.login.LoginManager;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
@@ -38,6 +35,7 @@ import com.xtel.ivipu.presenter.ProfilePresenter;
 import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipu.view.widget.RoundImage;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.nipservicesdk.utils.SharedUtils;
@@ -90,27 +88,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         return inflater.inflate(R.layout.fragment_profile_profile, container, false);
     }
 
-    private void setResource(String url, RoundImage imageView) {
-        Picasso.with(getContext())
-                .load(url)
-                .placeholder(R.drawable.ic_action_name)
-                .error(R.drawable.ic_action_name)
-                .fit()
-                .centerCrop()
-                .into(imageView);
-    }
-
-    private void setImageResource(String url, ImageView imageView) {
-        Picasso.with(getContext())
-                .load(url)
-                .placeholder(R.drawable.ic_action_name)
-                .error(R.drawable.ic_action_name)
-                .fit()
-                .centerCrop()
-                .into(imageView);
-    }
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -119,28 +96,21 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     private void initView(View view) {
-
         tv_name = (TextView) view.findViewById(R.id.tv_username);
         tv_date_reg = (TextView) view.findViewById(R.id.tv_date_reg);
         tv_score = (TextView) view.findViewById(R.id.tv_score);
         tv_rank = (TextView) view.findViewById(R.id.tv_ranking);
-
         edt_name = (EditText) view.findViewById(R.id.edt_fullname);
         edt_address = (EditText) view.findViewById(R.id.edt_address_profile);
         edt_birth = (EditText) view.findViewById(R.id.edt_birthday_profile);
         edt_phone = (EditText) view.findViewById(R.id.edt_phone);
-
         img_avatar = (RoundImage) view.findViewById(R.id.img_avatar_profile);
         img_profile_change_avatar = (ImageView) view.findViewById(R.id.img_profile_change_avatar);
         btn_Logout = (Button) view.findViewById(R.id.btn_Logout);
-
         fr_change_avatar = (FrameLayout) view.findViewById(R.id.fr_change_avatar);
-
         img_cover = (ImageView) view.findViewById(R.id.profile_cover);
         cover_avatar = (LinearLayout) view.findViewById(R.id.cover_avatar);
-
         sp_gender = (Spinner) view.findViewById(R.id.sp_gender);
-
         btn_Logout.setOnClickListener(this);
         img_avatar.setOnClickListener(this);
         img_profile_change_avatar.setOnClickListener(this);
@@ -181,6 +151,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         if (id == R.id.btn_Logout) {
             SharedUtils.getInstance().clearData();
             SharedPreferencesUtils.getInstance().clearData();
+            LoginManager.getInstance().logOut();
             finishActivityBeforeStartActivity(LoginActivity.class);
         } else if (id == R.id.edt_birthday_profile) {
             setTime();
@@ -243,7 +214,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     @Override
     public void reloadProfile(RESP_Profile profile) {
         UserInfo userInfo = new UserInfo();
-
         userInfo.setFullname(profile.getFullname());
         userInfo.setGender(profile.getGender());
         userInfo.setBirthday(profile.getBirthday());
@@ -257,7 +227,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         userInfo.setGeneral_point(profile.getGeneral_point());
         userInfo.setLevel(profile.getLevel());
         userInfo.setJoin_date(profile.getJoin_date());
-
         Log.e("Reload ", userInfo.toString());
         setDataProfile(userInfo);
     }
@@ -270,10 +239,9 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     @Override
     public void onPostPictureSuccess(String url, String server_path) {
         onUpdateAvatar(server_path);
-        setResource(url, img_avatar);
+        WidgetHelper.getInstance().setAvatarImageURL(img_avatar, url);
         SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_AVATAR, url);
         closeProgressBar();
-
     }
 
     private void onTakePictureGallary(Uri uri) {
@@ -284,17 +252,13 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             showShortToast("Không thể lấy ảnh");
             return;
         }
-
         showProgressBar(false, false, null, "Đang tải file...");
-
         Bitmap bitmap = null;
-
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         presenter.postImage(bitmap);
     }
 
@@ -306,9 +270,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             showShortToast("Không thể lấy ảnh");
             return;
         }
-
         showProgressBar(false, false, null, "Đang tải file...");
-
         presenter.postImage(bitmap);
     }
 
@@ -341,13 +303,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private void initCamera() {
         final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntent.setType("image/*");
-
         //Create any other intents you want
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         //Add them to an intent array
         Intent[] intents = new Intent[]{cameraIntent};
-
         //Create a choose from your first intent then pass in the intent array
         final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ảnh");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
@@ -380,31 +339,21 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     private void setDataProfile(UserInfo userInfo) {
         setName(userInfo);
-
         setPhone(userInfo);
-
         setAddress(userInfo);
-
         setGender(userInfo);
-
         setBirthDay(userInfo);
-
         setAvatar(userInfo);
-
         setJointDate(userInfo);
-
         setGeneralScore(userInfo);
-
         setLevel(userInfo);
-
         setCover(userInfo);
     }
 
     private void setCover(UserInfo userInfo) {
         String avatar = userInfo.getAvatar();
         if (avatar != null) {
-            setImageResource(avatar, img_cover);
-
+            WidgetHelper.getInstance().setImageWithBlury(img_cover, avatar);
         }
     }
 
@@ -412,9 +361,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         String rank = userInfo.getLevel();
         if (rank != null) {
             tv_rank.setText("Xếp hạng: " + rank);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_rank, "Xếp hạng: ", rank);
         } else {
             rank = "Chưa có cấp độ";
-            tv_rank.setText(rank);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_rank, "", rank);
         }
     }
 
@@ -422,9 +372,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         String score = String.valueOf(userInfo.getGeneral_point());
         if (score != null) {
             tv_score.setText("Điểm thưởng: " + score);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_score, "Điểm thưởng: ", score);
         } else {
             score = "Chưa có điểm thưởng";
-            tv_score.setText(score);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_score, "", score);
         }
     }
 
@@ -432,17 +383,20 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         String date_reg = convertLong2Time(userInfo.getJoin_date());
         Log.e("Time joint: ", date_reg);
         if (date_reg != null) {
-            tv_date_reg.setText("Ngày đăng ký: " + date_reg);
+//            tv_date_reg.setText("Ngày đăng ký: " + date_reg);
+            WidgetHelper.getInstance().setTextViewDate(tv_date_reg, "Ngày đăng ký: ", userInfo.getJoin_date());
         } else {
             date_reg = "Ngày đăng ký: Chưa có thông tin";
-            tv_date_reg.setText(date_reg);
+//            tv_date_reg.setText(date_reg);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_date_reg, date_reg);
         }
     }
 
     private void setAvatar(UserInfo userInfo) {
         String avatar = userInfo.getAvatar();
         if (avatar != null) {
-            setResource(avatar, img_avatar);
+//            setResource(avatar, img_avatar);
+            WidgetHelper.getInstance().setAvatarImageURL(img_avatar, avatar);
         }
     }
 
@@ -450,7 +404,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         long date_time = userInfo.getBirthday();
         String date_birth = convertLong2Time(userInfo.getBirthday());
         if (date_time != 0) {
-            edt_birth.setText(date_birth);
+//            edt_birth.setText(date_birth);
+            WidgetHelper.getInstance().setEditTextDate(edt_birth, date_time);
         } else {
             date_birth = getActivity().getResources().getString(R.string.no_birth_day);
             edt_birth.setHint(date_birth);
@@ -471,7 +426,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private void setAddress(UserInfo userInfo) {
         String address = userInfo.getAddress();
         if (address != null) {
-            edt_address.setText(address);
+//            edt_address.setText(address);
+            WidgetHelper.getInstance().setEditTextNoResult(edt_address, address);
         } else {
             address = getActivity().getResources().getString(R.string.no_address);
             edt_address.setHint(address);
@@ -481,7 +437,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private void setPhone(UserInfo userInfo) {
         String phone_number = userInfo.getPhonenumber();
         if (phone_number != null) {
-            edt_phone.setText(phone_number);
+//            edt_phone.setText(phone_number);
+            WidgetHelper.getInstance().setEditTextNoResult(edt_phone, phone_number);
         } else {
             phone_number = getActivity().getResources().getString(R.string.no_phone);
             edt_phone.setHint(phone_number);
@@ -493,10 +450,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         if (full_name == null || full_name.equals("")) {
             full_name = "Chưa có thông tin";
             edt_name.setHint(full_name);
-            tv_name.setText(full_name);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_name, full_name);
         } else {
-            edt_name.setText(full_name);
-            tv_name.setText(full_name);
+            WidgetHelper.getInstance().setEditTextNoResult(edt_name, full_name);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_name, full_name);
         }
     }
 
@@ -560,20 +517,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean checkBirth_day() {
-        boolean checkIsNumber = true;
-        time_set = edt_birth.getText().toString();
-        try {
-            Integer.parseInt(time_set);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return checkIsNumber;
-    }
-
     public void onGetUpdate() {
-        if (checkBirth_day()) {
             UserInfo userInfo = new UserInfo();
             time_set = edt_birth.getText().toString();
             birth_day_set = convertTime2Unix(time_set);
@@ -598,9 +542,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             Log.e("Test object request", userInfo.toString());
             presenter.setData(userInfo);
             setDataProfile(userInfo);
-        } else {
-            showShortToast("Vui lòng chọn ngày sinh");
-        }
     }
 
     private void onUpdateAvatar(String server_path) {
@@ -624,27 +565,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     public void checkNetwork(final Context context, int type) {
         if (!NetWorkInfo.isOnline(context)) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.TimePicker);
-            dialog.setTitle("Kết nối không thành công");
-            dialog.setMessage("Rất tiếc, không thể kết nối internet. Vui lòng kiểm tra kết nối Internet.");
-            dialog.setPositiveButton("Cài đặt", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
-                    Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    //get gps
-                }
-            });
-            dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    // TODO Auto-generated method stub
-                }
-            });
-            dialog.show();
+            WidgetHelper.getInstance().showAlertNetwork(context);
         } else {
             if (type == 1) {
                 onGetUpdate();

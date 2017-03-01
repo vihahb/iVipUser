@@ -12,16 +12,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.CommentObj;
 import com.xtel.ivipu.view.activity.inf.IActivityComment;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by vivhp on 2/18/2017.
@@ -63,11 +60,10 @@ public class AdapterCommentActivity extends RecyclerView.Adapter<RecyclerView.Vi
             final CommentObj commentObj = arrayList.get(position);
             Log.e("Arr adapter", JsonHelper.toJson(arrayList));
             ViewHolder viewHolder = (ViewHolder) holder;
-
-            viewHolder.txt_user_name.setText(commentObj.getFullname());
-            viewHolder.txt_comment_content.setText(commentObj.getComment());
-            viewHolder.txt_date_time.setText(convertLong2Time(commentObj.getComment_time()));
-            setAvatarComment(commentObj, viewHolder.img_avatar);
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_user_name, commentObj.getFullname());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment_content, "Nội dung: ", commentObj.getComment());
+            WidgetHelper.getInstance().setTextViewDate(viewHolder.txt_date_time, "Đã bình luận vào: ", commentObj.getComment_time());
+            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_avatar, commentObj.getAvatar());
         } else {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
             viewProgressBar.progressBar.getIndeterminateDrawable()
@@ -76,14 +72,6 @@ public class AdapterCommentActivity extends RecyclerView.Adapter<RecyclerView.Vi
                             android.graphics.PorterDuff.Mode.MULTIPLY
                     );
         }
-    }
-
-    private String convertLong2Time(long time) {
-        Date date = new Date(time * 1000);
-        SimpleDateFormat formatTime = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        String formattedDate = formatTime.format(date);
-        return formattedDate;
     }
 
     @Override
@@ -108,16 +96,6 @@ public class AdapterCommentActivity extends RecyclerView.Adapter<RecyclerView.Vi
         this.isLoadMore = isLoadMore;
     }
 
-    private void setAvatarComment(CommentObj obj, ImageView viewHolder) {
-        Picasso.with(context)
-                .load(obj.getAvatar())
-                .fit()
-                .centerCrop()
-                .placeholder(R.drawable.ic_action_circle)
-                .error(R.drawable.ic_action_circle)
-                .into(viewHolder);
-    }
-
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txt_user_name, txt_date_time, txt_comment_content;
@@ -130,7 +108,7 @@ public class AdapterCommentActivity extends RecyclerView.Adapter<RecyclerView.Vi
             txt_date_time = (TextView) itemView.findViewById(R.id.txt_date_time_comment);
 
             img_avatar = (ImageView) itemView.findViewById(R.id.ic_user_avatar_comment);
-            img_action_comment = (ImageView) itemView.findViewById(R.id.ic_comment);
+//            img_action_comment = (ImageView) itemView.findViewById(R.id.ic_comment);
         }
     }
 

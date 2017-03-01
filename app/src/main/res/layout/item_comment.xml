@@ -14,13 +14,26 @@
         android:paddingLeft="@dimen/size_16"
         android:paddingRight="@dimen/size_16">
 
-        <com.xtel.ivipu.view.widget.RoundImage
-            android:id="@+id/ic_user_avatar_comment"
+        <FrameLayout
             android:layout_width="@dimen/size_80"
             android:layout_height="@dimen/size_80"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@mipmap/user_demo" />
+            android:layout_gravity="center">
+
+            <com.xtel.ivipu.view.widget.RoundImage
+                android:layout_width="@dimen/size_80"
+                android:layout_height="@dimen/size_80"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@mipmap/bg_white"/>
+
+            <com.xtel.ivipu.view.widget.RoundImage
+                android:id="@+id/ic_user_avatar_comment"
+                android:layout_width="@dimen/size_78"
+                android:layout_height="@dimen/size_78"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_user"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -46,12 +59,12 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_18" />
 
-                <ImageView
-                    android:id="@+id/ic_comment"
-                    android:layout_width="@dimen/size_48"
-                    android:layout_height="@dimen/size_48"
-                    android:padding="@dimen/size_4"
-                    android:src="@drawable/ic_action_message" />
+                <!--<ImageView-->
+                <!--android:id="@+id/ic_comment"-->
+                <!--android:layout_width="@dimen/size_48"-->
+                <!--android:layout_height="@dimen/size_48"-->
+                <!--android:padding="@dimen/size_4"-->
+                <!--android:src="@drawable/ic_action_message" />-->
             </LinearLayout>
 
             <TextView

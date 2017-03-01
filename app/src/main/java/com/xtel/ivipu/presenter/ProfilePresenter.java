@@ -7,6 +7,7 @@ import com.xtel.ivipu.model.LoginModel;
 import com.xtel.ivipu.model.ProfileModel;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
+import com.xtel.ivipu.view.activity.LoginGroupActivity;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -155,6 +156,7 @@ public class ProfilePresenter {
                         @Override
                         public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                             view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            view.startActivityAndFinish(LoginGroupActivity.class);
                         }
                     });
                 } else {
