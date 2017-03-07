@@ -222,8 +222,19 @@ public class WidgetHelper {
         Date date = new Date(time * 1000);
         SimpleDateFormat formatTime = new SimpleDateFormat("dd-MM-yyyy");
         formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        String formattedDate = formatTime.format(date);
-        return formattedDate;
+        return formatTime.format(date);
+    }
+
+    public String convertLong2TimeWithHour(long time) {
+//        long time_set = time * 10000;
+//        Date date = new Timestamp(time_set);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
+//        String formatTime = dateFormat.format(date);
+        Date date = new Date(time * 1000);
+        SimpleDateFormat formatTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        return formatTime.format(date);
     }
 
     public void showAlertNetwork(Context context) {

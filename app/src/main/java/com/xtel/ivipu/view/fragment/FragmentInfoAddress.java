@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,8 +23,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
@@ -43,10 +43,6 @@ import com.xtel.sdk.commons.NetWorkInfo;
 import com.xtel.sdk.utils.GPSTracker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 
 /**
@@ -56,13 +52,11 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class FragmentInfoAddress extends BasicFragment implements IFragmentAddressView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener, GoogleMap.OnMapLongClickListener, LocationListener, GoogleMap.OnCameraIdleListener, GoogleMap.OnMapClickListener {
 
-    private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
     public static GoogleApiClient mGoogleApiClient;
     private static boolean isFindMyLocation;
     String type;
     private GoogleMap mMap;
     private LocationRequest mLocationRequest;
-    private Marker pickMarker;
     private boolean isCanLoadMap = true;
     private GPSTracker tracker;
     private RESP_NewEntity newEntity;
@@ -70,9 +64,9 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     private int id_news, id;
     private NewsObj newsObject;
     private String[] permission = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-    private int REQUEST_PERMISSION_LOCATION = 100;
-    private HashMap<Marker, Shop_Address> hashMap_Maker;
-    private Marker getPickMarker;
+    private int REQUEST_PERMISSION_LOCATION_ADDRESS = 11;
+//    private HashMap<Marker, Shop_Address> hashMap_Maker;
+//    private Marker getPickMarker;
 
     @Nullable
     @Override
@@ -92,42 +86,52 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentApiVersion >= android.os.Build.VERSION_CODES.M) {
             if (checkBooleanPermission()) {
-                Toast.makeText(getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
-                createLocationRequest();
                 initGoogleMaps();
-                getDataFromFragmentShop();
+                Toast.makeText(getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
+                checkNetWork(1);
             } else {
                 requestPermission();
             }
+        } else {
+            initGoogleMaps();
+            getDataFromFragmentShop();
         }
     }
 
-    private void requestPermission() {
-        PermissionHelper.checkListPermission(permission, getActivity(), REQUEST_PERMISSION_LOCATION);
+    public void requestPermission() {
+        PermissionHelper.checkListPermission(permission, getActivity(), REQUEST_PERMISSION_LOCATION_ADDRESS);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0) {
-            boolean fineLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-            boolean coasLocationAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
-            if (fineLocationAccepted && coasLocationAccepted) {
-                Toast.makeText(getContext(), "Permission Granted, Now you can access camera", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getContext(), "Permission Denied, You cannot access and camera", Toast.LENGTH_LONG).show();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermission();
-                }
-            }
-        }
+        Log.e("Request code permission", String.valueOf(requestCode));
+
+
+
+//        if (grantResults.length > 0) {
+//            boolean fineLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//            boolean coasLocationAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+//            if (fineLocationAccepted && coasLocationAccepted) {
+//                Toast.makeText(getContext(), "Permission Granted, Now you can access camera", Toast.LENGTH_LONG).show();
+//            } else {
+//                Toast.makeText(getContext(), "Permission Denied, You cannot access and camera", Toast.LENGTH_LONG).show();
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    requestPermission();
+//                }
+//            }
+//        }
     }
 
     private boolean checkBooleanPermission() {
         boolean check_done = true;
-        if (!(ContextCompat.checkSelfPermission(getContext(), ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-            check_done = false;
-        } else if (!(ContextCompat.checkSelfPermission(getContext(), ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+        int accessCoarsePermission
+                = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        int accessFinePermission
+                = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (accessCoarsePermission != PackageManager.PERMISSION_GRANTED
+                || accessFinePermission != PackageManager.PERMISSION_GRANTED) {
             check_done = false;
         }
         return check_done;
@@ -142,7 +146,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         }
     }
 
-    private void initGoogleMaps() {
+    public void initGoogleMaps() {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_ivip);
         mapFragment.getMapAsync(this);
         if (mGoogleApiClient == null) {
@@ -152,9 +156,6 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
                     .addApi(LocationServices.API)
                     .build();
         }
-
-        hashMap_Maker = new HashMap<>();
-
     }
 
 //    private boolean checkPermission() {
@@ -182,15 +183,18 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         }
     }
 
-    private void checkNetWork(int type_optional) {
+    public void checkNetWork(int type_optional) {
         final Context context = getContext();
         if (!NetWorkInfo.isOnline(context)) {
             WidgetHelper.getInstance().showAlertNetwork(context);
         } else {
             if (type_optional == 1) {
+                getDataFromFragmentShop();
+            } else if (type_optional == 2){
                 Log.e("Id options", String.valueOf(id));
                 Log.e("Type options", type);
                 presenter.getAddress(id, type);
+                createLocationRequest();
             }
         }
     }
@@ -207,17 +211,14 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-
     }
 
     @Override
@@ -229,12 +230,10 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
@@ -244,9 +243,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
         if (isCanLoadMap) {
             isCanLoadMap = false;
-
         }
-
     }
 
     @Override
@@ -267,13 +264,40 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(tracker.getLatitude(), tracker.getLatitude()), 15));
+        String position = "Lat: " + String.valueOf(tracker.getLatitude()) + ", lng: " + String.valueOf(tracker.getLongitude());
+        Log.e("Position lat lng", position);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //noinspection MissingPermission
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMapLongClickListener(this);
         mMap.setOnMapClickListener(this);
         mMap.setOnCameraIdleListener(this);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(tracker.getLatitude(), tracker.getLatitude()), 15));
         setMapSetting();
+    }
+
+    private void showLocation(LatLng latLng){
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(15)
+                .bearing(90)
+                .tilt(40)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    //Add marker
+    private void addMarkerToMap(String shop_name, double lat,  double lng) {
+        LatLng latLng = new LatLng(lat, lng);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(shop_name);
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
+        mMap.addMarker(markerOptions);
+        showLocation(latLng);
     }
 
     @Override
@@ -286,37 +310,37 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         super.onStart();
     }
 
-    @Override
-    public void onDestroy() {
-        try {
-            mGoogleApiClient.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//    @Override
+//    public void onDestroy() {
+//        try {
+//            mGoogleApiClient.disconnect();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        super.onDestroy();
+//    }
 
-        super.onDestroy();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mGoogleApiClient.isConnected())
-            try {
-                startLocationUpdates();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-
-    @Override
-    public void onStop() {
-        try {
-            stopLocationUpdates();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        super.onStop();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (mGoogleApiClient.isConnected())
+//            try {
+//                startLocationUpdates();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        try {
+//            stopLocationUpdates();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        super.onStop();
+//    }
 
     @Override
     public void showShortToast(String message) {
@@ -359,6 +383,14 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void onGetAddressSuccess(ArrayList<Shop_Address> arrayList) {
         Log.e("Arr shop Adress", JsonHelper.toJson(arrayList));
+        Shop_Address address = new Shop_Address();
+        for (int i = 0; i < arrayList.size(); i++){
+            double lat = arrayList.get(i).getLocation_lat();
+            double lng = arrayList.get(i).getLocation_lng();
+            String shop_name = arrayList.get(i).getStore_name();
+            addMarkerToMap(shop_name, lat, lng);
+            Log.e("Shop position", "Lat: " + lat + ", lng: " + lng);
+        }
     }
 
     @Override
@@ -367,14 +399,14 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         Log.e("news obj", JsonHelper.toJson(newsObject));
         int store_id = object.getStore_id();
         int chain_id = object.getChain_store_id();
-        if (!String.valueOf(store_id).equals("0")) {
+        if (store_id != 0) {
             type = "store";
             id = store_id;
         } else {
             type = "chain";
             id = chain_id;
         }
-        checkNetWork(1);
+        checkNetWork(2);
     }
 
     @Override

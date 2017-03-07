@@ -62,4 +62,16 @@ public class HomeModel extends Model {
     public void getAddress(String url, String session, ResponseHandle responseHandle) {
         requestServer.getApi(url, session, responseHandle);
     }
+
+    public void getHistory(String url, String session, ResponseHandle responseHandle){
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getFavorite(String url, String session, ResponseHandle responseHandle){
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getMemberCard(String url, String session, ResponseHandle responseHandle){
+        requestServer.getApi(url, session, responseHandle);
+    }
 }

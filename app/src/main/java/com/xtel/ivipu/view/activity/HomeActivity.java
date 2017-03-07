@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -70,6 +71,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private Context mContext;
     private int notifications;
     private String avatar;
+    FrameLayout fr_home_overlay;
     private Button btn_health, btn_service, btn_news_for_location;
 
     @Override
@@ -116,31 +118,32 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                         switch (item.getItemId()) {
                             case R.id.nav_news:
 //                                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_news_list);
-                                ln_popup_item.setVisibility(View.GONE);
+                                disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
                                 renameToolbar(R.string.nav_new_list);
                                 break;
                             case R.id.nav_fashion:
 //                                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_fashion);
-                                ln_popup_item.setVisibility(View.GONE);
+                                disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
                                 renameToolbar(R.string.nav_fashion);
                                 break;
                             case R.id.nav_food:
 //                                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_food);
-                                ln_popup_item.setVisibility(View.GONE);
+                                disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
                                 renameToolbar(R.string.nav_food);
                                 break;
                             case R.id.nav_technology:
 //                                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_technology);
-                                ln_popup_item.setVisibility(View.GONE);
+                                disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
                                 renameToolbar(R.string.nav_technology);
                                 break;
                             case R.id.nav_list_item:
 //                                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_list_tab);
                                 ln_popup_item.setVisibility(View.VISIBLE);
+                                fr_home_overlay.setVisibility(View.VISIBLE);
                                 break;
                         }
                         return true;
@@ -236,26 +239,29 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_service.setOnClickListener(this);
         btn_news_for_location = (Button) findViewById(R.id.btn_news_for_locations);
         btn_news_for_location.setOnClickListener(this);
+        fr_home_overlay = (FrameLayout) findViewById(R.id.fr_home_overlay);
+        fr_home_overlay.setOnClickListener(this);
     }
 
     private void disableItem() {
         ln_popup_item.setVisibility(View.GONE);
+        fr_home_overlay.setVisibility(View.GONE);
     }
 
     private void replaceHealth() {
-        ln_popup_item.setVisibility(View.GONE);
+        disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "HEALTH");
         renameToolbar(R.string.nav_health);
     }
 
     private void replaceService() {
-        ln_popup_item.setVisibility(View.GONE);
+        disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICE");
         renameToolbar(R.string.nav_services);
     }
 
     private void replaceNewsForLocation() {
-        ln_popup_item.setVisibility(View.GONE);
+        disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_FOR_LOCATION");
         renameToolbar(R.string.nav_news_for_me);
     }
@@ -378,6 +384,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     }
 
     private void checkInQrBar() {
+        disableItem();
         startActivty(QrCheckIn.class);
     }
 
@@ -436,6 +443,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     }
 
     private void replaceMyShopFragment() {
+        disableItem();
         nav_bottom_home.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMyShop(), "MYSHOP");
         renameToolbar(R.string.fragment_myshop_content);
@@ -497,47 +505,25 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             replaceService();
         } else if (id == R.id.btn_news_for_locations) {
             replaceNewsForLocation();
+        } else if (id == R.id.fr_home_overlay){
+            disableItem();
         }
 //        else if (id == R.id.btnPopupMenu){
 //            showPopupLayout(v);
 //        }
     }
 
-     /*
-    Sample AsyncTask to fetch the notifications count
-    */
-
     private void pushData() {
+        disableItem();
         Intent intent = new Intent(this, ProfileActivity.class);
         String push_data = "1";
         intent.putExtra("notification", push_data);
         startActivity(intent);
     }
 
-//    @Override
-//    public void onDismiss(PopupMenu menu) {
-//        showShortToast("Popup On Dismissed");
-////        tabLayout_home.getChildAt(0).setSelected(false);
-//    }
-
     private void renameToolbar(int StringResource) {
         toolbar.setTitle(StringResource);
     }
-
-//    @Override
-//    public void onTabSelected(TabLayout.Tab tab) {
-//        initBottomNavigationAction(tab);
-//    }
-//
-//    @Override
-//    public void onTabUnselected(TabLayout.Tab tab) {
-////        setIconTabUnSelected(tab);
-//    }
-//
-//    @Override
-//    public void onTabReselected(TabLayout.Tab tab) {
-//
-//    }
 
     @Override
     protected void onResume() {

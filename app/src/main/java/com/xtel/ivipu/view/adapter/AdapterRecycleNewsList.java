@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -58,43 +59,46 @@ public class AdapterRecycleNewsList extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
+    @SuppressLint("RecyclerView")
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        if (position == arrayList.size()) {
-            fragmentShopView.onLoadMore();
-        }
-
-        if (holder instanceof ViewHolder) {
-            ViewHolder viewHolder = (ViewHolder) holder;
-            if (arrayList.get(position).getBg_position() == 0) {
-                arrayList.get(position).setBg_position(background_alpha_item.get(random.nextInt(background_alpha_item.size())));
+        if (arrayList != null && arrayList.size() != 0){
+            if (position == arrayList.size()) {
+                fragmentShopView.onLoadMore();
             }
 
-            final RESP_NewEntity newsEntity = arrayList.get(position);
-            Log.e("Arr adapter", arrayList.toString());
-
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_view, newsEntity.getLogo());
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_banner_shop, newsEntity.getBanner());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Name, newsEntity.getTitle());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_View, String.valueOf(newsEntity.getView()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Like, String.valueOf(newsEntity.getLike()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment, String.valueOf(newsEntity.getComment()));
-            WidgetHelper.getInstance().setTextViewDate(viewHolder.tv_date_time, "", newsEntity.getCreate_time());
-            WidgetHelper.getInstance().setViewBackground(viewHolder.fr_canvas, newsEntity.getBg_position());
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragmentShopView.onItemClick(position, newsEntity, v);
+            if (holder instanceof ViewHolder) {
+                ViewHolder viewHolder = (ViewHolder) holder;
+                if (arrayList.get(position).getBg_position() == 0) {
+                    arrayList.get(position).setBg_position(background_alpha_item.get(random.nextInt(background_alpha_item.size())));
                 }
-            });
-        } else {
-            ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
-            viewProgressBar.progressBar.getIndeterminateDrawable()
-                    .setColorFilter(
-                            Color.WHITE,
-                            android.graphics.PorterDuff.Mode.MULTIPLY
-                    );
+
+                final RESP_NewEntity newsEntity = arrayList.get(position);
+                Log.e("Arr adapter", arrayList.toString());
+
+                WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_view, newsEntity.getLogo());
+                WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_banner_shop, newsEntity.getBanner());
+                WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Name, newsEntity.getTitle());
+                WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_View, String.valueOf(newsEntity.getView()));
+                WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Like, String.valueOf(newsEntity.getLike()));
+                WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment, String.valueOf(newsEntity.getComment()));
+                WidgetHelper.getInstance().setTextViewDate(viewHolder.tv_date_time, "", newsEntity.getCreate_time());
+                WidgetHelper.getInstance().setViewBackground(viewHolder.fr_canvas, newsEntity.getBg_position());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fragmentShopView.onItemClick(position, newsEntity, v);
+                    }
+                });
+            } else {
+                ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
+                viewProgressBar.progressBar.getIndeterminateDrawable()
+                        .setColorFilter(
+                                Color.WHITE,
+                                android.graphics.PorterDuff.Mode.MULTIPLY
+                        );
+            }
         }
     }
 

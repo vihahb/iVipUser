@@ -1,7 +1,9 @@
 package com.xtel.ivipu.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +12,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.view.activity.inf.IInfoContentView;
@@ -31,6 +35,7 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     //    private TabLayout tabLayout;
     private FrameLayout info_frame;
     private BottomNavigationView nav_bottom_info;
+    private int REQUEST_PERMISSION_LOCATION_ADDRESS = 11;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -189,5 +194,24 @@ public class ActivityInfoContent extends BasicActivity implements View.OnClickLi
     private void replaceDefaultFragment() {
         renameToolbar(R.string.tab_properties);
         replaceFragment(R.id.info_frame, new FragmentInfoProperties(), "Properties");
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e("Request permiss code activity", String.valueOf(requestCode));
+        FragmentInfoAddress fragmentInfoAddress = (FragmentInfoAddress) getSupportFragmentManager().findFragmentByTag("Address");
+        if (requestCode == REQUEST_PERMISSION_LOCATION_ADDRESS){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
+                Log.e("Go to", "Permission granted!");
+                if (fragmentInfoAddress != null)
+                    fragmentInfoAddress.initGoogleMaps();
+                    fragmentInfoAddress.checkNetWork(1);
+            } else {
+                fragmentInfoAddress.requestPermission();
+            }
+        }
     }
 }

@@ -48,6 +48,8 @@ public class ActivityInfoPropertiesPresenter {
         } else {
             String session = LoginManager.getCurrentSession();
             String url_news_info = Constants.SERVER_IVIP + Constants.NEWS_INFO + id_news;
+            Log.e("Session", session);
+            Log.e("Url request info", url_news_info);
             HomeModel.getInstance().getNewsInfomation(url_news_info, session, new ResponseHandle<RESP_NewsObject>(RESP_NewsObject.class) {
                 @Override
                 public void onSuccess(RESP_NewsObject obj) {

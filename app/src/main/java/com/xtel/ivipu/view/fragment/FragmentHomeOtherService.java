@@ -113,7 +113,9 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
             public void onRefresh() {
                 page = 1;
                 arraylist_service.clear();
+                adapter.onSetLoadMore(true);
                 getData();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -148,6 +150,7 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
             progressView.show();
         } else {
             rcl_service.getAdapter().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             progressView.hide();
         }
     }

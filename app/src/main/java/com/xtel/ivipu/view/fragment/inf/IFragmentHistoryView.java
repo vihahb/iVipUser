@@ -1,7 +1,10 @@
 package com.xtel.ivipu.view.fragment.inf;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.entity.HistoryEntity;
 
 import java.util.ArrayList;
@@ -19,5 +22,14 @@ public interface IFragmentHistoryView {
 
     void showLongToast(String mes);
 
-    void onItemClick(int position, HistoryEntity testRecycle, View view);
+    void onItemClick(int position, RESP_NewEntity newObjEntity, View view);
+
+    void startActivityAndFinish(Class clazz);
+
+    void onNetworkDisable();
+
+    void onLoadMore();
+
+    Activity getActivity();
+    Context getContext();
 }

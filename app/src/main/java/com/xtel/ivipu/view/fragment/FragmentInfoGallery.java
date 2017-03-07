@@ -17,7 +17,7 @@ import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.ivipu.model.entity.GalleryObj;
 import com.xtel.ivipu.model.entity.NewsObj;
-import com.xtel.ivipu.presenter.GalleryPresenter;
+import com.xtel.ivipu.presenter.FragmentGalleryPresenter;
 import com.xtel.ivipu.view.adapter.AdapterGallery;
 import com.xtel.ivipu.view.fragment.inf.IFragmentGalleryView;
 import com.xtel.ivipu.view.widget.ProgressView;
@@ -40,7 +40,7 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
     private int page = 1, pagesize = 6;
     private ProgressView progressView;
     private ArrayList<GalleryObj> arraylist_gallery;
-    private GalleryPresenter presenter;
+    private FragmentGalleryPresenter presenter;
     private RESP_NewEntity newEntity;
     private NewsObj newsObject;
 
@@ -53,7 +53,7 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new GalleryPresenter(this);
+        presenter = new FragmentGalleryPresenter(this);
         initProgressView(view);
         initRecyclerView(view);
     }

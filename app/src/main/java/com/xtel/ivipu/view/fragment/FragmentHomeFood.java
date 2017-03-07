@@ -147,9 +147,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
         if (arrayList.size() < 10) {
             adapter.onSetLoadMore(false);
         }
-
         setDataRecyclerView(arrayList);
-
         checkListData();
     }
 
@@ -161,6 +159,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
             progressView.show();
         } else {
             rcl_food.getAdapter().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             progressView.hide();
         }
     }

@@ -16,17 +16,17 @@ public class MyShopCheckin {
     @Expose
     private String banner;
     @Expose
-    private int type;
+    private long checkin_time;
 
     public MyShopCheckin() {
     }
 
-    public MyShopCheckin(int store_id, String store_name, String logo, String banner, int type) {
+    public MyShopCheckin(int store_id, String store_name, String logo, String banner, long checkin_time) {
         this.store_id = store_id;
         this.store_name = store_name;
         this.logo = logo;
         this.banner = banner;
-        this.type = type;
+        this.checkin_time = checkin_time;
     }
 
     public int getStore_id() {
@@ -61,12 +61,12 @@ public class MyShopCheckin {
         this.banner = banner;
     }
 
-    public int getType() {
-        return type;
+    public long getCheckin_time() {
+        return checkin_time;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setCheckin_time(long checkin_time) {
+        this.checkin_time = checkin_time;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MyShopCheckin {
                 ", store_name='" + store_name + '\'' +
                 ", logo='" + logo + '\'' +
                 ", banner='" + banner + '\'' +
-                ", type=" + type +
+                ", checkin_time=" + checkin_time +
                 '}';
     }
 }

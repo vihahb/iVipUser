@@ -18,7 +18,11 @@ import android.widget.ImageView;
  * Created by vulcl on 11/1/2016
  */
 
-public class RoundImage extends ImageView {
+public class RoundImage extends android.support.v7.widget.AppCompatImageView {
+
+    public RoundImage(Context context) {
+        super(context);
+    }
 
     public RoundImage(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
@@ -72,7 +76,6 @@ public class RoundImage extends ImageView {
 
         Bitmap roundBitmap = getRoundedCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
-
     }
 
 }

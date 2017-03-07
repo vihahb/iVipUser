@@ -102,7 +102,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
         progressView.onLayoutClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.onSetLoadMore(true);
+//                adapter.onSetLoadMore(true);
                 adapter.notifyDataSetChanged();
                 getData();
             }
@@ -115,6 +115,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
                 arrayListNewsList.clear();
                 adapter.onSetLoadMore(true);
                 getData();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -148,7 +149,6 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
             adapter.onSetLoadMore(false);
         }
         setDataRecyclerView(arrayList);
-
         checkListData();
     }
 
@@ -160,6 +160,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
             progressView.show();
         } else {
             rcl_new_list.getAdapter().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             progressView.hide();
         }
     }

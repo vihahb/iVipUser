@@ -67,7 +67,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             @Override
             public void onClick(View v) {
 //                adapter.onSetLoadMore(true);
-//                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
                 getData();
             }
         });
@@ -79,6 +79,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
                 arrayListNewsList.clear();
                 adapter.onSetLoadMore(true);
                 getData();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -151,7 +152,6 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             adapter.onSetLoadMore(false);
         }
         setDataRecyclerView(arrayList);
-
         checkListData();
     }
 
@@ -164,6 +164,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             progressView.show();
         } else {
             rcl_new_list.getAdapter().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             progressView.hide();
         }
     }

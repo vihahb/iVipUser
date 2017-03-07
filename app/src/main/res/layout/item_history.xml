@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_his_banner"
+                android:id="@+id/img_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
@@ -52,14 +52,22 @@
                     android:layout_marginTop="@dimen/size_10"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/size_8"
                         android:layout_marginLeft="@dimen/size_16"
                         android:layout_marginStart="@dimen/size_16"
-                        android:layout_marginTop="@dimen/size_6"
-                        android:gravity="center_vertical|left">
+                        android:layout_marginTop="@dimen/size_6">
+
+                        <com.xtel.ivipu.view.widget.RoundImage
+                            android:layout_width="@dimen/size_75"
+                            android:layout_height="@dimen/size_75"
+                            android:scaleType="fitCenter"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/bg_white"
+                            android:transitionName="@string/transition_shop_ava"
+                            tools:targetApi="lollipop" />
 
                         <com.xtel.ivipu.view.widget.RoundImage
                             android:id="@+id/img_brand_shop"
@@ -67,9 +75,10 @@
                             android:layout_height="@dimen/size_70"
                             android:scaleType="fitCenter"
                             android:src="@mipmap/user_demo"
+                            android:layout_gravity="center"
                             android:transitionName="@string/transition_shop_ava"
                             tools:targetApi="lollipop" />
-                    </LinearLayout>
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -80,17 +89,20 @@
                         android:paddingStart="@dimen/size_14">
 
                         <TextView
-                            android:id="@+id/tv_history_name"
+                            android:id="@+id/tv_history_title"
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Shop Name 1 "
                             android:textAllCaps="true"
+                            android:ellipsize="end"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:transitionName="@string/transition_shop_name" />
 
                         <TextView
-                            android:id="@+id/tv_history_address"
+                            android:id="@+id/tv_history_shop_name"
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Cầu Giấy - Hà Nội "
@@ -124,8 +136,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.7"
-                                android:gravity="center"
+                                android:layout_weight="0.5"
                                 android:orientation="horizontal"
                                 android:paddingLeft="@dimen/size_16"
                                 android:paddingRight="@dimen/size_8">
@@ -136,15 +147,6 @@
                                     android:layout_height="wrap_content"
                                     android:paddingRight="@dimen/size_16"
                                     android:text="10:00"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_history_date"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="01/17/2017"
                                     android:textColor="@android:color/white"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -168,7 +170,7 @@
                                     <ImageView
                                         android:layout_width="@dimen/size_22"
                                         android:layout_height="@dimen/size_22"
-                                        android:src="@drawable/ic_action_eye" />
+                                        android:src="@drawable/ic_view" />
 
                                     <TextView
                                         android:id="@+id/tv_history_view"
@@ -191,7 +193,7 @@
                                     <ImageView
                                         android:layout_width="@dimen/size_22"
                                         android:layout_height="@dimen/size_22"
-                                        android:src="@drawable/ic_action_favorite_white" />
+                                        android:src="@drawable/ic_like" />
 
                                     <TextView
                                         android:id="@+id/tv_history_like"
@@ -214,7 +216,7 @@
                                     <ImageView
                                         android:layout_width="@dimen/size_22"
                                         android:layout_height="@dimen/size_22"
-                                        android:src="@drawable/ic_action_comment" />
+                                        android:src="@drawable/ic_comment" />
 
                                     <TextView
                                         android:id="@+id/tv_history_comment"

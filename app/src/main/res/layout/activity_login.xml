@@ -111,7 +111,16 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
+                    <Button
+                        android:id="@+id/btn_phone_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_48"
+                        android:background="@drawable/btn_login_phone"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:text="Số điện thoại"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
                     <FrameLayout
                         android:layout_width="@dimen/size_48"
                         android:layout_height="@dimen/size_48"
@@ -125,17 +134,6 @@
                             android:padding="@dimen/size_10"
                             android:src="@drawable/ic_btn_login_phone" />
                     </FrameLayout>
-
-                    <Button
-                        android:id="@+id/btn_phone_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:background="@drawable/btn_login_phone"
-                        android:elevation="0dp"
-                        android:gravity="center"
-                        android:text="Số điện thoại"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -148,6 +146,16 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/btn_facebook_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_48"
+                        android:background="@drawable/btn_login_facebook"
+                        android:elevation="0dp"
+                        android:text="Facebook"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
 
                     <FrameLayout
                         android:layout_width="@dimen/size_48"
@@ -163,15 +171,6 @@
                             android:src="@drawable/ic_login_facebook" />
                     </FrameLayout>
 
-                    <Button
-                        android:id="@+id/btn_facebook_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:background="@drawable/btn_login_facebook"
-                        android:elevation="0dp"
-                        android:text="Facebook"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>

@@ -74,6 +74,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/fr_home_overlay"
+                    android:alpha="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/black"></FrameLayout>
+
                 <com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom
                     android:id="@+id/ln_popup_item"
                     android:layout_width="match_parent"
@@ -106,6 +114,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
+                                <Button
+                                    android:id="@+id/btn_health"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/nav_item_background"
+                                    android:elevation="0dp"
+                                    android:gravity="center"
+                                    android:paddingLeft="@dimen/size_16"
+                                    android:text="Sức khỏe"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/white"/>
+
                                 <FrameLayout
                                     android:layout_width="@dimen/size_48"
                                     android:layout_height="match_parent"
@@ -120,17 +140,6 @@
                                         android:src="@mipmap/ic_health"/>
                                 </FrameLayout>
 
-                                <Button
-                                    android:id="@+id/btn_health"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/nav_item_background"
-                                    android:elevation="0dp"
-                                    android:gravity="center"
-                                    android:paddingLeft="@dimen/size_16"
-                                    android:text="Sức khỏe"
-                                    android:textAllCaps="false"
-                                    android:textColor="@android:color/white"/>
                             </FrameLayout>
                         </LinearLayout>
 
@@ -143,6 +152,18 @@
                             <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
+                                <Button
+                                    android:id="@+id/btn_service"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/nav_item_background"
+                                    android:elevation="0dp"
+                                    android:gravity="center"
+                                    android:paddingLeft="@dimen/size_16"
+                                    android:text="Dịch vụ khác"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/white"/>
 
                                 <FrameLayout
                                     android:layout_width="@dimen/size_48"
@@ -158,17 +179,6 @@
                                         android:src="@mipmap/ic_another_service"/>
                                 </FrameLayout>
 
-                                <Button
-                                    android:id="@+id/btn_service"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/nav_item_background"
-                                    android:elevation="0dp"
-                                    android:gravity="center"
-                                    android:paddingLeft="@dimen/size_16"
-                                    android:text="Dịch vụ khác"
-                                    android:textAllCaps="false"
-                                    android:textColor="@android:color/white"/>
                             </FrameLayout>
                         </LinearLayout>
 
@@ -181,6 +191,18 @@
                             <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
+                                <Button
+                                    android:id="@+id/btn_news_for_locations"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/nav_item_background"
+                                    android:elevation="0dp"
+                                    android:gravity="center"
+                                    android:paddingLeft="@dimen/size_16"
+                                    android:text="Tin Quanh đây"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/white"/>
 
                                 <FrameLayout
                                     android:layout_width="@dimen/size_48"
@@ -196,17 +218,6 @@
                                         android:src="@mipmap/ic_location"/>
                                 </FrameLayout>
 
-                                <Button
-                                    android:id="@+id/btn_news_for_locations"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/nav_item_background"
-                                    android:elevation="0dp"
-                                    android:gravity="center"
-                                    android:paddingLeft="@dimen/size_16"
-                                    android:text="Tin Quanh đây"
-                                    android:textAllCaps="false"
-                                    android:textColor="@android:color/white"/>
                             </FrameLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -217,7 +228,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/nav_bottom"
+                android:alpha="0.85"/>
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation_item"
                 android:layout_width="match_parent"

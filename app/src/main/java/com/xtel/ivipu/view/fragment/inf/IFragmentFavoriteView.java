@@ -1,7 +1,10 @@
 package com.xtel.ivipu.view.fragment.inf;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
+import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.entity.HistoryEntity;
 
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public interface IFragmentFavoriteView {
-    void onGetFavoriteSuccess(ArrayList arrayList);
+    void onGetFavoriteSuccess(ArrayList<RESP_NewEntity> arrayList);
 
     void onGetFavoriteError();
 
@@ -19,5 +22,14 @@ public interface IFragmentFavoriteView {
 
     void showLongToast(String mes);
 
-    void onItemClick(int position, HistoryEntity testRecycle, View view);
+    void startActivityAndFinish(Class clazz);
+
+    void onNetworkDisable();
+
+    void onLoadMore();
+
+    void onItemClick(int position, RESP_NewEntity newEntity, View view);
+
+    Activity getActivity();
+    Context getContext();
 }

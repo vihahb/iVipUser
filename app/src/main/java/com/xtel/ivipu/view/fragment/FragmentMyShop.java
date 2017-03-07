@@ -13,9 +13,10 @@ import android.view.ViewGroup;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.MyShopCheckin;
-import com.xtel.ivipu.presenter.MyShopPresenter;
+import com.xtel.ivipu.presenter.FragmentMyShopPresenter;
 import com.xtel.ivipu.view.activity.inf.IMyShopActivity;
-import com.xtel.ivipu.view.adapter.AdapterRecycleMyShop;
+import com.xtel.ivipu.view.adapter.AdapterCheckinHistory;
+import com.xtel.ivipu.view.adapter.AdapterRecycleMyShopCheckin;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 
@@ -28,9 +29,9 @@ import java.util.ArrayList;
 public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
 
     public RecyclerView rcl_my_shop;
-    AdapterRecycleMyShop adapter;
+    AdapterCheckinHistory adapter;
     private ArrayList<MyShopCheckin> arr;
-    private MyShopPresenter presenter;
+    private FragmentMyShopPresenter presenter;
     private ProgressView progressView;
     private int page = 1, pagesize = 10;
 
@@ -44,17 +45,17 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new MyShopPresenter(this);
-        initProgressView(view);
+        presenter = new FragmentMyShopPresenter(this);
         initView(view);
+        initProgressView(view);
     }
 
     private void initView(View view) {
+        arr = new ArrayList<>();
+        adapter = new AdapterCheckinHistory(arr, this);
         rcl_my_shop = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_my_shop.setHasFixedSize(true);
         rcl_my_shop.setLayoutManager(new LinearLayoutManager(getContext()));
-        arr = new ArrayList<>();
-        adapter = new AdapterRecycleMyShop(arr, this);
         rcl_my_shop.setAdapter(adapter);
     }
 
@@ -66,7 +67,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
         progressView.onLayoutClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.onSetLoadMore(true);
+//                adapter.onSetLoadMore(true);
                 adapter.notifyDataSetChanged();
                 getData();
             }
@@ -77,6 +78,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
             public void onRefresh() {
                 page = 1;
                 arr.clear();
+                adapter.notifyDataSetChanged();
                 adapter.onSetLoadMore(true);
                 getData();
             }
@@ -98,7 +100,6 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
     }
 
     private void setDataRecyclerView(ArrayList<MyShopCheckin> newsCheckinsArrayList) {
-        Log.e("arr list", JsonHelper.toJson(newsCheckinsArrayList));
         arr.addAll(newsCheckinsArrayList);
         adapter.notifyDataSetChanged();
     }

@@ -23,11 +23,11 @@ import com.xtel.sdk.commons.NetWorkInfo;
  * Created by vivhp on 2/27/2017.
  */
 
-public class GalleryPresenter {
+public class FragmentGalleryPresenter {
 
     private IFragmentGalleryView view;
 
-    public GalleryPresenter(IFragmentGalleryView view) {
+    public FragmentGalleryPresenter(IFragmentGalleryView view) {
         this.view = view;
     }
 

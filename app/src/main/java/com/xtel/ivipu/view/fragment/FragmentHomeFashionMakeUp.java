@@ -103,7 +103,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
         progressView.onLayoutClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.onSetLoadMore(true);
+//                adapter.onSetLoadMore(true);
                 adapter.notifyDataSetChanged();
                 getData();
             }
@@ -116,6 +116,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
                 arrayList_fashion.clear();
                 adapter.onSetLoadMore(true);
                 getData();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -145,6 +146,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
             progressView.show();
         } else {
             rcl_fashion.getAdapter().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             progressView.hide();
         }
     }
