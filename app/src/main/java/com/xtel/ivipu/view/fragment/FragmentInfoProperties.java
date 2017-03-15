@@ -193,6 +193,9 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
             }
         });
 
+//        int lineCount = expandableTextView.getTe;
+//        Log.e("Line Count....", String.valueOf(lineCount));
+
     }
 
 
@@ -298,45 +301,11 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         this.qr_code_voucher = qr_code;
         String code = voucherObj.getCode();
         long expired_time = voucherObj.getExpired_time();
-
-//        tv_voucher_cocde.setText(code);
-//        tv_voucher_expired_time.setText(convertLong2Time(expired_time));
-
         WidgetHelper.getInstance().setAvatarImageURL(img_qr_code, qr_code_voucher);
         WidgetHelper.getInstance().setAvatarImageURL(img_bar_code, barcode_voucher);
         WidgetHelper.getInstance().setTextViewNoResult(tv_voucher_cocde, code);
         WidgetHelper.getInstance().setTextViewDate(tv_voucher_expired_time, "", expired_time);
     }
-
-//    private void setImgContent(String brand_url, ImageView img_content_banner) {
-//        brand_url=brand_url.replace("https", "http").replace("9191", "9190");
-//        Picasso.with(getContext())
-//                .load(brand_url)
-//                .placeholder(R.drawable.ic_action_name)
-//                .error(R.drawable.ic_action_name)
-//                .fit()
-//                .centerCrop()
-//                .into(img_content_banner);
-//    }
-
-//    private void setImg_brand(String url, RoundImage img_avatar) {
-//        url=url.replace("https", "http").replace("9091", "9090");
-//        Picasso.with(getContext())
-//                .load(url)
-//                .placeholder(R.drawable.ic_action_name)
-//                .error(R.drawable.ic_action_name)
-//                .fit()
-//                .centerCrop()
-//                .into(img_avatar);
-//    }
-//
-//    private String convertLong2Time(long time) {
-//        Date date = new Date(time * 1000);
-//        SimpleDateFormat formatTime = new SimpleDateFormat("dd-MM-yyyy");
-//        formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-//        String formattedDate = formatTime.format(date);
-//        return formattedDate;
-//    }
 
     @Override
     public void onClick(View v) {
@@ -418,9 +387,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         String code = voucher.getCode();
         long expired_time = voucher.getExpired_time();
 
-//        tv_voucher_cocde.setText(code);
         WidgetHelper.getInstance().setTextViewNoResult(tv_voucher_cocde, code);
-//        tv_voucher_expired_time.setText(convertLong2Time(expired_time));
         WidgetHelper.getInstance().setTextViewDate(tv_voucher_expired_time, "", expired_time);
         WidgetHelper.getInstance().setAvatarImageURL(img_qr_code, qr_code_voucher);
         WidgetHelper.getInstance().setAvatarImageURL(img_bar_code, barcode_voucher);

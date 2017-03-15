@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/size_16"
+    android:layout_marginRight="@dimen/size_16"
+    android:layout_marginTop="@dimen/size_8"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:paddingTop="@dimen/size_8"
+        android:background="#67b58b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:paddingLeft="@dimen/size_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:src="@mipmap/ic_history"
+                android:layout_width="@dimen/size_24"
+                android:layout_height="@dimen/size_24" />
+            <TextView
+                android:id="@+id/tv_action_time"
+                android:layout_marginLeft="@dimen/size_8"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_vertical"
+                android:text="Ngày: 11-03-2017"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="@dimen/size_3"
+            android:layout_marginBottom="@dimen/size_3"
+            android:layout_marginLeft="@dimen/size_16"
+            android:layout_marginRight="@dimen/size_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1"
+            android:background="@android:color/white"/>
+        <LinearLayout
+            android:paddingTop="@dimen/size_8"
+            android:paddingBottom="@dimen/size_8"
+            android:paddingLeft="@dimen/size_48"
+            android:paddingRight="@dimen/size_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/font_15"
+                android:autoLink="web"
+                android:id="@+id/tv_action_des"
+                android:text="Tiêu 92 tại cửa hàng ThangVM Test tích lũy 9 điểm vào tài khoản."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

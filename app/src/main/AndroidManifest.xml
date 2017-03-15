@@ -144,6 +144,12 @@
             android:label="@string/activity_comment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.xtel.ivipu.view.activity.HistoryTransactionsActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/activity_comment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <uses-library
             android:name="com.sec.android.app.multiwindow"
@@ -162,7 +168,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_map_api_key"/>
+            android:value="@string/google_map_api_key" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

@@ -68,7 +68,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
             @Override
             public void onClick(View v) {
 //                adapter.onSetLoadMore(true);
-                adapter.notifyDataSetChanged();
+                adapter.notifyChange();
                 getData();
             }
         });
@@ -78,7 +78,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
             public void onRefresh() {
                 page = 1;
                 arr.clear();
-                adapter.notifyDataSetChanged();
+                adapter.notifyChange();
                 adapter.onSetLoadMore(true);
                 getData();
             }
@@ -101,7 +101,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
 
     private void setDataRecyclerView(ArrayList<MyShopCheckin> newsCheckinsArrayList) {
         arr.addAll(newsCheckinsArrayList);
-        adapter.notifyDataSetChanged();
+        adapter.notifyChange();
     }
 
     private void inirDataCheckIn() {
@@ -156,7 +156,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
             progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
             progressView.show();
         } else {
-            rcl_my_shop.getAdapter().notifyDataSetChanged();
+            adapter.notifyChange();
             progressView.hide();
         }
     }

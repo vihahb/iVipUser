@@ -25,10 +25,12 @@
     <string name="activity_reg">Đăng ký</string>
     <string name="activity_profile">Thông tin người dùng</string>
     <string name="activity_info_content">Thông tin cửa hàng</string>
-    <string name="fragment_myshop_content">Cửa hàng của tôi</string>
+    <string name="fragment_myshop_content">Lịch sử checkin</string>
+    <string name="fragment_member_card_content">Thẻ thành viên</string>
     <string name="activity_checkin_content">Check in</string>
     <string name="activity_checkin">Check in</string>
     <string name="activity_comment">Bình luận</string>
+    <string name="activity_history_transaction">Lịch sử giao dịch</string>
 
     <!-- Nav title -->
     <string name="nav_Profile">Thông tin cá nhân</string>
@@ -123,6 +125,8 @@
     <string name="cancel">Cancel</string>
     <string name="no_internet">Không có kết nối internet</string>
     <string name="no_news">Không có bản tin</string>
+    <string name="txt_store_name">Tên cửa hàng</string>
+    <string name="txt_user">User</string>
 
     <array name="gender_profile">
         <item>Nữ</item>

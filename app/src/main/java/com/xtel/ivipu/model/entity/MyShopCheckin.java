@@ -17,16 +17,33 @@ public class MyShopCheckin {
     private String banner;
     @Expose
     private long checkin_time;
+    private String date;
+    private boolean isTitle = false;
+
+
+
+    public boolean isTitle() {
+        return isTitle;
+    }
+
+    public void setTitle(boolean title) {
+        isTitle = title;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public MyShopCheckin() {
     }
 
-    public MyShopCheckin(int store_id, String store_name, String logo, String banner, long checkin_time) {
-        this.store_id = store_id;
-        this.store_name = store_name;
-        this.logo = logo;
-        this.banner = banner;
-        this.checkin_time = checkin_time;
+    public MyShopCheckin(boolean isTitle, String date) {
+        this.date = date;
+        this.isTitle = isTitle;
     }
 
     public int getStore_id() {

@@ -2,11 +2,13 @@ package com.xtel.ivipu.model.entity;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  * Created by vuhavi on 07/03/2017.
  */
 
-public class MemberObj {
+public class MemberObj implements Serializable {
 
     @Expose
     private int id;
@@ -23,14 +25,14 @@ public class MemberObj {
     @Expose
     private String member_card;
     @Expose
-    private int curr_point;
+    private int current_point;
     @Expose
     private int total_point;
 
     public MemberObj() {
     }
 
-    public MemberObj(int id, int store_id, String store_name, String store_logo, String store_banner, long create_time, String member_card, int curr_point, int total_point) {
+    public MemberObj(int id, int store_id, String store_name, String store_logo, String store_banner, long create_time, String member_card, int current_point, int total_point) {
         this.id = id;
         this.store_id = store_id;
         this.store_name = store_name;
@@ -38,7 +40,7 @@ public class MemberObj {
         this.store_banner = store_banner;
         this.create_time = create_time;
         this.member_card = member_card;
-        this.curr_point = curr_point;
+        this.current_point = current_point;
         this.total_point = total_point;
     }
 
@@ -98,12 +100,12 @@ public class MemberObj {
         this.member_card = member_card;
     }
 
-    public int getCurr_point() {
-        return curr_point;
+    public int getCurrent_point() {
+        return current_point;
     }
 
-    public void setCurr_point(int curr_point) {
-        this.curr_point = curr_point;
+    public void setCurrent_point(int current_point) {
+        this.current_point = current_point;
     }
 
     public int getTotal_point() {
@@ -124,7 +126,7 @@ public class MemberObj {
                 ", store_banner='" + store_banner + '\'' +
                 ", create_time=" + create_time +
                 ", member_card='" + member_card + '\'' +
-                ", curr_point=" + curr_point +
+                ", current_point=" + current_point +
                 ", total_point=" + total_point +
                 '}';
     }

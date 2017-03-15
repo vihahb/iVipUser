@@ -65,8 +65,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.5"
-                    android:background="@android:color/black" />
+                    android:alpha="0.5" />
 
                 <FrameLayout
                     android:id="@+id/home_frame"
@@ -75,12 +74,12 @@
                     android:layout_weight="1" />
 
                 <FrameLayout
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:id="@+id/fr_home_overlay"
-                    android:alpha="0.6"
+                    android:alpha="0.7"
+                    android:background="@android:color/black"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/black"></FrameLayout>
+                    android:layout_height="match_parent"/>
 
                 <com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom
                     android:id="@+id/ln_popup_item"
@@ -90,6 +89,8 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:visibility="invisible"
+                        android:alpha="0.6"
                         android:id="@+id/ln_layout_transparent"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -228,11 +229,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/nav_bottom"
-                android:alpha="0.85"/>
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation_item"
                 android:layout_width="match_parent"

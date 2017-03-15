@@ -6,12 +6,20 @@
             android:icon="@drawable/ic_nav_home"
             android:title="Trang chủ" />
     <group
-        android:id="@+id/grp1"
+        android:id="@+id/grp0"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_shop"
-            android:icon="@drawable/ic_nav_my_shop"
-            android:title="Cửa hàng của tôi" />
+            android:icon="@mipmap/ic_history_checkin"
+            android:title="Lịch sử checkin" />
+    </group>
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_member_card"
+            android:icon="@mipmap/ic_member_card"
+            android:title="Thẻ thành viên" />
     </group>
     <group
         android:id="@+id/grp2"

@@ -213,7 +213,7 @@ public class WidgetHelper {
 //        return day + "-" + month + "-" + mYear;
 //    }
 
-    private String convertLong2Time(long time) {
+    public String convertLong2Time(long time) {
 //        long time_set = time * 10000;
 //        Date date = new Timestamp(time_set);
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -261,4 +261,21 @@ public class WidgetHelper {
         dialog.show();
     }
 
+    public String mapping_Char(String LocalChar) {
+        String uniChars = "àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđ" + "îìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲ" + "ẴẶÈÉẺẼẸÊỀẾỂỄỆĐÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴÂĂĐÔƠƯ";
+        String noneChars = "aaaaaaaaaaaaaaaaaeeeeeeeeeeediiiiiio" + "oooooooooooooooouuuuuuuuuuuyyyyyAAAAAAAAAAAAAA" + "AAAEEEEEEEEEEEDIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYAADOOU";
+        if (LocalChar == null) {
+            return LocalChar;
+        }
+        String ret = "";
+        for (int i = 0; i < LocalChar.length(); i++) {
+            int pos = uniChars.indexOf(LocalChar.charAt(i));
+            if (pos >= 0) {
+                ret += noneChars.charAt(pos);
+            } else {
+                ret += LocalChar.charAt(i);
+            }
+        }
+        return ret;
+    }
 }

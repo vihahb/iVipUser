@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
 import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
+import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.FragmentMyShop;
 import com.xtel.ivipu.view.widget.CircleTransform;
 import com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom;
@@ -54,25 +56,23 @@ import com.xtel.sdk.dialog.BadgeIcon;
 public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener {
     HomePresenter presenter;
     Toolbar toolbar;
-    //    TabLayout tabLayout_home;
     LinearLayout ln_layout_transparent, ln_layout_nav_item;
     LinearLayoutAnimationSlideBottom ln_popup_item;
     BottomNavigationView nav_bottom_home;
-    UserShort userShort;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private RoundImage img_avatar;
     private ActionBar actionBar;
-    private PopupMenu popupMenu;
     private MenuItem mMenuItem;
     private LinearLayout mLinearLayout;
-    private RoundImage avatar_notify;
-    private PopupWindow mPopupWindow;
     private Context mContext;
     private int notifications;
     private String avatar;
     FrameLayout fr_home_overlay;
     private Button btn_health, btn_service, btn_news_for_location;
+    private boolean isShowing = false;
+    private boolean item_health_selected = false;
+    private boolean item_service_selected = false;
+    private boolean item_news_for_me_selected = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,28 +88,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         initNavigationWidget();
         initBottomNavigation();
     }
-
     private void initNavigationWidget() {
-        View view = navigationView.getHeaderView(0);
+//        View view = navigationView.getHeaderView(0);
     }
-
     public void initBottomNavigation() {
         nav_bottom_home = (BottomNavigationView) findViewById(R.id.bottom_navigation_item);
         initMenuSelected();
-//        initBottomNavigationAction();
-//        tabLayout_home = (TabLayout) findViewById(R.id.home_bottom_tab_view);
-//
-//        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_news_list), 0);
-//        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_fashion), 1);
-//        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_food), 2);
-//        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_technology), 3);
-//        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_list_tab), 4);
-////        tabLayout_home.addTab(tabLayout_home.newTab().setIcon(R.mipmap.ic_news_for_me), 5);
-//        tabLayout_home.setOnTabSelectedListener(this);
         replaceDefaultFragment();
     }
-
-
     private void initMenuSelected() {
         nav_bottom_home.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -117,117 +103,54 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.nav_news:
-//                                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_news_list);
+                                btn_health.setPressed(false);
+                                btn_service.setPressed(false);
+                                btn_news_for_location.setPressed(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
                                 renameToolbar(R.string.nav_new_list);
                                 break;
                             case R.id.nav_fashion:
-//                                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_fashion);
+                                btn_health.setPressed(false);
+                                btn_service.setPressed(false);
+                                btn_news_for_location.setPressed(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
                                 renameToolbar(R.string.nav_fashion);
                                 break;
                             case R.id.nav_food:
-//                                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_food);
+                                btn_health.setPressed(false);
+                                btn_service.setPressed(false);
+                                btn_news_for_location.setPressed(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
                                 renameToolbar(R.string.nav_food);
                                 break;
                             case R.id.nav_technology:
-//                                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_technology);
+                                btn_health.setPressed(false);
+                                btn_service.setPressed(false);
+                                btn_news_for_location.setPressed(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
                                 renameToolbar(R.string.nav_technology);
                                 break;
                             case R.id.nav_list_item:
-//                                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_list_tab);
+                                isShowing = true;
+                                mLinearLayout.setVisibility(View.VISIBLE);
                                 ln_popup_item.setVisibility(View.VISIBLE);
                                 fr_home_overlay.setVisibility(View.VISIBLE);
+                                selectedItem();
                                 break;
                         }
                         return true;
                     }
                 });
     }
-
-//    private void initBottomNavigationAction(TabLayout.Tab tab) {
-//        switch (tab.getPosition()) {
-//            case 0:
-//                tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_news_list);
-//                ln_popup_item.setVisibility(View.GONE);
-//                replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
-//                renameToolbar(R.string.nav_new_list);
-//                break;
-//            case 1:
-//                tabLayout_home.getTabAt(1).setIcon(R.mipmap.ic_fashion);
-//                ln_popup_item.setVisibility(View.GONE);
-//                replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
-//                renameToolbar(R.string.nav_fashion);
-//                break;
-//            case 2:
-//                tabLayout_home.getTabAt(2).setIcon(R.mipmap.ic_food);
-//                ln_popup_item.setVisibility(View.GONE);
-//                replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
-//                renameToolbar(R.string.nav_food);
-//                break;
-//            case 3:
-//                tabLayout_home.getTabAt(3).setIcon(R.mipmap.ic_technology);
-//                ln_popup_item.setVisibility(View.GONE);
-//                replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
-//                renameToolbar(R.string.nav_technology);
-//                break;
-//            case 4:
-//                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_list_tab);
-//                ln_popup_item.setVisibility(View.VISIBLE);
-//                break;
-////            case 4:
-////                tabLayout_home.getTabAt(4).setIcon(R.mipmap.ic_another_service);
-////                replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICE");
-////                renameToolbar(R.string.nav_services);
-////                break;
-////            case 5:
-////                tabLayout_home.getTabAt(5).setIcon(R.mipmap.ic_news_for_me);
-////                replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_FOR_ME");
-////                renameToolbar(R.string.nav_news_for_me);
-////                break;
-//        }
-//    }
-
-//    public void showPopupLayout(View view) {
-//        popupMenu = new PopupMenu(HomeActivity.this, view);
-//        popupMenu.inflate(R.menu.popup_nemu);
-//        popupMenu.setOnDismissListener(this);
-//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                int id_menu = item.getItemId();
-//                switch (id_menu) {
-//                    case R.id.menu_news:
-//                        showShortToast("News");
-//                        replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "NEWS");
-//                        popupMenu.dismiss();
-//                        break;
-//                    case R.id.menu_news_location:
-//                        showShortToast("News for location");
-//                        replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS FOR LOCATION");
-//                        popupMenu.dismiss();
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//        popupMenu.show();
-//    }
-
+    @SuppressLint("CutPasteId")
     private void initView() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        btnPopup = (Button) findViewById(R.id.btnPopupMenu);
-//        btnPopup.setOnClickListener(this);
-        mLinearLayout = (LinearLayout) findViewById(R.id.ln_popup);
+        mLinearLayout = (LinearLayout) findViewById(R.id.ln_layout_transparent);
         ln_layout_transparent = (LinearLayout) findViewById(R.id.ln_layout_transparent);
         ln_layout_nav_item = (LinearLayout) findViewById(R.id.ln_layout_nav_item);
         ln_popup_item = (LinearLayoutAnimationSlideBottom) findViewById(R.id.ln_popup_item);
@@ -241,31 +164,48 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_news_for_location.setOnClickListener(this);
         fr_home_overlay = (FrameLayout) findViewById(R.id.fr_home_overlay);
         fr_home_overlay.setOnClickListener(this);
-    }
 
+        drawer.setOnClickListener(this);
+    }
     private void disableItem() {
+        isShowing = false;
+        mLinearLayout.setVisibility(View.INVISIBLE);
         ln_popup_item.setVisibility(View.GONE);
         fr_home_overlay.setVisibility(View.GONE);
     }
-
     private void replaceHealth() {
+        item_health_selected = true;
+        item_news_for_me_selected = false;
+        item_service_selected = false;
+        btn_health.setPressed(true);
+        btn_service.setPressed(false);
+        btn_news_for_location.setPressed(false);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "HEALTH");
         renameToolbar(R.string.nav_health);
     }
-
     private void replaceService() {
+        item_health_selected = false;
+        item_news_for_me_selected = false;
+        item_service_selected = true;
+        btn_health.setPressed(false);
+        btn_service.setPressed(true);
+        btn_news_for_location.setPressed(false);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICE");
         renameToolbar(R.string.nav_services);
     }
-
     private void replaceNewsForLocation() {
+        item_health_selected = false;
+        item_news_for_me_selected = true;
+        item_service_selected = false;
+        btn_health.setPressed(false);
+        btn_service.setPressed(false);
+        btn_news_for_location.setPressed(true);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_FOR_LOCATION");
         renameToolbar(R.string.nav_news_for_me);
     }
-
     @SuppressWarnings("deprecation")
     private void initNavigation() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -277,30 +217,33 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         navigationView.setNavigationItemSelectedListener(this);
     }
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (isShowing){
+            disableItem();
         } else {
             showConfirmExitApp();
         }
     }
-
-
-    private void setAvatar(String url, RoundImage img_avatar) {
-        Picasso.with(getApplicationContext())
-                .load(url)
-                .placeholder(R.drawable.ic_action_name)
-                .error(R.drawable.ic_action_name)
-                .fit()
-                .centerCrop()
-                .into(img_avatar);
+    private void selectedItem(){
+        if (item_health_selected){
+            btn_health.setPressed(true);
+            btn_service.setPressed(false);
+            btn_news_for_location.setPressed(false);
+        } else if (item_service_selected){
+            btn_health.setPressed(false);
+            btn_service.setPressed(true);
+            btn_news_for_location.setPressed(false);
+        } else if (item_news_for_me_selected){
+            btn_health.setPressed(false);
+            btn_service.setPressed(false);
+            btn_news_for_location.setPressed(true);
+        }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -310,11 +253,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
         return true;
     }
-
     private void setImgUser2Toolbar(String avatar_url) {
         final ImageView imageView = new ImageView(this);
         imageView.setVisibility(View.GONE);
-
         Picasso.with(getApplicationContext())
                 .load(avatar_url)
                 .noPlaceholder()
@@ -329,47 +270,13 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
                     @Override
                     public void onError() {
-
                     }
                 });
     }
-
-//    private void setDrawableResource(String url, final Menu menu) {
-//        Target target = new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                Log.e("Debug ", "onBitmapLoaded");
-//                BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-//                menu.getItem(1).setIcon(bitmapDrawable);
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {
-//                if (errorDrawable != null)
-//                Log.e("OnFailed", errorDrawable.toString());
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//                if (placeHolderDrawable != null)
-//                Log.e("OnPrepare", placeHolderDrawable.toString());
-//            }
-//        };
-//        Picasso.with(this)
-//                .load(url)
-//                .transform(new CircleTransform())
-//                .error(R.drawable.ic_nemu_notification)
-//                .into(target);
-//    }
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        if (notifications != 0) {
-//            onCreteBadgeItem(notifications);
-//        }
         return super.onPrepareOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -382,13 +289,10 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void checkInQrBar() {
         disableItem();
         startActivty(QrCheckIn.class);
     }
-
-
     private void onCreteBadgeItem(int paramsInt) {
         if (Build.VERSION.SDK_INT <= 15) {
             return;
@@ -408,64 +312,59 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
         mMenuItem.setIcon(layerDrawable);
     }
-
     private void replaceDefaultFragment() {
-//        tabLayout_home.getTabAt(0).setIcon(R.mipmap.ic_news_list);
         replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
         renameToolbar(R.string.nav_new_list);
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        disableItem();
         if (id == R.id.nav_home) {
             // Handle the camera action
             nav_bottom_home.setVisibility(View.VISIBLE);
             replaceDefaultFragment();
         } else if (id == R.id.nav_my_shop) {
             replaceMyShopFragment();
+        } else if (id == R.id.nav_member_card) {
+            replaceMemberCardFragment();
         } else if (id == R.id.nav_help) {
-
         } else if (id == R.id.nav_privacy) {
-
         } else if (id == R.id.nav_faq) {
-
         } else if (id == R.id.nav_about) {
-
         } else if (id == R.id.nav_exit) {
             exitApp();
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     private void replaceMyShopFragment() {
         disableItem();
         nav_bottom_home.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMyShop(), "MYSHOP");
         renameToolbar(R.string.fragment_myshop_content);
     }
-
+    private void replaceMemberCardFragment() {
+        disableItem();
+        nav_bottom_home.setVisibility(View.GONE);
+        replaceFragment(R.id.home_frame, new FragmentMemberCard(), "MEMBER");
+        renameToolbar(R.string.fragment_member_card_content);
+    }
     @Override
     public void startActivty(Class clazz) {
         super.startActivity(clazz);
     }
-
     @Override
     public void startActivityFinish(Class clazz) {
         super.startActivityFinish(clazz);
     }
-
     @Override
     public void getShortUser(RESP_Short profile) {
         UserShort userShort = new UserShort();
         userShort.setAvatar(profile.getAvatar());
         userShort.setFullname(profile.getFullname());
         userShort.setNew_notify(profile.getNew_notify());
-//        userShort.setNew_notify(5);
         notifications = userShort.getNew_notify();
         avatar = userShort.getAvatar();
         Log.e("Avatar Home", avatar);
@@ -475,22 +374,18 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             onCreteBadgeItem(notifications);
         }
     }
-
     @Override
     public void showShortToast(String message) {
         super.showShortToast(message);
     }
-
     @Override
     public void showLongToast(String message) {
         super.showLongToast(message);
     }
-
     @Override
     public Activity getActivity() {
         return this;
     }
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -507,12 +402,12 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             replaceNewsForLocation();
         } else if (id == R.id.fr_home_overlay){
             disableItem();
+        } else if (id == android.R.id.home){
+            disableItem();
+        } else if (id == R.id.drawer_layout){
+            disableItem();
         }
-//        else if (id == R.id.btnPopupMenu){
-//            showPopupLayout(v);
-//        }
     }
-
     private void pushData() {
         disableItem();
         Intent intent = new Intent(this, ProfileActivity.class);
@@ -520,11 +415,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         intent.putExtra("notification", push_data);
         startActivity(intent);
     }
-
     private void renameToolbar(int StringResource) {
         toolbar.setTitle(StringResource);
     }
-
     @Override
     protected void onResume() {
         presenter.onGetShortUser();

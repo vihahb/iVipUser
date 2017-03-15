@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:text="@string/text"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font_13"
