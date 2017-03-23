@@ -28,4 +28,6 @@ public interface IReactiveAccount {
     Activity getActivity();
 
     Context getContext();
+
+    void onNetworkDisable();
 }

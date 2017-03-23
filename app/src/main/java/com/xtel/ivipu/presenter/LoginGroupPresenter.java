@@ -1,6 +1,7 @@
 package com.xtel.ivipu.presenter;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import com.facebook.accountkit.AccountKitLoginResult;
@@ -18,6 +19,7 @@ import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.nipservicesdk.utils.SharedUtils;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 /**
  * Created by vihahb on 1/10/2017.
@@ -46,28 +48,38 @@ public class LoginGroupPresenter {
     }
 
     public void onLoginNip(String user, String pass, boolean isPhone) {
-        callbackManager.LoginNipAcc(user, pass, isPhone, new CallbacListener() {
-            @Override
-            public void onSuccess(RESP_Login success) {
-                Log.e("Login Success", success.getAuthenticationid());
-                view.showShortToast("Success");
-                String sesion = success.getSession();
-                Log.d(TAG + "session", sesion);
-                SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
-                view.startActivity(HomeActivity.class);
-                view.finishActivity();
-            }
-
-            @Override
-            public void onError(Error error) {
-                Log.e("Login err", JsonHelper.toJson(error));
-                String code_err = String.valueOf(error.getCode());
-                int code = Integer.parseInt(code_err);
-                if (!(code_err == null)) {
-                    view.showShortToast(parseMessage(code));
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
                 }
-            }
-        });
+            }, 500);
+            return;
+        } else {
+            callbackManager.LoginNipAcc(user, pass, isPhone, new CallbacListener() {
+                @Override
+                public void onSuccess(RESP_Login success) {
+                    Log.e("Login Success", success.getAuthenticationid());
+                    view.showShortToast("Success");
+                    String sesion = success.getSession();
+                    Log.d(TAG + "session", sesion);
+                    SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
+                    view.startActivity(HomeActivity.class);
+                    view.finishActivity();
+                }
+
+                @Override
+                public void onError(Error error) {
+                    Log.e("Login err", JsonHelper.toJson(error));
+                    String code_err = String.valueOf(error.getCode());
+                    int code = Integer.parseInt(code_err);
+                    if (!(code_err == null)) {
+                        view.showShortToast(parseMessage(code));
+                    }
+                }
+            });
+        }
     }
 
     public void onLoginAccountKit() {

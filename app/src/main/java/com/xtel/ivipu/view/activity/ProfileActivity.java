@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,6 +19,8 @@ import com.xtel.ivipu.view.fragment.FavoriteFragment;
 import com.xtel.ivipu.view.fragment.HistoryFragment;
 import com.xtel.ivipu.view.fragment.NotifyFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
+import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.LoginManager;
 
 /**
  * Created by Vũ Hà Vi on 1/12/2016.
@@ -29,6 +32,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     private ActionBar actionBar;
     private Toolbar toolbar;
     private Menu menu;
+    private String session = LoginManager.getCurrentSession();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         renameToolbar(R.string.nav_Profile);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,12 +103,16 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         if (id == android.R.id.home) {
             finish();
         } else if (id == R.id.action_update) {
-            ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag("PROFILE");
-            if (fragment != null) {
-                fragment.onEnableView();
+            if (session != null) {
+                ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag("PROFILE");
+                if (fragment != null) {
+                    fragment.onEnableView();
+                }
+                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(true);
+            } else {
+                showShortToast(getString(R.string.need_login));
             }
-            menu.getItem(0).setVisible(false);
-            menu.getItem(1).setVisible(true);
         } else if (id == R.id.action_update_done) {
             ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag("PROFILE");
             if (fragment != null) {
@@ -193,23 +202,36 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     @Override
     public Context getContext() {
-        return null;
+        return this;
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
     }
 
     private void getData() {
         String data = null;
         try {
             data = getIntent().getStringExtra("notification");
-            if (data.equals("1")) {
-//                replaceNotify();
-                replaceDefaultFragment();
+            if (data.equals("notification")) {
+                replaceNotify();
+//                replaceDefaultFragment();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Log.e("Data.....", data);
+
         if (data == null)
             replaceDefaultFragment();
+    }
+
+    private void replaceNotify() {
+        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+        bottom_nav_profile.setSelectedItemId(R.id.nav_profile_notify);
+        renameToolbar(R.string.nav_notify);
     }
 
 //    public void replaceNotify() {

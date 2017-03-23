@@ -5,10 +5,9 @@ import android.util.Log;
 
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_ListNews;
-import com.xtel.ivipu.view.activity.LoginGroupActivity;
+import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNews4MeView;
 import com.xtel.nipservicesdk.CallbackManager;
-import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
@@ -23,7 +22,6 @@ import com.xtel.sdk.commons.NetWorkInfo;
 
 public class FragmentNews4MePresenter {
     private IFragmentNews4MeView view;
-
     public FragmentNews4MePresenter(IFragmentNews4MeView view) {
         this.view = view;
     }
@@ -39,8 +37,7 @@ public class FragmentNews4MePresenter {
             return;
         } else {
             String url_shop = Constants.SERVER_IVIP + "v0.1/news?type=" + type + "&page=" + page + "&pagesize=" + pagesize;
-            String session = LoginManager.getCurrentSession();
-            HomeModel.getInstance().getShopNews(url_shop, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
+            HomeModel.getInstance().getShopNews(url_shop, null, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
                 @Override
                 public void onSuccess(RESP_ListNews obj) {
                     Log.e("obj news shop", JsonHelper.toJson(obj));
@@ -60,7 +57,7 @@ public class FragmentNews4MePresenter {
                             @Override
                             public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                                 view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                view.startActivityAndFinish(LoginGroupActivity.class);
+                                view.startActivityAndFinish(LoginActivity.class);
                             }
                         });
                     } else {

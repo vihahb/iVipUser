@@ -127,6 +127,21 @@
     <string name="no_news">Không có bản tin</string>
     <string name="txt_store_name">Tên cửa hàng</string>
     <string name="txt_user">User</string>
+    <string name="demo_address">Shop Name 1 - Address (HN City or HCM City)</string>
+    <string name="need_login_to_get_voucher">Vui lòng đăng nhập để lấy mã giảm giá</string>
+    <string name="need_login_to_rate_news">Vui lòng đăng nhập để đánh giá bản tin</string>
+    <string name="need_login_to_action">Vui lòng đăng nhập để sử dụng chức năng</string>
+    <string name="need_login_to_check_in">Vui lòng đăng nhập để check in</string>
+    <string name="name_null">Chưa có tên</string>
+    <string name="date_reg_null">Ngày đăng ký: Chưa có</string>
+    <string name="point_null">Điểm thưởng: Chưa có</string>
+    <string name="rank_null">Xếp hạng: Chưa có</string>
+    <string name="phone_null">Chưa có số điện thoại</string>
+    <string name="address_null">Chưa có địa chỉ</string>
+    <string name="birth_day_null">Chưa có ngày sinh</string>
+    <string name="btn_logout">Đăng xuất</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="need_login">Vui lòng đăng nhập</string>
 
     <array name="gender_profile">
         <item>Nữ</item>

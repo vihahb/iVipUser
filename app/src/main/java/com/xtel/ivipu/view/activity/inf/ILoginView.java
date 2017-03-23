@@ -20,4 +20,6 @@ public interface ILoginView {
     Activity getActivity();
 
     Context getContext();
+
+    void onNetworkDisable();
 }

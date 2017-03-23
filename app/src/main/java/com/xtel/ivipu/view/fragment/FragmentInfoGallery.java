@@ -208,4 +208,9 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
         }
         return newEntity != null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

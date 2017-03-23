@@ -39,4 +39,6 @@ public interface IProfileActivityView {
     Activity getActivity();
 
     Context getContext();
+
+    void onNetworkDisable();
 }

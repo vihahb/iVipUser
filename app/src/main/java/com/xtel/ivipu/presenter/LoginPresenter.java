@@ -1,6 +1,7 @@
 package com.xtel.ivipu.presenter;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -17,6 +18,7 @@ import com.xtel.nipservicesdk.commons.Constants;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.SharedUtils;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -82,8 +84,18 @@ public class LoginPresenter {
     }
 
     public void onResultFacebookLogin(int requestCode, int resultCode, Intent data) {
-        if (callbackManager.onActivityResult(requestCode, resultCode, data))
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
+                }
+            }, 500);
             return;
+        } else {
+            if (callbackManager.onActivityResult(requestCode, resultCode, data))
+                return;
+        }
     }
 
     public void checkAccessToken() {
@@ -100,21 +112,31 @@ public class LoginPresenter {
     }
 
     private void onLoginNipAccFb(String token) {
-        nipCallbackManager.LoginFaceook(token, new CallbacListener() {
-            @Override
-            public void onSuccess(RESP_Login success) {
-                view.showShortToast("Login Success");
-                String sesion = success.getSession();
-                Log.d(TAG + "session", sesion);
-                SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
-                view.startActivitys(HomeActivity.class);
-            }
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
+                }
+            }, 500);
+            return;
+        } else {
+            nipCallbackManager.LoginFaceook(token, new CallbacListener() {
+                @Override
+                public void onSuccess(RESP_Login success) {
+                    view.showShortToast("Login Success");
+                    String sesion = success.getSession();
+                    Log.d(TAG + "session", sesion);
+                    SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
+                    view.startActivitys(HomeActivity.class);
+                }
 
-            @Override
-            public void onError(Error error) {
-                view.showShortToast("Login Exception. Error code: " + error.getCode());
-            }
-        });
+                @Override
+                public void onError(Error error) {
+                    view.showShortToast("Login Exception. Error code: " + error.getCode());
+                }
+            });
+        }
     }
 
     private String convertLong2Time(long time) {

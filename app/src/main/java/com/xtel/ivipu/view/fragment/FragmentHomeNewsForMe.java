@@ -146,11 +146,11 @@ public class FragmentHomeNewsForMe extends BasicFragment implements IFragmentNew
 
     @Override
     public void onLoadNews4MeSuccess(ArrayList<RESP_NewEntity> arrayList) {
-        Log.e("arr news entity", arrayListNewsList.toString());
-        if (arrayListNewsList.size() < 10) {
+        Log.e("arr news entity", arrayList.toString());
+        if (arrayList.size() < 10) {
             adapter.onSetLoadMore(false);
         }
-        setDataRecyclerView(arrayListNewsList);
+        setDataRecyclerView(arrayList);
         checkListData();
     }
 

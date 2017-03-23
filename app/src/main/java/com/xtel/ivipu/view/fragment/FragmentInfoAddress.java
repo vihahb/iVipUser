@@ -204,7 +204,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         if (!isFindMyLocation) {
             if (location != null) {
                 isFindMyLocation = true;
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
             }
         }
     }
@@ -279,14 +279,14 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     }
 
     private void showLocation(LatLng latLng){
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(15)
                 .bearing(90)
                 .tilt(40)
                 .build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     //Add marker
@@ -296,7 +296,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         markerOptions.title(shop_name);
         markerOptions.position(latLng);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
-        mMap.addMarker(markerOptions);
+        mMap.addMarker(markerOptions).showInfoWindow();
         showLocation(latLng);
     }
 
@@ -350,6 +350,11 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void startActivityAndFinish(Class clazz) {
         super.startActivityAndFinish(clazz);
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(getContext());
     }
 
     public void setMapSetting() {
@@ -412,5 +417,10 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void onGetAddressError() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

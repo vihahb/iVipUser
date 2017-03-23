@@ -22,4 +22,5 @@ public interface IResetView {
 
     Context getContext();
 
+    void onNetworkDisable();
 }

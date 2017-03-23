@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.LoginPresenter;
 import com.xtel.ivipu.view.activity.inf.ILoginView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 
 /**
  * Created by vihahb on 1/10/2017.
@@ -84,7 +85,12 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
 
     @Override
     public Context getContext() {
-        return getApplicationContext();
+        return this;
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
     }
 
     @Override

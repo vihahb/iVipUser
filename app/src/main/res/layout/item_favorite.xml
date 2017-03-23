@@ -5,7 +5,9 @@
     android:id="@+id/card_view_shop"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_220"
-    android:layout_marginTop="@dimen/size_10"
+    android:layout_marginLeft="@dimen/size_8"
+    android:layout_marginRight="@dimen/size_8"
+    android:layout_marginTop="@dimen/size_8"
     android:orientation="vertical"
     android:transitionName="@string/transition_name_shop"
     app:cardBackgroundColor="@android:color/transparent"
@@ -65,17 +67,17 @@
                         <com.xtel.ivipu.view.widget.RoundImage
                             android:layout_width="@dimen/size_75"
                             android:layout_height="@dimen/size_75"
+                            android:layout_gravity="center"
                             android:scaleType="fitCenter"
                             android:src="@mipmap/bg_white"
                             android:transitionName="@string/transition_shop_ava"
-                            android:layout_gravity="center"
                             tools:targetApi="lollipop" />
 
                         <com.xtel.ivipu.view.widget.RoundImage
                             android:id="@+id/img_favorite_brand"
-                            android:layout_gravity="center"
                             android:layout_width="@dimen/size_70"
                             android:layout_height="@dimen/size_70"
+                            android:layout_gravity="center"
                             android:scaleType="fitCenter"
                             android:src="@mipmap/user_demo"
                             android:transitionName="@string/transition_shop_ava"
@@ -94,19 +96,19 @@
                             android:id="@+id/tv_favorite_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Shop Name 1 "
-                            android:textAllCaps="true"
                             android:ellipsize="end"
                             android:singleLine="true"
+                            android:text="Shop Name 1 "
+                            android:textAllCaps="true"
                             android:textColor="@android:color/white"
                             android:textSize="18sp"
                             android:transitionName="@string/transition_shop_name" />
 
                         <TextView
-                            android:singleLine="true"
                             android:id="@+id/tv_favorite_shop_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:singleLine="true"
                             android:text="Cầu Giấy - Hà Nội "
                             android:textColor="@android:color/white"
                             android:textSize="15sp"

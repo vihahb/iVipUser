@@ -2,11 +2,13 @@ package com.xtel.ivipu.model.entity;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  * Created by vivhp on 2/27/2017.
  */
 
-public class GalleryObj {
+public class GalleryObj implements Serializable {
     @Expose
     private int id;
     @Expose

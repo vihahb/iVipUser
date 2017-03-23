@@ -32,6 +32,8 @@ public class Constants {
     public static final String CHECKIN_ACTION = "v0.1/checkin";
     public static final String RATE_ACTION = "v0.1/rate";
     public static final String GALLERY_GET = "v0.1/gallery/";
+    public static final String REG_FCM_KEY = "v0.1/user/fcm";
+    public static final String NOTIFY_USER = "v0.1/user/notify?";
 
 
     /**
@@ -50,6 +52,7 @@ public class Constants {
     public static final String PROFILE_GENERAL_POINT = "profile_general_point";
     public static final String PROFILE_LEVEL = "profile_level";
     public static final String PROFILE_JOINT_DATE = "profile_joint_date";
+    public static final String FCM_TOKEN_DEVICE = "fcm_token_device";
 
     /**
      * VARIABLE

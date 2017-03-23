@@ -27,4 +27,6 @@ public interface ILoginGroup {
     Activity getActivity();
 
     Context getContext();
+
+    void onNetworkDisable();
 }

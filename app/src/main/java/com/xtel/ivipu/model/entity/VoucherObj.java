@@ -18,18 +18,9 @@ public class VoucherObj {
     @Expose
     private long expired_time;
     @Expose
-    private int status;
+    private Integer status;
 
     public VoucherObj() {
-    }
-
-    public VoucherObj(String code, String qr_code, String bar_code, long create_time, long expired_time, int status) {
-        this.code = code;
-        this.qr_code = qr_code;
-        this.bar_code = bar_code;
-        this.create_time = create_time;
-        this.expired_time = expired_time;
-        this.status = status;
     }
 
     public String getCode() {
@@ -72,11 +63,11 @@ public class VoucherObj {
         this.expired_time = expired_time;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

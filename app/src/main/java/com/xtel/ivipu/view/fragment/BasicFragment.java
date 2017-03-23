@@ -147,7 +147,9 @@ public class BasicFragment extends Fragment {
     }
 
     protected void startActivityAndFinish(Class clazz) {
-        getActivity().startActivity(new Intent(getActivity(), clazz));
+        Intent intent = new Intent(getActivity(), clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(intent);
         getActivity().finish();
     }
 

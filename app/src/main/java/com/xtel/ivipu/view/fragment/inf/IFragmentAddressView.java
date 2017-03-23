@@ -27,4 +27,6 @@ public interface IFragmentAddressView {
     Activity getActivity();
 
     Context getContext();
+
+    void onNetworkDisable();
 }

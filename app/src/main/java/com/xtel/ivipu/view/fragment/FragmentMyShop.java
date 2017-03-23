@@ -16,9 +16,7 @@ import com.xtel.ivipu.model.entity.MyShopCheckin;
 import com.xtel.ivipu.presenter.FragmentMyShopPresenter;
 import com.xtel.ivipu.view.activity.inf.IMyShopActivity;
 import com.xtel.ivipu.view.adapter.AdapterCheckinHistory;
-import com.xtel.ivipu.view.adapter.AdapterRecycleMyShopCheckin;
 import com.xtel.ivipu.view.widget.ProgressView;
-import com.xtel.nipservicesdk.utils.JsonHelper;
 
 import java.util.ArrayList;
 

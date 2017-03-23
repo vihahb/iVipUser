@@ -15,6 +15,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.xtel.nipservicesdk.LoginManager;
+import com.xtel.nipservicesdk.MyApplicationNip;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +34,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-        context = this;
+        context = getBaseContext();
         FirebaseApp.initializeApp(this);
         FirebaseInstanceId.getInstance().getToken();
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -42,6 +43,7 @@ public class MyApplication extends Application {
         LoginManager.sdkInitialize(this);
         PACKAGE_NAME = context.getPackageName();
         getKeyHash(PACKAGE_NAME);
+        MyApplicationNip.context = this;
         Log.v("Pkg name", PACKAGE_NAME);
     }
 

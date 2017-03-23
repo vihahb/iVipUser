@@ -8,7 +8,6 @@ import com.xtel.ivipu.model.RESP.RESP_ListNews;
 import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNewsListView;
 import com.xtel.nipservicesdk.CallbackManager;
-import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
@@ -24,7 +23,6 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentNewsListPresenter {
 
     private IFragmentNewsListView view;
-
     public FragmentNewsListPresenter(IFragmentNewsListView view) {
         this.view = view;
     }
@@ -40,10 +38,8 @@ public class FragmentNewsListPresenter {
             return;
         } else {
             String url_shop = Constants.SERVER_IVIP + "v0.1/news?type=" + type + "&page=" + page + "&pagesize=" + pagesize;
-            String session = LoginManager.getCurrentSession();
-            Log.e("Session", session);
             Log.e("Url request arr news", url_shop);
-            HomeModel.getInstance().getShopNews(url_shop, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
+            HomeModel.getInstance().getShopNews(url_shop, null, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
                 @Override
                 public void onSuccess(RESP_ListNews obj) {
                     Log.e("obj news shop", JsonHelper.toJson(obj));

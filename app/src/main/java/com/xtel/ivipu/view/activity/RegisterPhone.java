@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.RegisterPhonePresenter;
 import com.xtel.ivipu.view.activity.inf.IRegisterPhoneView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.model.entity.Error;
 
 /**
@@ -209,6 +210,11 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
     }
 
     @Override

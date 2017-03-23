@@ -192,7 +192,9 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     protected void startActivityFinish(Class clazz) {
-        startActivity(new Intent(this, clazz));
+        Intent intent = new Intent(this, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
         finish();
     }
 

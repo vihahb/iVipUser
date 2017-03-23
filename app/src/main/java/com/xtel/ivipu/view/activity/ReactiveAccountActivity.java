@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.ReactivePresenter;
 import com.xtel.ivipu.view.activity.inf.IReactiveAccount;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.model.entity.Error;
 
 /**
@@ -161,7 +162,12 @@ public class ReactiveAccountActivity extends BasicActivity implements IReactiveA
 
     @Override
     public Context getContext() {
-        return getApplicationContext();
+        return this;
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(getContext());
     }
 
     @Override

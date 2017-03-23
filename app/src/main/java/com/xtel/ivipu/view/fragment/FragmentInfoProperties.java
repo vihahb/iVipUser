@@ -50,7 +50,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     ActivityInfoPropertiesPresenter presenter;
     private RESP_NewEntity newEntity;
     private TextView txt_info_shop_name, txt_info_shop_view, txt_info_shop_like, txt_info_shop_rate, tv_info_shop_title;
-    private TextView tv_qr_reward, tv_set_expand, tv_status, tv_Expand, tv_rate_time, tv_voucher_cocde, tv_voucher_expired_time;
+    private TextView tv_qr_reward, tv_set_expand, tv_status, tv_Expand, tv_rate_time, tv_voucher_cocde, tv_voucher_expired_time, tv_temp_text;
     private RoundImage img_brand, img_avatar, img_avatar_background;
     private ImageView img_qr_code, img_bar_code, img_content_banner;
     private ImageView img_like, img_comment, img_share;
@@ -90,6 +90,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         txt_info_shop_rate = (TextView) view.findViewById(R.id.tv_info_shop_rate);
         tv_qr_reward = (TextView) view.findViewById(R.id.tv_qr_reward);
         expandableTextView = (ExpandableTextView) view.findViewById(R.id.expandableTextView);
+        tv_temp_text = (TextView) view.findViewById(R.id.tv_temp_text);
         tv_info_shop_title = (TextView) view.findViewById(R.id.tv_info_shop_title);
 //        tv_set_expand = (TextView) view.findViewById(R.id.tv_set_expand);
         tv_status = (TextView) view.findViewById(R.id.tv_rate_status);
@@ -196,6 +197,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 //        int lineCount = expandableTextView.getTe;
 //        Log.e("Line Count....", String.valueOf(lineCount));
 
+
     }
 
 
@@ -266,7 +268,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_view, shopView);
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_like, shopLike);
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_rate, shopRate);
-        WidgetHelper.getInstance().setTextViewNoResult(expandableTextView, shopDescription);
+        WidgetHelper.getInstance().setTextViewNoResult(tv_temp_text, shopDescription);
         WidgetHelper.getInstance().setTextViewNoResult(tv_info_shop_title, shopTitle);
 
         String banner = newsObj.getBanner();
@@ -290,6 +292,17 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
         WidgetHelper.getInstance().setAvatarImageURL(img_brand, brand);
         WidgetHelper.getInstance().setAvatarImageURL(img_content_banner, banner);
+
+
+        expandableTextView.setText(tv_temp_text.getText().toString());
+        int count_tv = tv_temp_text.getLineCount();
+        Log.e("Count Textview", String.valueOf(count_tv));
+        tv_Expand.setVisibility(View.INVISIBLE);
+        if (count_tv > 3) {
+            tv_temp_text.setVisibility(View.GONE);
+            tv_Expand.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void setVoucher(VoucherObj voucherObj) {
@@ -355,7 +368,6 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
     @Override
     public void onNetworkDisable() {
-
     }
 
     @Override
@@ -396,7 +408,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     @Override
     public void onLikeSuccess() {
         int id = newEntity.getId();
-        presenter.getNewsInfomation(id);
+        presenter.getNews(id);
     }
 
     @Override
@@ -440,7 +452,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         } else {
             if (type == 1) {
                 int id = newEntity.getId();
-                presenter.getNewsInfomation(id);
+                presenter.getNews(id);
             } else if (type == 2) {
                 onRateAction(rated);
             } else if (type == 3) {

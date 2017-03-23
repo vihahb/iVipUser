@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.LoginGroupPresenter;
 import com.xtel.ivipu.view.activity.inf.ILoginGroup;
+import com.xtel.sdk.callback.DialogListener;
 
 /**
  * Created by vihahb on 1/10/2017.
@@ -128,6 +129,19 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new DialogListener() {
+            @Override
+            public void onClicked(Object object) {
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
     }
 
     @Override

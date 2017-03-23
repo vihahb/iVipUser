@@ -20,5 +20,7 @@ public interface IHome {
 
     void getShortUser(RESP_Short userShort);
 
+    void onNetworkDisable();
+
     Activity getActivity();
 }

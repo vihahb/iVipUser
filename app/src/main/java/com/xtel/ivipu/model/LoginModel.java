@@ -18,4 +18,7 @@ public class LoginModel extends Model {
         requestServer.getApi(url, session, responseHandle);
     }
 
+    public void postFCMKey(String url, String object, String session, ResponseHandle responseHandle) {
+        requestServer.postApi(url, object, session, responseHandle);
+    }
 }

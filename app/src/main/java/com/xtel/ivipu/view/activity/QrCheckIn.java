@@ -26,6 +26,8 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Checkin;
 import com.xtel.ivipu.presenter.ScannerQrPresenter;
 import com.xtel.ivipu.view.activity.inf.IScannerView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.sdk.callback.DialogListener;
@@ -48,6 +50,7 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
     private static final int REQUEST_PERMISSION_ALL = 2;
     double latitude_location, longitude_location;
     boolean isGPSEnabled = true;
+    String session = LoginManager.getCurrentSession();
     private ZXingScannerView mZXingScannerView;
     private ScannerQrPresenter presenter;
     private String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -157,6 +160,10 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
 
     private void initView() {
         frameContent = (ViewGroup) findViewById(R.id.scanqr_content);
+        if (session == null) {
+            showShortToast(getString(R.string.need_login_to_check_in));
+            startActivityFinish(LoginActivity.class);
+        }
     }
 
     private void initToolBar(int id, String title) {
@@ -352,5 +359,10 @@ public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultH
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
     }
 }

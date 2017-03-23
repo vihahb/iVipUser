@@ -16,6 +16,7 @@ import com.xtel.nipservicesdk.callback.CallbackListenerActive;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Register;
 import com.xtel.nipservicesdk.utils.JsonParse;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 /**
  * Created by vihahb on 1/10/2017.
@@ -91,46 +92,65 @@ public class RegisterPhonePresenter {
     }
 
     public void activeNipAccount(String authorization_code) {
-        String acc_type = "PHONE-NUMBER";
-        callbackManager.activeNipAccount(authorization_code, acc_type, new CallbackListenerActive() {
-            @Override
-            public void onSuccess() {
-                view.showShortToast("Active success!");
-                view.finishActivitys();
-            }
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
+                }
+            }, 500);
+            return;
+        } else {
+            String acc_type = "PHONE-NUMBER";
+            callbackManager.activeNipAccount(authorization_code, acc_type, new CallbackListenerActive() {
+                @Override
+                public void onSuccess() {
+                    view.showShortToast("Active success!");
+                    view.finishActivitys();
+                }
 
-            @Override
-            public void onError(Error error) {
-                view.showShortToast("Active error code: " + error.getCode());
-            }
-        });
+                @Override
+                public void onError(Error error) {
+                    view.showShortToast("Active error code: " + error.getCode());
+                }
+            });
+        }
     }
 
     public void onRegisterPhone(String user_name, String password) {
-        callbackManager.registerNipService(user_name, password, null, true, new CallbackLisenerRegister() {
-            @Override
-            public void onSuccess(RESP_Register register) {
-                Log.e("Success", register.getActivation_code());
-                view.showShortToast(view.getActivity().getString(R.string.action_success));
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        onAccessAccountKit();
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public void onError(Error error) {
-                String code_err = String.valueOf(error.getCode());
-                int code = Integer.parseInt(code_err);
-                Log.e("Error", String.valueOf(error.getCode()));
-                Log.e("Error mess", error.toString());
-                if (!(code_err == null)) {
-                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, ""));
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
                 }
-            }
-        });
-    }
+            }, 500);
+            return;
+        } else {
+            callbackManager.registerNipService(user_name, password, null, true, new CallbackLisenerRegister() {
+                @Override
+                public void onSuccess(RESP_Register register) {
+                    Log.e("Success", register.getActivation_code());
+                    view.showShortToast(view.getActivity().getString(R.string.action_success));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onAccessAccountKit();
+                        }
+                    }, 1000);
+                }
 
+                @Override
+                public void onError(Error error) {
+                    String code_err = String.valueOf(error.getCode());
+                    int code = Integer.parseInt(code_err);
+                    Log.e("Error", String.valueOf(error.getCode()));
+                    Log.e("Error mess", error.toString());
+                    if (!(code_err == null)) {
+                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, ""));
+                    }
+                }
+            });
+        }
+    }
 }

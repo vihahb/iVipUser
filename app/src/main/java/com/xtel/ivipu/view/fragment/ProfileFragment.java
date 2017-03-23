@@ -67,9 +67,10 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     ProfilePresenter presenter;
     String time_set;
     long birth_day_set = 0;
+    String session = com.xtel.nipservicesdk.LoginManager.getCurrentSession();
     private TextView tv_name, tv_date_reg, tv_score, tv_rank;
     private EditText edt_name, edt_phone, edt_address, edt_birth;
-    private Button btn_Logout;
+    private Button btn_Logout, btn_Login;
     private RoundImage img_avatar;
     private ImageView img_cover, img_profile_change_avatar;
     private FrameLayout fr_change_avatar;
@@ -107,11 +108,14 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         img_avatar = (RoundImage) view.findViewById(R.id.img_avatar_profile);
         img_profile_change_avatar = (ImageView) view.findViewById(R.id.img_profile_change_avatar);
         btn_Logout = (Button) view.findViewById(R.id.btn_Logout);
+        btn_Login = (Button) view.findViewById(R.id.btn_Login);
         fr_change_avatar = (FrameLayout) view.findViewById(R.id.fr_change_avatar);
         img_cover = (ImageView) view.findViewById(R.id.profile_cover);
         cover_avatar = (LinearLayout) view.findViewById(R.id.cover_avatar);
         sp_gender = (Spinner) view.findViewById(R.id.sp_gender);
+
         btn_Logout.setOnClickListener(this);
+        btn_Login.setOnClickListener(this);
         img_avatar.setOnClickListener(this);
         img_profile_change_avatar.setOnClickListener(this);
         fr_change_avatar.setOnClickListener(this);
@@ -120,6 +124,19 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         presenter.getProfileData();
         initOnclick();
         onDisableView();
+        if (session == null) {
+            btn_Login.setVisibility(View.VISIBLE);
+            btn_Logout.setVisibility(View.GONE);
+            img_profile_change_avatar.setVisibility(View.GONE);
+            img_avatar.setVisibility(View.GONE);
+            fr_change_avatar.setVisibility(View.GONE);
+        } else {
+            btn_Login.setVisibility(View.GONE);
+            btn_Logout.setVisibility(View.VISIBLE);
+            img_profile_change_avatar.setVisibility(View.VISIBLE);
+            img_avatar.setVisibility(View.VISIBLE);
+            fr_change_avatar.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initOnclick() {
@@ -163,6 +180,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             checkNetwork(getContext(), 2);
         } else if (id == R.id.img_avatar_profile) {
             checkNetwork(getContext(), 2);
+        } else if (id == R.id.btn_Login) {
+            startActivity(LoginActivity.class);
         }
     }
 
@@ -335,6 +354,11 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         edt_birth.setEnabled(false);
         edt_phone.setEnabled(false);
         sp_gender.setEnabled(false);
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(getContext());
     }
 
     private void setDataProfile(UserInfo userInfo) {

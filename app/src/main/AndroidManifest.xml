@@ -11,23 +11,23 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="com.xtel.ivipu.view.MyApplication"
+        android:name=".view.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:node="replace">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -64,8 +64,9 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name="com.xtel.ivipu.view.activity.SplashScreen">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme" />
+        <activity android:name=".view.activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,78 +75,73 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xtel.ivipu.view.activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/home_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.HomeActivity"
+            android:name=".view.activity.HomeActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.RegisterPhone"
+            android:name=".view.activity.RegisterPhone"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_reg"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.LoginGroupActivity"
+            android:name=".view.activity.LoginGroupActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.ResetActivity"
+            android:name=".view.activity.ResetActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_reset"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.ReactiveAccountActivity"
+            android:name=".view.activity.ReactiveAccountActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_reactive"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="com.xtel.ivipu.view.activity.ProfileActivity"
+            android:name=".view.activity.ProfileActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="com.xtel.ivipu.view.activity.ActivityInfoContent"
+            android:name=".view.activity.ActivityInfoContent"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_info_content"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="com.xtel.ivipu.view.activity.QrCheckIn"
+            android:name=".view.activity.QrCheckIn"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/fragment_myshop_content"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="com.xtel.ivipu.view.activity.ListCommentActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/activity_comment"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
-        <activity
-            android:name="com.xtel.ivipu.view.activity.ActionCommentActivity"
+            android:name=".view.activity.ListCommentActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_comment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.xtel.ivipu.view.activity.HistoryTransactionsActivity"
+            android:name=".view.activity.ActionCommentActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/activity_comment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.activity.HistoryTransactionsActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/activity_comment"
             android:screenOrientation="portrait"
@@ -161,15 +157,12 @@
         <meta-data
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="5765ba05cf4f36a9301d3a8eb9fe7c9e53ecb745" />
@@ -179,12 +172,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name="com.xtel.sdk.fcm.MyFirebaseinstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".view.activity.NotificationAction"></activity>
     </application>
 
 </manifest>

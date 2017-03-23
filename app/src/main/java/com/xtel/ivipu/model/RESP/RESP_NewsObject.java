@@ -191,27 +191,4 @@ public class RESP_NewsObject extends RESP_Basic {
         this.rate_time = rate_time;
     }
 
-    @Override
-    public String toString() {
-        return "RESP_NewsObject{" +
-                "id=" + id +
-                ", banner='" + banner + '\'' +
-                ", logo='" + logo + '\'' +
-                ", store_name='" + store_name + '\'' +
-                ", like=" + like +
-                ", comment=" + comment +
-                ", rate=" + rate +
-                ", view=" + view +
-                ", create_time=" + create_time +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", sales=" + sales +
-                ", voucher=" + voucher +
-                ", store_id=" + store_id +
-                ", chain_store_id=" + chain_store_id +
-                ", favorite=" + favorite +
-                ", current_rate=" + current_rate +
-                ", rate_time=" + rate_time +
-                '}';
-    }
 }

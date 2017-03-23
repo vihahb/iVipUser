@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.entity.CommentActionObj;
-import com.xtel.ivipu.view.activity.LoginGroupActivity;
+import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.activity.inf.IComment;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -69,7 +69,7 @@ public class CommentActionPresenter {
                                 public void onError(Error error) {
                                     Log.e("Err post comment sess", String.valueOf(error.getCode()));
                                     view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginGroupActivity.class);
+                                    view.startActivityAndFinish(LoginActivity.class);
                                 }
                             });
                         } else {

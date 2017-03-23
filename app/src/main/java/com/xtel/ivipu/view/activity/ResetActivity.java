@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.ResetPresenter;
 import com.xtel.ivipu.view.activity.inf.IResetView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 
 /**
  * Created by vihahb on 1/11/2017.
@@ -124,6 +125,11 @@ public class ResetActivity extends BasicActivity implements IResetView, View.OnC
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
     }
 
     @Override

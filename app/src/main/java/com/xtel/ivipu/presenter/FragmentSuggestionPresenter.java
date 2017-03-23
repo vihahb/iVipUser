@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_ListNews;
-import com.xtel.ivipu.view.activity.LoginGroupActivity;
+import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.fragment.inf.IFragmentSuggestionView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
@@ -22,7 +22,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 
 public class FragmentSuggestionPresenter {
     private IFragmentSuggestionView view;
-
+    private String session = LoginManager.getCurrentSession();
     public FragmentSuggestionPresenter(IFragmentSuggestionView view) {
         this.view = view;
     }
@@ -37,7 +37,6 @@ public class FragmentSuggestionPresenter {
             }, 500);
             return;
         } else {
-            String session = LoginManager.getCurrentSession();
             String url_suggestion = Constants.SERVER_IVIP + "v0.1/suggestion?id=" + id_news + "&page=" + page + "&pagesize=" + pagesize;
 
             HomeModel.getInstance().getNewsSuggestion(url_suggestion, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
@@ -60,7 +59,7 @@ public class FragmentSuggestionPresenter {
                                 @Override
                                 public void onError(Error error) {
                                     view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginGroupActivity.class);
+                                    view.startActivityAndFinish(LoginActivity.class);
                                 }
                             });
                         }

@@ -3,6 +3,7 @@ package com.xtel.ivipu.view.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -16,7 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +27,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -46,8 +46,11 @@ import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.FragmentMyShop;
 import com.xtel.ivipu.view.widget.CircleTransform;
 import com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom;
-import com.xtel.ivipu.view.widget.RoundImage;
+import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.sdk.dialog.BadgeIcon;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * Created by vivhp on 12/29/2016.
@@ -59,6 +62,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     LinearLayout ln_layout_transparent, ln_layout_nav_item;
     LinearLayoutAnimationSlideBottom ln_popup_item;
     BottomNavigationView nav_bottom_home;
+    FrameLayout fr_home_overlay;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private ActionBar actionBar;
@@ -67,7 +71,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private Context mContext;
     private int notifications;
     private String avatar;
-    FrameLayout fr_home_overlay;
+    private String session = LoginManager.getCurrentSession();
     private Button btn_health, btn_service, btn_news_for_location;
     private boolean isShowing = false;
     private boolean item_health_selected = false;
@@ -81,21 +85,26 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         presenter = new HomePresenter(this);
 //        presenter.onGetUserNip();
         mContext = HomeActivity.this;
-        presenter.onGetUserNip();
+        presenter.postFCMKey();
         presenter.onGetShortUser();
+        presenter.onGetUserNip();
         initView();
         initNavigation();
         initNavigationWidget();
         initBottomNavigation();
+        getData();
     }
+
     private void initNavigationWidget() {
 //        View view = navigationView.getHeaderView(0);
     }
+
     public void initBottomNavigation() {
         nav_bottom_home = (BottomNavigationView) findViewById(R.id.bottom_navigation_item);
         initMenuSelected();
         replaceDefaultFragment();
     }
+
     private void initMenuSelected() {
         nav_bottom_home.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -106,6 +115,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                                 btn_health.setPressed(false);
                                 btn_service.setPressed(false);
                                 btn_news_for_location.setPressed(false);
+                                btn_health.setActivated(false);
+                                btn_news_for_location.setActivated(false);
+                                btn_service.setActivated(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
                                 renameToolbar(R.string.nav_new_list);
@@ -114,6 +126,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                                 btn_health.setPressed(false);
                                 btn_service.setPressed(false);
                                 btn_news_for_location.setPressed(false);
+                                btn_health.setActivated(false);
+                                btn_news_for_location.setActivated(false);
+                                btn_service.setActivated(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
                                 renameToolbar(R.string.nav_fashion);
@@ -122,6 +137,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                                 btn_health.setPressed(false);
                                 btn_service.setPressed(false);
                                 btn_news_for_location.setPressed(false);
+                                btn_health.setActivated(false);
+                                btn_news_for_location.setActivated(false);
+                                btn_service.setActivated(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
                                 renameToolbar(R.string.nav_food);
@@ -130,6 +148,9 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                                 btn_health.setPressed(false);
                                 btn_service.setPressed(false);
                                 btn_news_for_location.setPressed(false);
+                                btn_health.setActivated(false);
+                                btn_news_for_location.setActivated(false);
+                                btn_service.setActivated(false);
                                 disableItem();
                                 replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
                                 renameToolbar(R.string.nav_technology);
@@ -146,6 +167,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                     }
                 });
     }
+
     @SuppressLint("CutPasteId")
     private void initView() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -167,12 +189,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 
         drawer.setOnClickListener(this);
     }
+
     private void disableItem() {
         isShowing = false;
         mLinearLayout.setVisibility(View.INVISIBLE);
         ln_popup_item.setVisibility(View.GONE);
         fr_home_overlay.setVisibility(View.GONE);
     }
+
     private void replaceHealth() {
         item_health_selected = true;
         item_news_for_me_selected = false;
@@ -180,10 +204,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_health.setPressed(true);
         btn_service.setPressed(false);
         btn_news_for_location.setPressed(false);
+        btn_health.setActivated(true);
+        btn_news_for_location.setActivated(false);
+        btn_service.setActivated(false);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "HEALTH");
         renameToolbar(R.string.nav_health);
     }
+
     private void replaceService() {
         item_health_selected = false;
         item_news_for_me_selected = false;
@@ -191,10 +219,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_health.setPressed(false);
         btn_service.setPressed(true);
         btn_news_for_location.setPressed(false);
+        btn_health.setActivated(false);
+        btn_news_for_location.setActivated(false);
+        btn_service.setActivated(true);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICE");
         renameToolbar(R.string.nav_services);
     }
+
     private void replaceNewsForLocation() {
         item_health_selected = false;
         item_news_for_me_selected = true;
@@ -202,10 +234,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_health.setPressed(false);
         btn_service.setPressed(false);
         btn_news_for_location.setPressed(true);
+        btn_health.setActivated(false);
+        btn_news_for_location.setActivated(true);
+        btn_service.setActivated(false);
         disableItem();
         replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_FOR_LOCATION");
         renameToolbar(R.string.nav_news_for_me);
     }
+
     @SuppressWarnings("deprecation")
     private void initNavigation() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -219,31 +255,34 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
     }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (isShowing){
+        } else if (isShowing) {
             disableItem();
         } else {
             showConfirmExitApp();
         }
     }
-    private void selectedItem(){
-        if (item_health_selected){
+
+    private void selectedItem() {
+        if (item_health_selected) {
             btn_health.setPressed(true);
             btn_service.setPressed(false);
             btn_news_for_location.setPressed(false);
-        } else if (item_service_selected){
+        } else if (item_service_selected) {
             btn_health.setPressed(false);
             btn_service.setPressed(true);
             btn_news_for_location.setPressed(false);
-        } else if (item_news_for_me_selected){
+        } else if (item_news_for_me_selected) {
             btn_health.setPressed(false);
             btn_service.setPressed(false);
             btn_news_for_location.setPressed(true);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -253,7 +292,8 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
         return true;
     }
-    private void setImgUser2Toolbar(String avatar_url) {
+
+    private void setImgUser2Toolbar(String avatar_url, final int notification_count) {
         final ImageView imageView = new ImageView(this);
         imageView.setVisibility(View.GONE);
         Picasso.with(getApplicationContext())
@@ -273,10 +313,12 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                     }
                 });
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -289,10 +331,13 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void checkInQrBar() {
         disableItem();
         startActivty(QrCheckIn.class);
     }
+
+    @SuppressLint("ObsoleteSdkInt")
     private void onCreteBadgeItem(int paramsInt) {
         if (Build.VERSION.SDK_INT <= 15) {
             return;
@@ -312,10 +357,12 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
         mMenuItem.setIcon(layerDrawable);
     }
+
     private void replaceDefaultFragment() {
         replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
         renameToolbar(R.string.nav_new_list);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -330,6 +377,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         } else if (id == R.id.nav_member_card) {
             replaceMemberCardFragment();
         } else if (id == R.id.nav_help) {
+            startActivity(NotificationAction.class);
         } else if (id == R.id.nav_privacy) {
         } else if (id == R.id.nav_faq) {
         } else if (id == R.id.nav_about) {
@@ -339,26 +387,31 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private void replaceMyShopFragment() {
         disableItem();
         nav_bottom_home.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMyShop(), "MYSHOP");
         renameToolbar(R.string.fragment_myshop_content);
     }
+
     private void replaceMemberCardFragment() {
         disableItem();
         nav_bottom_home.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMemberCard(), "MEMBER");
         renameToolbar(R.string.fragment_member_card_content);
     }
+
     @Override
     public void startActivty(Class clazz) {
         super.startActivity(clazz);
     }
+
     @Override
     public void startActivityFinish(Class clazz) {
         super.startActivityFinish(clazz);
     }
+
     @Override
     public void getShortUser(RESP_Short profile) {
         UserShort userShort = new UserShort();
@@ -369,23 +422,36 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         avatar = userShort.getAvatar();
         Log.e("Avatar Home", avatar);
 //            setDrawableResource(userShort.getAvatar(), mMenuItem);
-        setImgUser2Toolbar(avatar);
+        setImgUser2Toolbar(avatar, notifications);
         if (notifications != 0) {
             onCreteBadgeItem(notifications);
+            ShortcutBadger.applyCount(getBaseContext(), notifications);
+        } else {
+            ShortcutBadger.applyCount(getBaseContext(), 0);
         }
     }
+
+
+    @Override
+    public void onNetworkDisable() {
+        WidgetHelper.getInstance().showAlertNetwork(this);
+    }
+
     @Override
     public void showShortToast(String message) {
         super.showShortToast(message);
     }
+
     @Override
     public void showLongToast(String message) {
         super.showLongToast(message);
     }
+
     @Override
     public Activity getActivity() {
         return this;
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -400,27 +466,93 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             replaceService();
         } else if (id == R.id.btn_news_for_locations) {
             replaceNewsForLocation();
-        } else if (id == R.id.fr_home_overlay){
+        } else if (id == R.id.fr_home_overlay) {
             disableItem();
-        } else if (id == android.R.id.home){
+        } else if (id == android.R.id.home) {
             disableItem();
-        } else if (id == R.id.drawer_layout){
+        } else if (id == R.id.drawer_layout) {
             disableItem();
         }
     }
+
     private void pushData() {
-        disableItem();
-        Intent intent = new Intent(this, ProfileActivity.class);
-        String push_data = "1";
-        intent.putExtra("notification", push_data);
-        startActivity(intent);
+        if (session != null) {
+            disableItem();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        } else {
+            alertLogin();
+        }
     }
+
+    private void alertLogin() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.TimePicker);
+        dialog.setTitle("Thông báo");
+        dialog.setMessage("Chức năng này cần phải đăng nhập để sử dụng. Bạn có muốn đăng nhập?");
+        dialog.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+            }
+        });
+        dialog.show();
+    }
+
     private void renameToolbar(int StringResource) {
         toolbar.setTitle(StringResource);
     }
+
     @Override
     protected void onResume() {
         presenter.onGetShortUser();
+        if (notifications != 0) {
+//            onCreteBadgeItem(notifications);
+            ShortcutBadger.applyCount(getBaseContext(), notifications);
+        } else {
+            ShortcutBadger.applyCount(getBaseContext(), 0);
+        }
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        if (notifications != 0) {
+//            onCreteBadgeItem(notifications);
+            ShortcutBadger.applyCount(getBaseContext(), notifications);
+        } else {
+            ShortcutBadger.applyCount(getBaseContext(), 0);
+        }
+        super.onPause();
+    }
+
+    private void getData() {
+        String data = null;
+        try {
+            data = getIntent().getStringExtra("notification");
+            if (data.equals("news")) {
+                replaceDefaultFragment();
+//                replaceDefaultFragment();
+            } else if (data.equals("location")) {
+                replaceNewsForLocation();
+                nav_bottom_home.setSelectedItemId(R.id.nav_list_item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        Log.e("Data.....", data);
+
+        if (data == null)
+            replaceDefaultFragment();
     }
 }

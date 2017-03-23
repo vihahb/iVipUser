@@ -1,6 +1,7 @@
 package com.xtel.ivipu.presenter;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import com.facebook.accountkit.AccountKitLoginResult;
@@ -14,6 +15,7 @@ import com.xtel.nipservicesdk.callback.CallbackListenerReactive;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Reactive;
 import com.xtel.nipservicesdk.utils.JsonParse;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 /**
  * Created by vihahb on 1/12/2017.
@@ -89,23 +91,33 @@ public class ReactivePresenter {
     }
 
     public void onReactiveAccount(String phone_number) {
-        callbackManager.reactiveNipAccount(phone_number, true, new CallbackListenerReactive() {
-            @Override
-            public void onSuccess(RESP_Reactive reactive) {
-                activation_code = reactive.getActivation_code();
-                Log.e("activation code", activation_code);
-                onAccessAccountKitReactive();
-            }
-
-            @Override
-            public void onError(Error error) {
-                String err_code = String.valueOf(error.getCode());
-                int code = Integer.parseInt(err_code);
-                if (!(err_code == null)) {
-                    view.showLongToast(parseMessage(code));
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
                 }
-            }
-        });
+            }, 500);
+            return;
+        } else {
+            callbackManager.reactiveNipAccount(phone_number, true, new CallbackListenerReactive() {
+                @Override
+                public void onSuccess(RESP_Reactive reactive) {
+                    activation_code = reactive.getActivation_code();
+                    Log.e("activation code", activation_code);
+                    onAccessAccountKitReactive();
+                }
+
+                @Override
+                public void onError(Error error) {
+                    String err_code = String.valueOf(error.getCode());
+                    int code = Integer.parseInt(err_code);
+                    if (!(err_code == null)) {
+                        view.showLongToast(parseMessage(code));
+                    }
+                }
+            });
+        }
     }
 
 

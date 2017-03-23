@@ -16,14 +16,14 @@ public class SplashScreen extends BasicActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                checkSession();
+//                checkSession();
+                startActivityFinish(HomeActivity.class);
             }
         }, 500);
     }
 
     private void checkSession() {
         String session = LoginManager.getCurrentSession();
-
         if (session == null) {
             startActivityFinish(LoginActivity.class);
         } else {

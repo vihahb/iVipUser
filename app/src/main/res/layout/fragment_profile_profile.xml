@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="User name"
+                        android:text="@string/name_null"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/font_20" />
 
@@ -101,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="Ngày đăng ký"
+                        android:text="@string/date_reg_null"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/font_14" />
 
@@ -141,7 +141,7 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:paddingRight="@dimen/size_4"
-                            android:text="Điểm thưởng"
+                            android:text="@string/point_null"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/font_14" />
 
@@ -152,7 +152,7 @@
                             android:layout_weight="1"
                             android:gravity="left"
                             android:paddingLeft="@dimen/size_4"
-                            android:text="Xếp  hạng"
+                            android:text="@string/rank_null"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/font_14" />
                     </LinearLayout>
@@ -196,6 +196,7 @@
                             android:id="@+id/edt_fullname"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
+                            android:hint="@string/name_null"
                             android:paddingLeft="@dimen/size_60"
                             android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
@@ -233,7 +234,7 @@
                             android:id="@+id/edt_phone"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
-                            android:hint="Số điện thoại"
+                            android:hint="@string/phone_null"
                             android:paddingLeft="@dimen/size_60"
                             android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
@@ -271,7 +272,7 @@
                             android:id="@+id/edt_address_profile"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
-                            android:hint="Địa chỉ"
+                            android:hint="@string/address_null"
                             android:paddingLeft="@dimen/size_60"
                             android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
@@ -310,7 +311,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/size_48"
                             android:focusable="false"
-                            android:hint="Ngày sinh"
+                            android:hint="@string/birth_day_null"
                             android:paddingLeft="@dimen/size_60"
                             android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white" />
@@ -392,7 +393,17 @@
                             android:background="@drawable/button_transparent"
                             android:gravity="left|center_vertical"
                             android:paddingLeft="@dimen/size_60"
-                            android:text="Đăng xuất"
+                            android:text="@string/btn_logout"
+                            android:textColor="@android:color/white" />
+
+                        <Button
+                            android:id="@+id/btn_Login"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_48"
+                            android:background="@drawable/button_transparent"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="@dimen/size_60"
+                            android:text="@string/btn_login"
                             android:textColor="@android:color/white" />
 
                         <View

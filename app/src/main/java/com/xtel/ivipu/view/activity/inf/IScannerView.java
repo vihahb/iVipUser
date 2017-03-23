@@ -24,4 +24,6 @@ public interface IScannerView {
     void showShortToast(String mes);
 
     Activity getActivity();
+
+    void onNetworkDisable();
 }
