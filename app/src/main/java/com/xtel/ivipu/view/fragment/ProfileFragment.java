@@ -32,6 +32,7 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.presenter.ProfilePresenter;
+import com.xtel.ivipu.view.activity.HomeActivity;
 import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipu.view.widget.RoundImage;
@@ -169,7 +170,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             SharedUtils.getInstance().clearData();
             SharedPreferencesUtils.getInstance().clearData();
             LoginManager.getInstance().logOut();
-            finishActivityBeforeStartActivity(LoginActivity.class);
+            finishActivityBeforeStartActivity(HomeActivity.class);
         } else if (id == R.id.edt_birthday_profile) {
             setTime();
         } else if (id == R.id.img_profile_change_avatar) {

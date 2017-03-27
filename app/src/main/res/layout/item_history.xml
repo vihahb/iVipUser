@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@mipmap/banner_tttm_2"
                 android:transitionName="@string/transition_shop_img" />
         </LinearLayout>
 
@@ -77,7 +76,6 @@
                             android:layout_height="@dimen/size_70"
                             android:layout_gravity="center"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/user_demo"
                             android:transitionName="@string/transition_shop_ava"
                             tools:targetApi="lollipop" />
                     </FrameLayout>

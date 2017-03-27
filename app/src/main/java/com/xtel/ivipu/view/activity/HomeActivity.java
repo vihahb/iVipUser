@@ -48,6 +48,7 @@ import com.xtel.ivipu.view.widget.CircleTransform;
 import com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.LoginManager;
+import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.dialog.BadgeIcon;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -63,6 +64,8 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     LinearLayoutAnimationSlideBottom ln_popup_item;
     BottomNavigationView nav_bottom_home;
     FrameLayout fr_home_overlay;
+    LoginActivity loginActivity;
+    boolean isChecked = false;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private ActionBar actionBar;
@@ -88,6 +91,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         presenter.postFCMKey();
         presenter.onGetShortUser();
         presenter.onGetUserNip();
+        loginActivity = new LoginActivity();
         initView();
         initNavigation();
         initNavigationWidget();
@@ -157,9 +161,16 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
                                 break;
                             case R.id.nav_list_item:
                                 isShowing = true;
-                                mLinearLayout.setVisibility(View.VISIBLE);
-                                ln_popup_item.setVisibility(View.VISIBLE);
-                                fr_home_overlay.setVisibility(View.VISIBLE);
+
+                                if (isChecked) {
+                                    mLinearLayout.setVisibility(View.GONE);
+                                    ln_popup_item.setVisibility(View.GONE);
+                                    fr_home_overlay.setVisibility(View.GONE);
+                                } else {
+                                    mLinearLayout.setVisibility(View.VISIBLE);
+                                    ln_popup_item.setVisibility(View.VISIBLE);
+                                    fr_home_overlay.setVisibility(View.VISIBLE);
+                                }
                                 selectedItem();
                                 break;
                         }
@@ -373,11 +384,18 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             nav_bottom_home.setVisibility(View.VISIBLE);
             replaceDefaultFragment();
         } else if (id == R.id.nav_my_shop) {
-            replaceMyShopFragment();
+            if (session != null) {
+                replaceMyShopFragment();
+            } else {
+                alertLogin();
+            }
         } else if (id == R.id.nav_member_card) {
-            replaceMemberCardFragment();
+            if (session != null) {
+                replaceMemberCardFragment();
+            } else {
+                alertLogin();
+            }
         } else if (id == R.id.nav_help) {
-            startActivity(NotificationAction.class);
         } else if (id == R.id.nav_privacy) {
         } else if (id == R.id.nav_faq) {
         } else if (id == R.id.nav_about) {
@@ -423,12 +441,12 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         Log.e("Avatar Home", avatar);
 //            setDrawableResource(userShort.getAvatar(), mMenuItem);
         setImgUser2Toolbar(avatar, notifications);
-        if (notifications != 0) {
-            onCreteBadgeItem(notifications);
-            ShortcutBadger.applyCount(getBaseContext(), notifications);
-        } else {
-            ShortcutBadger.applyCount(getBaseContext(), 0);
-        }
+//        if (notifications != 0) {
+////            onCreteBadgeItem(notifications);
+////            ShortcutBadger.applyCount(getBaseContext(), notifications);
+//        } else {
+//            ShortcutBadger.applyCount(getBaseContext(), 0);
+//        }
     }
 
 
@@ -494,7 +512,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                loginActivity.setIsPassed(true);
                 startActivity(intent);
             }
         });
@@ -538,12 +556,14 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private void getData() {
         String data = null;
         try {
-            data = getIntent().getStringExtra("notification");
+            data = getIntent().getStringExtra(Constants.NOTIFY_KEY);
             if (data.equals("news")) {
                 replaceDefaultFragment();
 //                replaceDefaultFragment();
             } else if (data.equals("location")) {
                 replaceNewsForLocation();
+                toolbar.setTitle(getString(R.string.nav_news_for_me));
+                isChecked = true;
                 nav_bottom_home.setSelectedItemId(R.id.nav_list_item);
             }
         } catch (Exception e) {

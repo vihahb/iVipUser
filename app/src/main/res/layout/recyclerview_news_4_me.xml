@@ -33,7 +33,6 @@
                     android:layout_height="match_parent"
                     android:contentDescription=""
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/banner_demo"
                     android:transitionName="@string/transition_shop_img" />
 
             </FrameLayout>
@@ -205,7 +204,6 @@
                 android:layout_height="@dimen/size_75"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/user_demo"
                 android:transitionName="@string/transition_shop_ava"
                 tools:ignore="UnusedAttribute" />
         </FrameLayout>

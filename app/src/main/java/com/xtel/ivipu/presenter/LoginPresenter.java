@@ -128,7 +128,7 @@ public class LoginPresenter {
                     String sesion = success.getSession();
                     Log.d(TAG + "session", sesion);
                     SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
-                    view.startActivitys(HomeActivity.class);
+                    view.startActivityAndFinish(HomeActivity.class);
                 }
 
                 @Override

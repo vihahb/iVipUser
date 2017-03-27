@@ -78,4 +78,8 @@ public class HomeModel extends Model {
     public void getHistoryTransactionMemberCard(String url, String session, ResponseHandle responseHandle){
         requestServer.getApi(url, session, responseHandle);
     }
+
+    public void getNotifyNumber(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
 }

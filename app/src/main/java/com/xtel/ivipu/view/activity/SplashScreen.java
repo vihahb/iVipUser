@@ -19,7 +19,7 @@ public class SplashScreen extends BasicActivity {
 //                checkSession();
                 startActivityFinish(HomeActivity.class);
             }
-        }, 500);
+        }, 1000);
     }
 
     private void checkSession() {

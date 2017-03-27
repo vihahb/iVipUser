@@ -25,13 +25,12 @@
                 android:paddingTop="@dimen/size_32"
                 tools:ignore="NestedWeights">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="@dimen/size_160"
+                    android:layout_height="@dimen/size_160"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="IVIP FOR USER"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/font_38" />
+                    android:src="@mipmap/ivip_laucher" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                     android:paddingRight="@dimen/size_16"
                     android:text="Tận hưởng thế giới mua sắm trong tay"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/font_18" />
+                    android:textSize="@dimen/font_14" />
             </LinearLayout>
 
             <LinearLayout

@@ -17,6 +17,8 @@ public interface ILoginView {
 
     void startActivitys(Class clazz);
 
+    void startActivityAndFinish(Class clazz);
+
     Activity getActivity();
 
     Context getContext();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.LoginPresenter;
 import com.xtel.ivipu.view.activity.inf.ILoginView;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.sdk.commons.Constants;
 
 /**
  * Created by vihahb on 1/10/2017.
@@ -26,6 +28,7 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
     TextView tv_Signup;
     ImageView img_login_phone, img_login_facebook;
     LoginPresenter presenter;
+    boolean isDisable = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         presenter.createCallBackManager();
         presenter.createNipCallbackManager();
         initView();
+        getData();
     }
 
     private void initView() {
@@ -72,6 +76,11 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
     @Override
     public void startActivitys(Class clazz) {
         super.startActivity(clazz);
+    }
+
+    @Override
+    public void startActivityAndFinish(Class clazz) {
+        super.startActivityFinish(clazz);
     }
 
     public void finishActivity() {
@@ -126,8 +135,28 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         presenter.onRequestCallbackPermission(requestCode, permissions, grantResults);
     }
 
+    public void setIsPassed(boolean isPassed) {
+        isDisable = isPassed;
+    }
+
     @Override
     public void onBackPressed() {
-        showConfirmExitApp();
+        if (isDisable) {
+            startActivityFinish(HomeActivity.class);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void getData() {
+        String data = null;
+        data = getIntent().getStringExtra(Constants.DISABLE_KEY);
+        if (data == null) {
+            isDisable = false;
+            Log.e("Data.....", "null");
+        } else if (data.equals(Constants.DISABLE_KEY)) {
+            Log.e("Data.....", "Not null");
+            isDisable = true;
+        }
     }
 }

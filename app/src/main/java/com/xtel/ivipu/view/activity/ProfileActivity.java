@@ -2,10 +2,13 @@ package com.xtel.ivipu.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +24,7 @@ import com.xtel.ivipu.view.fragment.NotifyFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.LoginManager;
+import com.xtel.sdk.commons.Constants;
 
 /**
  * Created by Vũ Hà Vi on 1/12/2016.
@@ -39,7 +43,6 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         initToolbar();
-
         initBottomNav();
         getData();
     }
@@ -212,26 +215,52 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
 
     private void getData() {
         String data = null;
-        try {
-            data = getIntent().getStringExtra("notification");
-            if (data.equals("notification")) {
-                replaceNotify();
-//                replaceDefaultFragment();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        data = getIntent().getStringExtra(Constants.NOTIFY_KEY);
+        if (data == null) {
+            replaceDefaultFragment();
+            Log.e("Data.....", "null");
+        } else if (data.equals("notification")) {
+            replaceNotify();
         }
 
-        Log.e("Data.....", data);
-
-        if (data == null)
-            replaceDefaultFragment();
     }
 
     private void replaceNotify() {
-        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
-        bottom_nav_profile.setSelectedItemId(R.id.nav_profile_notify);
-        renameToolbar(R.string.nav_notify);
+        if (session != null) {
+            replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+//            bottom_nav_profile.setSelectedItemId(R.id.nav_profile_notify);
+            renameToolbar(R.string.nav_notify);
+        } else {
+//            replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
+////            bottom_nav_profile.setSelectedItemId(R.id.nav_profile_notify);
+//            renameToolbar(R.string.nav_notify);
+            alertLogin();
+        }
+    }
+
+    private void alertLogin() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.TimePicker);
+        dialog.setTitle("Thông báo");
+        dialog.setMessage("Chức năng này cần phải đăng nhập để sử dụng. Bạn có muốn đăng nhập?");
+        dialog.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                intent.putExtra(Constants.DISABLE_KEY, Constants.DISABLE_KEY);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                startActivityAndFinish(HomeActivity.class);
+            }
+        });
+        dialog.show();
     }
 
 //    public void replaceNotify() {

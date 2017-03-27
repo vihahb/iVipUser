@@ -11,6 +11,7 @@
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
         <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">true</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowDisablePreview">true</item>
 
         <!--&lt;!&ndash; specify enter and exit transitions &ndash;&gt;-->
         <!--&lt;!&ndash; options are: explode, slide, fade &ndash;&gt;-->
@@ -47,7 +48,7 @@
 
 
     <!-- Dialog Theme Style -->
-    <style name="Theme.Transparent" parent="android:Theme">
+    <style name="Theme_Transparent" parent="@style/AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -154,6 +155,12 @@
         <item name="colorControlNormal">@color/rating_none</item>
         <item name="colorControlActivated">@color/rating_checked</item>
         <item name="colorControlHighlight">@color/rating_checked</item>
+    </style>
+
+    <style name="Theme.MyAppTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
     </style>
 
 </resources>

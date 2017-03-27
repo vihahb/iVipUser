@@ -34,6 +34,10 @@ public class Constants {
     public static final String GALLERY_GET = "v0.1/gallery/";
     public static final String REG_FCM_KEY = "v0.1/user/fcm";
     public static final String NOTIFY_USER = "v0.1/user/notify?";
+    public static final String NOTIFY_NUMBER = "v0.1/user/notify_number";
+    public static final String NOTIFY_KEY = "notification";
+    public static final String NOTIFY_OBJ = "notification_obj";
+    public static final String DISABLE_KEY = "disableBack";
 
 
     /**
